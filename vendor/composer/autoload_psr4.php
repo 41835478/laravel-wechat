@@ -28,6 +28,7 @@ return array(
     'Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src/Psy'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Predis\\' => array($vendorDir . '/predis/predis/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Overtrue\\Wechat\\' => array($vendorDir . '/overtrue/wechat/src/Wechat'),
     'Overtrue\\LaravelWechat\\' => array($vendorDir . '/overtrue/laravel-wechat/src'),

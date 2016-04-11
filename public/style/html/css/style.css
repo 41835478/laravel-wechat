@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+    margin:0 auto;
+}
+.clear{
+    clear:both;
+}
+html{
+    overflow:scroll;
+}
+body,ul,li {
+    padding:0;
+    margin:0;
+    border:0;
+    -webkit-user-select:none;
+    -webkit-text-size-adjust:none;
+}
+header img{ width:100%; height:auto;}
+.top{ text-align:center;}
+.top img{ width:96%; height:auto; margin:0 auto; text-align:center; margin-top:2%; display:block; margin-bottom: 3%;}
+ul li{margin:0 auto;}
+.img1{
+    width:96%;
+    height:auto;
+    margin-top:2%;
+    text-align:center;
+    position:relative;
+}
+.img1 {border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; background-size:contain;}
+.img1 img{width:100%; height:auto; max-width:100%; }
+.img1 span{
+    border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px; display: block; width:100%; height:96%; position: absolute; top:0; left:0;
+    background-image:linear-gradient(bottom, rgba(0,0,0,0.5) 0%,rgba(255,255,255,0) 100%);
+    background-image:-o-linear-gradient(bottom, rgba(0,0,0,0.5) 0%,rgba(255,255,255,0) 100%);
+    background-image:-moz-linear-gradient(bottom, rgba(0,0,0,0.5) 0%,rgba(255,255,255,0) 100%);
+    background-image:-webkit-linear-gradient(bottom, rgba(0,0,0,0.5) 0%,rgba(255,255,255,0) 100%);
+    background-image:-ms-linear-gradient(bottom, rgba(0,0,0,0.5) 0%,rgba(255,255,255,1) 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#000000,endColorstr=#ffffff,grandientType=1);
+}
+.zi1{ font-size:1em; position:absolute; top: 55%; left:4%; color:#fff; z-index:100;}
+.zi2{ font-size:0.8em; position:absolute; top:78%; left:4%; color:#fff; z-index:100;}
+.img1 a{ color:#fff; text-decoration:none;}
+.img1 a:link{color:#fff; font-weight:normal;}
+.img1 a:visited{ color:#fff; text-decoration:none;}
+.img1 a:active{ color:#fff; text-decoration:none;}
+.more{
+    width:96%;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    text-align: center;
+    background: #f9f9f9;
+    display: block;
+    clear: both;
+    text-decoration: none;
+    margin-top:2%;
+    margin-bottom:4%;border-radius: 6px; -webkit-border-radius: 6px; -moz-border-radius: 6px;
+}
+#infscr-loading{
+    text-align: center;
+}
+#infscr-loading img{
+    width: 2.5em;
+}

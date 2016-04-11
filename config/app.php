@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -145,6 +145,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //
+        Illuminate\Html\HtmlServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,//视图组件
+        Liaol\SocialiteCn\SocialiteCnServiceProvider::class,
+        Overtrue\LaravelWechat\ServiceProvider::class,
     ],
 
     /*
@@ -192,6 +199,12 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Html'      => Illuminate\Html\HtmlFacade::class,
+        'Form'      => Illuminate\Html\FormFacade::class,
+        'Flash'     => Laracasts\Flash\Flash::class,
+        'Socialize' => Laravel\Socialite\Facades\Socialite::class,
+        'Wechat'    => Overtrue\LaravelWechat\Facade::class,
 
     ],
 

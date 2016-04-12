@@ -19,13 +19,21 @@ class WechatController extends BaseController{
 
     public function __construct(WechatRepository $wechatRepository)
     {
+        parent::__construct();
         $this->public = $wechatRepository;
     }
 
     public function index()
     {
-        $wechats = Wechat::paginate(20);
-        return view('admin.public.index',compact('wechats'));
+        //$wechats = Wechat::paginate(20);
+        //查询是否设置公众号
+        $wechat = Wechat::where(['user_id'=>$this->user->id])->first();
+        if($wechat){
+            return $this->edit($wechat->id);
+        }else{
+            return $this->create();
+        }
+        //return view('admin.public.index',compact('wechats'));
     }
 
     public function create()

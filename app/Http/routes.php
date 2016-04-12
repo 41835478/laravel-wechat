@@ -52,7 +52,7 @@ Route::get('posts/{nodeId?}', 'Home\PostController@postsList');
 //微信入口
 
 Route::group(['namespace' => 'Wechat'],function(){
-    Route::match(['get','post'],'wechat/{wechatId}','WechatController@index');
+    Route::match(['get','post'],'wechat/auth/{wechatId}','WechatController@index');
 });
 
 
@@ -207,68 +207,11 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
         'as'=>'admin.keyword.store','uses'=>'KeywordController@putContent'
     ]);
 
-    //上传封面
-    Route::resource('cover', 'CoverController',['names'=>['index'=>'admin.cover']]);
-    //App版本
-    Route::resource('version', 'VersionController',['names'=>['index'=>'admin.version']]);
-
     Route::get('wechat',[
         'as'=>'admin.wechat','uses'=>'WechatController@index'
     ]);
-    Route::get('wechat/ucenter',[
-        'as'=>'admin.wechat-ucenter','uses'=>'WechatController@index'
-    ]);
-    Route::get('wechat/event',[
-        'as'=>'admin.event','uses'=>'EventController@index'
-    ]);
-    Route::get('event/create',[
-        'as'=>'admin.event.create','uses'=>'EventController@create'
-    ]);
-    Route::post('event/store',[
-        'as'=>'admin.event.store','uses'=>'EventController@store'
-    ]);
-    Route::get('event/{id}/edit',[
-        'as'=>'admin.event.edit','uses'=>'EventController@edit'
-    ]);
-
-    Route::post('event/{id}/update',[
-        'as'=>'admin.event.update','uses'=>'EventController@update'
-    ]);
-    Route::get('event/{id}/destroy',[
-        'as'=>'admin.event.destroy','uses'=>'EventController@destroy'
-    ]);
-
-    Route::get('event/{id}/winners',[
-        'as'=>'admin.event.winners','uses'=>'EventController@showWinners'
-    ]);
-
-    //奖品
-    Route::get('event/{event_id}/awards',[
-        'as'=>'admin.event.awards','uses'=>'EventController@awardIndex'
-    ]);
-    Route::get('event/{id}/award/create',[
-        'as'=>'admin.event.awardcreate','uses'=>'EventController@awardCreate'
-    ]);
-
-    Route::post('event/award/store',[
-        'as'=>'admin.event.awardstore','uses'=>'EventController@awardStore'
-    ]);
-
-    Route::get('event/{event_id}/award/{id}/edit',[
-        'as'=>'admin.event.awardedit','uses'=>'EventController@awardEdit'
-    ]);
-
-    Route::post('event/award/{id}/update',[
-        'as'=>'admin.event.awardupdate','uses'=>'EventController@awardUpdate'
-    ]);
-
-    Route::get('event/award/{id}/destroy',[
-        'as'=>'admin.event.awarddestroy','uses'=>'EventController@awardDestroy'
-    ]);
-    //兑奖
-    Route::get('event/winner/{winner_id}/cash',[
-        'as'=>'admin.event.winnercash','uses'=>'EventController@winnerCash'
-    ]);
+    //微信用户
+    Route::resource('wechat-user', 'WechatUserController',['names'=>['index'=>'admin.wechat-user']]);
 
     //公众号
     Route::get('wechat/public',[
@@ -289,7 +232,14 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::get('wechat/public/{id}/destroy',[
         'as'=>'admin.public.destroy','uses'=>'WechatController@destroy'
     ]);
+    //自动回复
+    Route::resource('wechat-reply', 'WechatReplyController',['names'=>['index'=>'admin.wechat-reply']]);
 
+    //自定义菜单
+    Route::resource('wechat-menu', 'WechatMenuController',['names'=>['index'=>'admin.wechat-menu']]);
+
+    //群发
+    Route::resource('wechat-send', 'WechatSendController',['names'=>['index'=>'admin.wechat-send']]);
 
 });
 

@@ -2,6 +2,8 @@
     
     use App\Http\Controllers\Controller;
     use App\User;
+    use Illuminate\Support\Facades\Auth;
+
     class BaseController extends Controller {
 
         /**
@@ -9,10 +11,14 @@
          *
          * @return void
          */
+        public $user;
 
         public function __construct()
         {
             $this->middleware('auth');
             $this->middleware('access');
+
+            //
+            $this->user = Auth::user();
         }
     }

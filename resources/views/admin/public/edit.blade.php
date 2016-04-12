@@ -131,7 +131,7 @@
                         <label class="col-sm-2 control-label" for="encoding_aes_key">EncodingAESKey</label>
 
                         <div class="col-sm-10">
-                            <input type="text" name="encoding_aes_key" class="form-control" value="{{$wechat->original_id}}" id="encoding_aes_key" value="encoding_aes_key" placeholder="@if($errors->first('encoding_aes_key')) {{$errors->first('encoding_aes_key')}} @else EncodingAESKey @endif">
+                            <input type="text" name="encoding_aes_key" class="form-control" value="{{$wechat->encoding_aes_key}}" id="encoding_aes_key" value="encoding_aes_key" placeholder="@if($errors->first('encoding_aes_key')) {{$errors->first('encoding_aes_key')}} @else EncodingAESKey @endif">
                         </div>
                     </div>
 
@@ -144,7 +144,15 @@
                             <input type="text" name="wechat_token" class="form-control" id="wechat_token" value="{{$wechat->wechat_token}}" placeholder="@if($errors->first('wechat_token')) {{$errors->first('wechat_token')}} @else Token @endif">
                         </div>
                     </div>
+                    <div class="form-group-separator"></div>
 
+                    <div class="form-group @if($errors->first('wechat_token')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="interface_url">接口地址</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="interface_url" class="form-control" id="interface_url" value="{{ url('wechat/auth/'.$wechat->id) }}">
+                        </div>
+                    </div>
                     <div class="form-group-separator"></div>
 
                     <div class="form-group">

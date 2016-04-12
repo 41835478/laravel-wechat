@@ -10,7 +10,7 @@
     use Illuminate\Support\Facades\Route;
     use Laracasts\Flash\Flash;
     class UserController extends BaseController{
-        protected $user;
+        public $user;
         
         public function __construct(UserRepository $user)
         {

@@ -166,7 +166,7 @@
                                         '<div class="row">'+
                                             '<div class="col-sm-6">'+
                                                 '<h6>关键词</h6>'+
-                                                '<blockquote style="font-size: 12px" id="kw_item_{{$rule->id}}">'+
+                                                '<blockquote style="font-size: 12px" id="kw_item_'+ data.keyword_rule.id +'">'+
                                                     '<table class="table table-condensed">'+
                                                         '<tbody>'+
                                                         '</tbody>'+

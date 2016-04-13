@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
  * Time: 2:53 PM
  */
 use App\Keyword;
+use App\Reply;
 use App\Wechat;
 use App\WechatNews;
 use Overtrue\Wechat\Server;
@@ -29,6 +30,16 @@ class WechatController extends Controller{
 
         // $encodingAESKey 可以为空
         $server = new Server($appId, $token, $encodingAESKey);
+
+        /*
+         * 监听关注事件
+         * */
+        $server->on('event','subscribe',function($event) use ($wechatId){
+            //查询当前公众号关注事件自动回复
+            //todo
+            $reply = Reply::with('text')->where(['wechat_id'=>$wechatId])->first();
+            return Message::make('text')->content($reply->text->content);
+        });
 
         /*
          * 监听指定类型

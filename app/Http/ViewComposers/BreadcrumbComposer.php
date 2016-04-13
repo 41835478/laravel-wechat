@@ -26,12 +26,12 @@ class BreadcrumbComposer {
         //当前路由
 
         $currentRouteName = Route::currentRouteName();
-        $currentRouteName = preg_replace('/(admin)(\.[a-z]*)(\.[a-z]*)/','$1$2',$currentRouteName);
+        $currentRouteName = preg_replace('/(admin)(\.[a-z\-A-Z]*)(\.[a-z\-A-Z]*)/','$1$2',$currentRouteName);
         if(!empty($currentRouteName))
         {
             $menu = Menu::where('route_name','=',$currentRouteName)->first();
             //dd($currentRouteName);
-//            dd($menu);
+            //dd($menu);
             if(!empty($menu)){
                 $fmenu = Menu::where('id','=',$menu->fid)->first();
                 $view->with('menu', $menu)

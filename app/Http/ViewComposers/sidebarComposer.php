@@ -39,7 +39,7 @@ class sidebarComposer {
         $currentname = Route::currentRouteName();
 
         if($currentname!='admin'){
-            $replace = preg_replace('/(admin)(\.[a-z]*)(\.[a-z]*)/','$1$2',$currentname);
+            $replace = preg_replace('/(admin)(\.[a-z\-A-Z]*)(\.[a-z\-A-Z]*)/','$1$2',$currentname);
             //dd($replace);
             $currentpid = $this->category->getFidByCurrentName($replace);
         }else{

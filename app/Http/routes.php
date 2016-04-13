@@ -233,6 +233,15 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
         'as'=>'admin.public.destroy','uses'=>'WechatController@destroy'
     ]);
     //自动回复
+    Route::get('wechat-reply/subscribe/create',[
+        'as'=>'admin.wechat-reply.subscribeCreate','uses'=>'WechatReplyController@subscribeCreate'
+    ]);
+    Route::post('wechat-reply/subscribe/store',[
+        'as'=>'admin.wechat-reply.subscribeStore','uses'=>'WechatReplyController@subscribeStore'
+    ]);
+    Route::post('wechat-reply/subscribe/update',[
+        'as'=>'admin.wechat-reply.subscribeUpdate','uses'=>'WechatReplyController@subscribeUpdate'
+    ]);
     Route::resource('wechat-reply', 'WechatReplyController',['names'=>['index'=>'admin.wechat-reply']]);
 
     //自定义菜单

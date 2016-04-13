@@ -10,7 +10,6 @@
 	
 	<title>慕庄－后台管理系统</title>
 
-    {!! Html::style('http://fonts.useso.com/css?family=Arimo:400,700,400italict') !!}
     {!! Html::style('style/assets/css/fonts/linecons/css/linecons.css') !!}
     {!! Html::style('style/assets/css/fonts/linecons/css/linecons.css') !!}
     {!! Html::style('style/assets/css/fonts/fontawesome/css/font-awesome.min.css') !!}

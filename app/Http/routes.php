@@ -255,6 +255,17 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::resource('wechat-reply', 'WechatReplyController',['names'=>['index'=>'admin.wechat-reply']]);
 
     //自定义菜单
+    //推送菜单
+    Route::get('wechat-menu/push',[
+        'as'=>'admin.wechat-menu.push','uses'=>'WechatMenuController@push'
+    ]);
+    //子菜单
+    Route::get('wechat-menu/{id}/sub-menu',[
+        'as'=>'admin.wechat-menu.sub-menu','uses'=>'WechatMenuController@subMenu'
+    ]);
+    Route::get('wechat-menu/{id}/sub-create',[
+        'as'=>'admin.wechat-menu.sub-create','uses'=>'WechatMenuController@subCreate'
+    ]);
     Route::resource('wechat-menu', 'WechatMenuController',['names'=>['index'=>'admin.wechat-menu']]);
 
     //群发

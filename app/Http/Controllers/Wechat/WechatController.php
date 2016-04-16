@@ -42,6 +42,15 @@ class WechatController extends Controller{
         });
 
         /*
+         * 监听自定义菜单事件
+         * */
+
+        $server->on('event','click',function($event){
+            //
+            return Message::make('text')->content('这是自定义菜单点击事件');
+        });
+
+        /*
          * 监听指定类型
          * */
         $server->on('message', 'text', function($message) {

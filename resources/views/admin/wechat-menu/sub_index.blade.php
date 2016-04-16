@@ -39,8 +39,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
-            <a class="btn btn-primary" href="{{ route('admin.wechat-menu.create') }}">新菜单</a>
-            <a class="btn btn-primary" href="{{ route('admin.wechat-menu.push') }}">推送菜单</a>
+            <a class="btn btn-primary" href="{{ route('admin.wechat-menu.sub-create',$menu_id) }}">新子菜单</a>
         </div>
     </div>
 </div>
@@ -121,9 +120,6 @@
 
                         <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
                             删除
-                        </a>
-                        <a href="{{route('admin.wechat-menu.sub-menu',$menu->id)}}" class="btn btn-danger btn-sm btn-icon icon-left">
-                           子菜单
                         </a>
                     </td>
                 </tr>

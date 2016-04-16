@@ -19,6 +19,9 @@ class CreateWechatMenusTable extends Migration
             $table->string('name')->default(null)->index();     //菜单名称
             $table->string('type',20);  //菜单类型
             $table->string('key')->default(null);
+            $table->tinyInteger('sort');
+            $table->tinyInteger('level');
+            $table->text('content');
             $table->integer('menu_id')->default(0)->index()->unsigned();  //
             $table->timestamps();       //
         });

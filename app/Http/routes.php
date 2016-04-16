@@ -242,6 +242,16 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::post('wechat-reply/subscribe/update',[
         'as'=>'admin.wechat-reply.subscribeUpdate','uses'=>'WechatReplyController@subscribeUpdate'
     ]);
+    //回复规则
+    Route::get('wechat-reply/rule',[
+        'as'=>'admin.wechat-reply.rule','uses'=>'WechatRuleController@index'
+    ]);
+    Route::post('wechat-reply/rule/createOrEdit',[
+        'as'=>'admin.wechat-reply.rule-createOrEdit','uses'=>'WechatRuleController@createOrEdit'
+    ]);
+    Route::post('wechat-reply/rule/store',[
+        'as'=>'admin.wechat-reply.rule-store','uses'=>'WechatRuleController@store'
+    ]);
     Route::resource('wechat-reply', 'WechatReplyController',['names'=>['index'=>'admin.wechat-reply']]);
 
     //自定义菜单

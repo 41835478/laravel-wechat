@@ -17,18 +17,18 @@ var xenonNotes = xenonNotes || {};
 		$.extend(xenonNotes, {
 			isPresent: xenonNotes.$container.length > 0,
 			
-			noTitleText: "Untitled",
-			noDescriptionText: "(No content)",
+			noTitleText: "未编辑",			//菜单标题
+			noDescriptionText: "(No content)",  //菜单内容
 			
 			
-			$currentNote: $(null),
-			$currentNoteTitle: $(null),
-			$currentNoteDescription: $(null),
-			$currentNoteContent: $(null),
+			$currentNote: $(null),    //当前菜单
+			$currentNoteTitle: $(null),   //当前菜单标题
+			$currentNoteDescription: $(null),		//当前菜单描述
+			$currentNoteContent: $(null),		//当前菜单内容
 			
 			addNote: function()
 			{	
-				var $note = $('<li><a href="#"><strong></strong><span></li></a></li>');
+				var $note = $('<li><a href="#"><strong></strong><span></span></a></li>');
 				
 				$note.append('<div class="content"></div>').append('<button class="note-close">&times;</button>');
 				
@@ -144,7 +144,12 @@ var xenonNotes = xenonNotes || {};
 			
 			xenonNotes.$addNote.on('click', function(ev)
 			{
-				xenonNotes.addNote();
+				//判断是否
+				if(xenonNotes.$notesList.children().length<4){
+					xenonNotes.addNote();
+				}else{
+					alert('最多添加三个一级菜单');
+				}
 			});
 			
 			xenonNotes.$writePadTxt.on('keyup', function(ev)

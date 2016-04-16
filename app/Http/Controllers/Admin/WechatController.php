@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 class WechatController extends BaseController{
 
-    protected $public;
+    public $wechat;
 
     public function __construct(WechatRepository $wechatRepository)
     {

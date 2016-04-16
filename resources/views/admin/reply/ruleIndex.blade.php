@@ -20,11 +20,10 @@
     </div>
 </div>
 <!-- Removing search and results count filter -->
-<!--
 <div class="panel panel-default">
 				<div class="panel-heading">
-                    <h3 class="panel-title">会员列表</h3>
-                    
+                    <h3 class="panel-title">规则列表</h3>
+                    <a class="btn btn-secondary show-modal" href="javascript:;">添加规则</a>
                     <div class="panel-options">
                         <a href="#" data-toggle="panel">
                             <span class="collapse-icon">&ndash;</span>
@@ -44,8 +43,6 @@
                              dom: "t" + "<'row'<'col-xs-6'i><'col-xs-6'p>>",
                              aoColumns: [
                                          {bSortable: false},
-                                         null,
-                                         null,
                                          null,
                                          null
                                          ],
@@ -84,33 +81,28 @@
                                 <th class="no-sorting">
                                     <input type="checkbox" class="cbr">
                                 </th>
-                                <th>用户名</th>
-                                <th>EMAIL</th>
-                                <th>注册时间 / 最后登陆</th>
+                                <th>规则名称</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
                         
                         <tbody class="middle-align">
-                            @foreach($replies as $user)
+                            @foreach($rules as $item)
                             <tr>
                                 <td>
                                     <input type="checkbox" class="cbr">
-                                        </td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at }}<br/>{{ $user->updated_at}}</td>
+                                </td>
+                                <td>{{ $item->rule_name }}</td>
                                 <td>
-                                    <a href="{{route('admin.user.edit',$user->id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
-                                        编辑
+                                    <a href="javascript:;" data-ruleid="{{ $item->id }}" class="btn btn-secondary btn-sm btn-icon icon-left show-modal">
+                                        修改
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left show-keyword">
+                                        关键字
                                     </a>
                                     
                                     <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                                        删除
-                                    </a>
-                                    
-                                    <a href="{{route('admin.user.profile',$user->id)}}" class="btn btn-info btn-sm btn-icon icon-left">
-                                        查看
+                                        回复
                                     </a>
                                 </td>
                             </tr>
@@ -118,10 +110,82 @@
                             
                         </tbody>
                     </table>
-                    {!!$replies->render()!!}
+                    {!!$rules->render()!!}
                 </div>
 </div>
--->
+
+
+@stop
+@section('other')
+    <script type="text/javascript">
+        $('.show-modal').click(function(){
+            var obj = $(this);
+            showAjaxModal(obj);
+        });
+        function showAjaxModal(obj)
+        {
+            jQuery('#modal-7').modal('show');
+            rule_id = obj.data('ruleid') || '';
+
+            var data = {rule_id:rule_id};
+            jQuery.ajax({
+                url: "{{route('admin.wechat-reply.rule-createOrEdit')}}",
+                data:data,
+                type:'post',
+                success: function(response)
+                {
+                    jQuery('#modal-7 .modal-body').html(response);
+                },
+                async:false
+            });
+        }
+        function showKeywordModal()
+        {
+
+        }
+    </script>
+    <!-- Modal 7 (Ajax Modal)-->
+    <div class="modal fade" id="modal-7">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">关键词规则</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    Content is loading...
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-info save">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.save').click(function(){
+            //var rule = $('#modal-7 input[name=rule_name]').val();
+            var data = $('#modal-7 form').serialize();
+            $.ajax({
+                url:"{{ route('admin.wechat-reply.rule-store') }}",
+                type:'post',
+                data:data,
+                success: function(response)
+                {
+                    if (response.status==200){
+                        console.log(response.mgs);
+                        jQuery('#modal-7').modal('hide');
+                    }
+                },
+                dataType:'json'
+            });
+        });
+    </script>
 @stop
 @section('style')
     {!! Html::style('style/assets/js/datatables/dataTables.bootstrap.css') !!}

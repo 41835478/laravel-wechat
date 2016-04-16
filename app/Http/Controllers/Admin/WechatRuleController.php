@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\WechatMenu;
+use App\KeywordRule;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class WechatMenuController extends BaseController
+class WechatRuleController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +20,11 @@ class WechatMenuController extends BaseController
      */
     public function index()
     {
-        //
-        $menus = WechatMenu::where('wechat_id',$this->wechat->id)->take(3)->get();
-        return view('admin.wechat-menu.index',compact('menus'));
+        //查询规则
+        $rules = KeywordRule::paginate(10);
+
+
+        return view('admin.reply.ruleIndex',compact('rules'));
     }
 
     /**
@@ -27,10 +32,12 @@ class WechatMenuController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createOrEdit(Request $request)
     {
         //
-        return view('admin.wechat-menu.create');
+        $rule_id = $request->input('rule_id');
+        $rule = KeywordRule::find($rule_id);
+        return view('admin.reply.ruleCreate',compact('rule'));
     }
 
     /**
@@ -42,6 +49,30 @@ class WechatMenuController extends BaseController
     public function store(Request $request)
     {
         //
+        $rule_name = $request->input('rule_name');
+        $rule_id = $request->input('id');
+        if($rule_id){
+            $rule = KeywordRule::where('id',$rule_id)->update([
+                                    'rule_name' => $rule_name
+                                    ]);
+            if($rule){
+                $result = ['status'=>200,'msg'=>'修改成功!'];
+            }else{
+                $result = ['status'=>201,'msg'=>'修改失败!'];
+            }
+        }else{
+            $rule = KeywordRule::create([
+                'rule_name' => $rule_name,
+                'wechat_id' => $this->wechat->id
+            ]);
+            if($rule){
+                $result = ['status'=>200,'msg'=>'添加成功!'];
+            }else{
+                $result = ['status'=>201,'msg'=>'添加失败!'];
+            }
+        }
+
+        return response()->json($result);
     }
 
     /**

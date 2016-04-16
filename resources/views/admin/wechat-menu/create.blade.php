@@ -23,7 +23,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">添加公众号</h3>
+                <h3 class="panel-title">添加菜单</h3>
                 <div class="panel-options">
                     <a href="#" data-toggle="panel">
                         <span class="collapse-icon">&ndash;</span>
@@ -36,56 +36,26 @@
             </div>
             <div class="panel-body">
 
-                {!! Form::open(['route'=>'admin.public.store','role'=>'form','class'=>'form-horizontal',]) !!}
+                {!! Form::open(['route'=>'admin.wechat-menu.store','role'=>'form','class'=>'form-horizontal',]) !!}
                     {!! Form::hidden('user_id',Auth::id()) !!}
-                    <div class="form-group @if($errors->first('public_name')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="public_name">公众号名称</label>
+                    <div class="form-group @if($errors->first('name')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="name">菜单名称</label>
 
                         <div class="col-sm-10">
-                            <input type="text" name="public_name" class="form-control" id="public_name" placeholder="@if($errors->first('public_name')) {{$errors->first('public_name')}} @else 公众号名称 @endif">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="@if($errors->first('public_name')) {{$errors->first('public_name')}} @else 公众号名称 @endif">
                         </div>
                     </div>
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('original_id')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="original_id">原始ID</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" name="original_id" class="form-control" id="original_id" placeholder="@if($errors->first('original_id')) {{$errors->first('original_id')}} @else 原始ID @endif">
-                        </div>
-                    </div>
-
-                    <div class="form-group-separator"></div>
-
-                    <div class="form-group @if($errors->first('wechat_account')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="wechat_account">微信号</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" name="wechat_account" class="form-control" id="wechat_account" placeholder="@if($errors->first('wechat_account')) {{$errors->first('wechat_account')}} @else 微信号 @endif">
-                        </div>
-                    </div>
-
-                    <div class="form-group-separator"></div>
-
-                    <div class="form-group @if($errors->first('avatar')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="avatar">头像地址</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" name="avatar" class="form-control" id="avatar" placeholder="@if($errors->first('avatar')) {{$errors->first('avatar')}} @else 头像地址 @endif">
-                        </div>
-                    </div>
-
-                    <div class="form-group-separator"></div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">账号类型</label>
+                    <div class="form-group menu-content">
+                        <label class="col-sm-2 control-label">菜单内容</label>
 
                         <div class="col-sm-3">
                             <div class="form-block">
                                 <label>
-                                    <input type="radio" name="wechat_type" value="subscribe" class="cbr cbr-primary">
-                                    订阅号
+                                    <input type="radio" name="type" value="click" checked class="cbr cbr-primary">
+                                    发送消息
                                 </label>
                             </div>
 
@@ -95,8 +65,8 @@
 
                             <div class="form-block">
                                 <label>
-                                    <input type="radio" name="wechat_type" value="service" class="cbr cbr-primary">
-                                    服务号
+                                    <input type="radio" name="type" value="view" class="cbr cbr-primary">
+                                    跳转网页
                                 </label>
                             </div>
 
@@ -106,42 +76,7 @@
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('app_id')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="app_id">AppId</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" name="app_id" class="form-control" id="app_id" placeholder="@if($errors->first('app_id')) {{$errors->first('app_id')}} @else AppId @endif">
-                        </div>
-                    </div>
-
-                    <div class="form-group-separator"></div>
-
-                    <div class="form-group @if($errors->first('secret')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="secret">Secret</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" name="secret" class="form-control" id="secret" placeholder="@if($errors->first('secret')) {{$errors->first('secret')}} @else Secret @endif">
-                        </div>
-                    </div>
-
-                    <div class="form-group-separator"></div>
-
-                    <div class="form-group @if($errors->first('encoding_aes_key')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="encoding_aes_key">EncodingAESKey</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" name="encoding_aes_key" class="form-control" id="encoding_aes_key" placeholder="@if($errors->first('encoding_aes_key')) {{$errors->first('encoding_aes_key')}} @else EncodingAESKey @endif">
-                        </div>
-                    </div>
-
-                    <div class="form-group-separator"></div>
-
-                    <div class="form-group @if($errors->first('wechat_token')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="wechat_token">Token</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" name="wechat_token" class="form-control" id="wechat_token" placeholder="@if($errors->first('wechat_token')) {{$errors->first('wechat_token')}} @else Token @endif">
-                        </div>
+                    <div class="new-form">
                     </div>
 
                     <div class="form-group-separator"></div>
@@ -165,7 +100,30 @@
 </div>
 
  @stop
+ @section('other')
+    <script>
+        //alert($('input[type=radio][name=type]').val());
+        $('input[type=radio][name=type]').change(function(){
+            var new_form = $('.new-form');
+            var content = '';
+            if (this.value=='click'){
+                
+                new_form.html(content);
 
+            }else if(this.value=='view')
+            {
+                content += '<div class="form-group">';
+                content += '<label class="col-sm-2 control-label" for="name">页面地址</label>';
+                content += '<div class="col-sm-10">';
+                content += '<input type="text" name="key" class="form-control" id="name" placeholder="页面地址">';
+                content += '</div>';
+                content += '</div>';
+
+                new_form.html(content);
+            }
+        });
+    </script>
+ @stop
  @section('style')
      {!! Html::style('style/assets/js/datatables/dataTables.bootstrap.css') !!}
      {!! Html::style('style/assets/js/daterangepicker/daterangepicker-bs3.css') !!}

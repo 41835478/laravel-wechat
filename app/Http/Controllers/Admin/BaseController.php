@@ -2,6 +2,7 @@
     
     use App\Http\Controllers\Controller;
     use App\User;
+    use App\Wechat;
     use Illuminate\Support\Facades\Auth;
 
     class BaseController extends Controller {
@@ -13,6 +14,8 @@
          */
         public $user;
 
+        public $wechat;
+
         public function __construct()
         {
             $this->middleware('auth');
@@ -20,5 +23,6 @@
 
             //
             $this->user = Auth::user();
+            $this->wechat = Wechat::where('user_id',$this->user->id)->firstOrFail();
         }
     }

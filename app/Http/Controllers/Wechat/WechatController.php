@@ -50,7 +50,10 @@ class WechatController extends WechatBaseController{
 
                     case 'click':
 
-                        return "这是自定义点击事件!";
+                        $text = new Text();
+                        $text->content = '这是自定义点击事件';
+
+                        return $text;
 
                         break;
 

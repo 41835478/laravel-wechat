@@ -48,7 +48,7 @@ class WechatController extends WechatBaseController{
 
                         break;
 
-                    case 'click':
+                    case 'ClICK':
 
                         $text = new Text();
                         $text->content = '这是自定义点击事件';
@@ -56,7 +56,14 @@ class WechatController extends WechatBaseController{
                         return $text;
 
                         break;
+                    case 'VIEW':
 
+                        $text = new Text();
+                        $text->content = '这是自定义VIEW事件';
+
+                        return $text;
+
+                        break;
                     default:
                         # code...
                         break;
@@ -65,9 +72,8 @@ class WechatController extends WechatBaseController{
         });
 
 
-        //$response = $server->serve()->send();
-        $wechatApp->reply;
-        //return $response;
+        $response = $server->serve()->send();
+        return $response;
     }
 
     public function reply($message)

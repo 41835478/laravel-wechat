@@ -6,12 +6,15 @@ use App\WechatMenu;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Overtrue\Wechat\Menu;
-use Overtrue\Wechat\MenuItem;
 
 
-class WechatMenuController extends BaseController
+class WechatMenuController extends WechatBaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -144,45 +147,49 @@ class WechatMenuController extends BaseController
      * */
     public function push()
     {
+
         $menus = WechatMenu::with('subs')
                             ->where('wechat_id',$this->wechat->id)
                             ->where('menu_id',0)->get();
-        //
-        $menuService = new Menu($this->wechat->app_id,$this->wechat->secret);
 
-        $target = [];
         //构建菜单
-        $content = '';
-        foreach ($menus as $menu) {
-            // 创建一个菜单项
-            if($menu->type=='view') {
-                $content = $menu->content;
-            }else{
-                $content = 'test';
+        $buttons = [];
+
+        foreach($menus as $key=>$menu){
+            $buttons[$key] = [
+                'type'  =>  $menu->type,
+                "name"  =>  $menu->name,
+            ];
+
+            if($menu->type=='view'){
+                $buttons[$key]['url'] = $menu->url;
+            }elseif($menu->type=='click'){
+
+                $buttons[$key]['key'] = 'test';
             }
 
-            $item = new MenuItem($menu->name, $menu->type, $content);
+            if($menu->subs){
+                foreach($menu->subs as $k=>$m){
+                    $buttons[$key]['sub_button'][$k] = [
+                        'type'  =>  $m->type,
+                        "name"  =>  $m->name,
+                    ];
 
-            // 子菜单
-            if (!empty($menu->subs)) {
-                $buttons = [];
-                foreach ($menu->subs as $button) {
-                    if($menu->type=='view') {
-                        $content = $button->content;
-                    }else{
-                        $content = 'test';
+                    if($m->type=='view'){
+                        $buttons[$key]['sub_button'][$k]['url'] = $m->url;
+                    }elseif($m->type=='click'){
+                        $buttons[$key]['sub_button'][$k]['key'] = 'test';
                     }
-                    $buttons[] = new MenuItem($button->name, $button->type, $content);
                 }
-
-                $item->buttons($buttons);
             }
-
-            $target[] = $item;
         }
-//        dd($target);
-        $menuService->set($target); // 失败会抛出异常
-        flash()->success('推送成功');
+
+        $res = $this->wechatApp->menu->add($buttons);
+        if($res->errcode==0){
+            flash()->success('推送成功');
+        }else{
+            flash()->error('推送失败');
+        }
         return redirect()->back();
 
     }

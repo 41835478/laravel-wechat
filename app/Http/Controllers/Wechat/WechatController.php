@@ -1,4 +1,5 @@
 <?php namespace App\Http\Controllers\Wechat;
+use App\Http\Controllers\Admin\WechatBaseController;
 use App\Http\Controllers\Controller;
 
 /**
@@ -11,55 +12,59 @@ use App\Keyword;
 use App\Reply;
 use App\Wechat;
 use App\WechatNews;
-use Overtrue\Wechat\Server;
-use Overtrue\Wechat\Message;
+use EasyWeChat\Message\Text;
+
 /*
  * 微信交互控制器
  *
  * */
-class WechatController extends Controller{
+class WechatController extends WechatBaseController{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function index($wechatId)
     {
-        //获取微信公众号信息
-        $wechat = Wechat::find($wechatId);
+        //事件服务
+        $server = $this->wechatApp->server;
+        //接收事件
+        $server->setMessageHandler(function($message) use ($wechatId){
+            // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
+            // 当 $message->MsgType 为 event 时为事件
+            if ($message->MsgType == 'event') {
+                # code...
+                switch ($message->Event) {
+                    case 'subscribe':
+                        //查询当前公众号关注事件自动回复
+                        //todo
+                        $reply = Reply::with('text')->where(['wechat_id'=>$wechatId])->first();
 
-        $appId          = $wechat->app_id;
-        $token          = $wechat->wechat_token;
-        $encodingAESKey = $wechat->encoding_aes_key; // 可选
+                        $text = new Text();
+                        $text->content = $reply->text->content;
 
-        // $encodingAESKey 可以为空
-        $server = new Server($appId, $token, $encodingAESKey);
+                        return $text;
 
-        /*
-         * 监听关注事件
-         * */
-        $server->on('event','subscribe',function($event) use ($wechatId){
-            //查询当前公众号关注事件自动回复
-            //todo
-            $reply = Reply::with('text')->where(['wechat_id'=>$wechatId])->first();
-            return Message::make('text')->content($reply->text->content);
+                        break;
+
+                    case 'click':
+
+                        return "这是自定义点击事件!";
+
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            }
         });
 
-        /*
-         * 监听自定义菜单事件
-         * */
 
-        $server->on('event','click',function($event){
-            //
-            return Message::make('text')->content('这是自定义菜单点击事件');
-        });
+        $response = $server->serve()->send();
 
-        /*
-         * 监听指定类型
-         * */
-        $server->on('message', 'text', function($message) {
-            return $this->reply($message);
-        });
-
-        $result = $server->serve();
-
-        return $result;
+        return $response;
     }
 
     public function reply($message)
@@ -97,19 +102,19 @@ class WechatController extends Controller{
             case 'voice':
             case 'video':
             case 'location':
-                return Message::make($content['reply_type'])->content($content->content);
+                //return Message::make($content['reply_type'])->content($content->content);
                 break;
             default:
-                return Message::make($content['reply_type'])->content($content->content);
+                //return Message::make($content['reply_type'])->content($content->content);
                 break;
             case 'news':
                 //查询内容
                 $news = WechatNews::find($content->content);
-                return Message::make('news')->items(function() use ($news){
-                    return array(
-                        Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover),
-                    );
-                });
+//                return Message::make('news')->items(function() use ($news){
+//                    return array(
+//                        Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover),
+//                    );
+//                });
                 breadk;
         }
     }

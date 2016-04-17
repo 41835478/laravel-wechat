@@ -151,7 +151,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,//视图组件
         Liaol\SocialiteCn\SocialiteCnServiceProvider::class,
-        Overtrue\LaravelWechat\ServiceProvider::class,
+        //Overtrue\LaravelWechat\ServiceProvider::class,
     ],
 
     /*
@@ -204,7 +204,7 @@ return [
         'Form'      => Illuminate\Html\FormFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
-        'Wechat'    => Overtrue\LaravelWechat\Facade::class,
+        //'Wechat'    => Overtrue\LaravelWechat\Facade::class,
 
     ],
 

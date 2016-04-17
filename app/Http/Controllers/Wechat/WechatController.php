@@ -9,6 +9,7 @@ use App\Keyword;
 use App\Reply;
 use App\Wechat;
 use App\WechatNews;
+use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\Text;
 
 /*
@@ -17,6 +18,7 @@ use EasyWeChat\Message\Text;
  * */
 class WechatController extends WechatBaseController{
 
+
     public function __construct()
     {
         parent::__construct();
@@ -24,8 +26,9 @@ class WechatController extends WechatBaseController{
 
     public function index($wechatId)
     {
+        $wechatApp = $this->instanceWechatServer($wechatId);
         //事件服务
-        $server = $this->wechatApp->server;
+        $server = $wechatApp->server;
         //接收事件
         $server->setMessageHandler(function($message) use ($wechatId){
             // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
@@ -126,5 +129,67 @@ class WechatController extends WechatBaseController{
         return 'text';
     }
 
+    public function instanceWechatServer($wechatId)
+    {
+
+        $wechat = Wechat::find($wechatId);
+
+        $optioins = [
+            /**
+             * Debug 模式，bool 值：true/false
+             *
+             * 当值为 false 时，所有的日志都不会记录
+             */
+            'debug'  => true,
+
+            /**
+             * 账号基本信息，请从微信公众平台/开放平台获取
+             */
+            'app_id'  => $wechat->app_id,         // AppID
+            'secret'  => $wechat->secret,     // AppSecret
+            'token'   => $wechat->wechat_token,          // Token
+            'aes_key' => $wechat->encoding_aes_key,                    // EncodingAESKey
+
+            /**
+             * 日志配置
+             *
+             * level: 日志级别, 可选为：
+             *         debug/info/notice/warning/error/critical/alert/emergency
+             * file：日志文件位置(绝对路径!!!)，要求可写权限
+             */
+            'log' => [
+                'level' => 'debug',
+                'file'  => storage_path('logs/wechat.log'),
+            ],
+
+            /**
+             * OAuth 配置
+             *
+             * scopes：公众平台（snsapi_userinfo / snsapi_base），开放平台：snsapi_login
+             * callback：OAuth授权完成后的回调页地址
+             */
+            'oauth' => [
+                'scopes'   => ['snsapi_userinfo'],
+                'callback' => '/examples/oauth_callback.php',
+            ],
+
+            /**
+             * 微信支付
+             */
+            'payment' => [
+                'merchant_id'        => 'your-mch-id',
+                'key'                => 'key-for-signature',
+                'cert_path'          => 'path/to/your/cert.pem', // XXX: 绝对路径！！！！
+                'key_path'           => 'path/to/your/key',      // XXX: 绝对路径！！！！
+                // 'device_info'     => '013467007045764',
+                // 'sub_app_id'      => '',
+                // 'sub_merchant_id' => '',
+                // ...
+            ],
+        ];
+
+        return new Application($optioins);
+
+    }
 
 }

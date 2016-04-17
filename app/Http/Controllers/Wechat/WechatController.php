@@ -65,9 +65,9 @@ class WechatController extends WechatBaseController{
         });
 
 
-        $response = $server->serve()->send();
-
-        return $response;
+        //$response = $server->serve()->send();
+        $wechatApp->reply;
+        //return $response;
     }
 
     public function reply($message)

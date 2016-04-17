@@ -51,11 +51,13 @@ class WechatMenuController extends WechatBaseController
         $data['wechat_id'] = $this->wechat->id;
         if(isset($data['menu_id'])){
             $limit = 5;
+            $level = 2;
         }else{
             $limit = 3;
+            $level = 1;
         }
         //dd($data);
-        $count = WechatMenu::where('wechat_id',$this->wechat->id)->count();
+        $count = WechatMenu::where('wechat_id',$this->wechat->id)->where('level',$level)->count();
         if($count>=$limit){
             flash()->error('一级菜单不能超过三个~');
         }else{
@@ -162,7 +164,7 @@ class WechatMenuController extends WechatBaseController
             ];
 
             if($menu->type=='view'){
-                $buttons[$key]['url'] = $menu->url;
+                $buttons[$key]['url'] = $menu->content;
             }elseif($menu->type=='click'){
 
                 $buttons[$key]['key'] = 'test';
@@ -176,7 +178,7 @@ class WechatMenuController extends WechatBaseController
                     ];
 
                     if($m->type=='view'){
-                        $buttons[$key]['sub_button'][$k]['url'] = $m->url;
+                        $buttons[$key]['sub_button'][$k]['url'] = $m->content;
                     }elseif($m->type=='click'){
                         $buttons[$key]['sub_button'][$k]['key'] = 'test';
                     }

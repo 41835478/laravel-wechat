@@ -9,3 +9,4 @@
 /public/uploads
 .idea
 .DS_Store
+storage/logs/wechat.log

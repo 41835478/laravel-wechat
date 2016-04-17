@@ -35,6 +35,8 @@ class Staff extends AbstractAPI
     const API_CREATE = 'https://api.weixin.qq.com/customservice/kfaccount/add';
     const API_MESSAGE_SEND = 'https://api.weixin.qq.com/cgi-bin/message/custom/send';
     const API_AVATAR_UPLOAD = 'http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg';
+    //新增
+    const API_INVITE = 'https://api.weixin.qq.com/customservice/kfaccount/inviteworker';
 
     /**
      * List all staffs.
@@ -159,5 +161,17 @@ class Staff extends AbstractAPI
     public function send($message)
     {
         return $this->parseJSON('json', [self::API_MESSAGE_SEND, $message]);
+    }
+
+    /*
+     *  Invite a staff
+     * */
+    public function invite($kf_account,$invite_wx)
+    {
+        $params = [
+            'kf_account'  =>  $kf_account,
+            'invite_wx'   =>  $invite_wx
+        ];
+        return $this->parseJSON('json', [self::API_INVITE, $params]);
     }
 }

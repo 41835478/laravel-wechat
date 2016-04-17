@@ -271,6 +271,15 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     //群发
     Route::resource('wechat-send', 'WechatSendController',['names'=>['index'=>'admin.wechat-send']]);
 
+    //客服
+    Route::post('wechat-staff/invite-create',[
+        'as'=>'admin.wechat-staff.invite-create','uses'=>'WechatStaffController@inviteCreate'
+    ]);
+    Route::post('wechat-staff/invite-store',[
+        'as'=>'admin.wechat-staff.invite-store','uses'=>'WechatStaffController@inviteStore'
+    ]);
+    Route::resource('wechat-staff', 'WechatStaffController',['names'=>['index'=>'admin.wechat-staff']]);
+
 });
 
 /*文件上传*/

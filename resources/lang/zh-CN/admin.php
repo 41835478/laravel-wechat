@@ -36,7 +36,9 @@
         "setting_wechat_reply" => "自动回复",
         "setting_wechat_menu" => "自定义菜单",
         "setting_wechat_send" => "群发功能",
-        "setting_wechat_event" => "活动管理",
+        "setting_wechat_staff" => "客服功能",
+        "setting_wechat_activity" => "活动管理",
+
 
 
         /*

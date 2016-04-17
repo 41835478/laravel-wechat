@@ -1,7 +1,4 @@
 <?php namespace App\Http\Controllers\Wechat;
-use App\Http\Controllers\Admin\WechatBaseController;
-use App\Http\Controllers\Controller;
-
 /**
  * Created by PhpStorm.
  * User: lvdingtao

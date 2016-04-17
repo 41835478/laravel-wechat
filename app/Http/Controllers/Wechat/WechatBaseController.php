@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Wechat;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class WechatBaseController extends Controller
 {
@@ -14,6 +16,9 @@ class WechatBaseController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->user = Auth::user();
+        $this->wechat = Wechat::where('user_id',$this->user->id)->firstOrFail();
 
         $optioins = [
             /**

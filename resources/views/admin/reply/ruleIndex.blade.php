@@ -80,7 +80,7 @@
             var data = {rule_id:rule_id};
             jQuery.ajax({
                 url: "{{route('admin.wechat-reply.rule-createOrEdit')}}",
-                data:data,
+                data: data,
                 type:'post',
                 success: function(response)
                 {
@@ -118,6 +118,10 @@
         </div>
     </div>
     <script>
+        var ue = UE.getEditor('container', {
+          toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'italic', 'underline']]
+        });    
         $('.save').click(function(){
             //var rule = $('#modal-7 input[name=rule_name]').val();
             var data = $('#modal-7 form').serialize();
@@ -141,6 +145,8 @@
     {!! Html::style('style/assets/js/datatables/dataTables.bootstrap.css') !!}
 @stop
 @section('script')
+    {!! Html::script('style/assets/js/ueditor/ueditor.config.js') !!}
+    {!! Html::script('style/assets/js/ueditor/ueditor.all.js') !!}
     {!! Html::script('style/assets/js/datatables/js/jquery.dataTables.min.js') !!}
     {!! Html::script('style/assets/js/datatables/dataTables.bootstrap.js') !!}
     {!! Html::script('style/assets/js/datatables/yadcf/jquery.dataTables.yadcf.js') !!}

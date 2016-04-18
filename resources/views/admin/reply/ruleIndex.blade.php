@@ -100,18 +100,17 @@
             <tr>
                 <td>{{ $item->rule_name }}</td>
                 <td>
-                    <a 
-                      href="javascript:;" 
+                    <button 
                       data-ruleid="{{ $item->id }}" 
                       data-toggle="modal" 
                       data-target="#ruleModal"
                       data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
                       class="btn btn-secondary btn-sm btn-icon icon-left">
                       修改
-                    </a>
-                    <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
+                    </button>
+                    <button class="btn btn-danger btn-sm btn-icon icon-left">
                       删除
-                    </a>
+                    </button>
                 </td>
             </tr>
             @endforeach

@@ -70,8 +70,8 @@ class WechatController extends WechatBaseController{
                 }
             }elseif($message->MsgType == 'text'){
                 if($message->Content=='客服'){
-                    $msg = new Text(['content' => $message->Content]);
-                    $wechatApp->staff->message($msg)->to($message->FromUserName)->send();
+                    //多客服转发
+                    return new \EasyWeChat\Message\Transfer();
                 }
 
             }

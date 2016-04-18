@@ -10,6 +10,65 @@
      </div>
  @endif
  @stop
+<style>
+.pane-inner{
+  margin-top:5px;
+}
+.tag-input {
+  display: block;
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.tag-input .keywords{
+  font-style: normal;
+}
+.tag-input span{
+  text-align: center;
+  border-radius: 4px;
+  color:#fff;
+  background-color: #337ab7;
+  padding: 5px 15px 5px 10px;
+  margin-right:5px;
+  cursor: pointer;
+  position: relative;
+}
+.tag-input span:hover{
+  color: #fff;
+  background-color: #286090;
+}
+.tag-input span::after{
+  content: '\00d7';
+  position: absolute;
+  top: 2px;
+  right: 5px;
+}
+
+.tag-input input{
+  border:none;
+  height: 34px;
+  padding: 2px 3px;
+}
+.tag-input input:hover,
+.tag-input input:active,
+.tag-input input:focus {
+  border:none;
+  height: 34px;
+  padding: 2px 3px;
+  outline: none;
+}  
+</style>
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
@@ -63,83 +122,69 @@
     {!!$rules->render()!!}
   </div>
 </div>
-
-
-@stop
-@section('other')
-    <script type="text/javascript">
-        $('.show-modal').click(function(){
-            var obj = $(this);
-            showAjaxModal(obj);
-        });
-        function showAjaxModal(obj)
-        {
-            jQuery('#modal-7').modal('show');
-            rule_id = obj.data('ruleid') || '';
-
-            var data = {rule_id:rule_id};
-            jQuery.ajax({
-                url: "{{route('admin.wechat-reply.rule-createOrEdit')}}",
-                data: data,
-                type:'post',
-                success: function(response)
-                {
-                    jQuery('#modal-7 .modal-body').html(response);
-                },
-                async:false
-            });
-        }
-        function showKeywordModal()
-        {
-
-        }
-    </script>
-    <!-- Modal 7 (Ajax Modal)-->
-    <div class="modal fade" id="modal-7">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">关键词规则</h4>
-                </div>
-
-                <div class="modal-body">
-
-                    Content is loading...
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-info save">保存</button>
-                </div>
+<!-- 添加规则模版 -->
+<div class="dialog-rule-edit modal fade" id="ruleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">关键词规则</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">规则名称：</label>
+            <input type="text" class="form-control" name="ruleName">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">关键词列表：</label>
+            <div class="tag-input form-control">
+              <i class="keywords"></i>
+              <input type="text">
             </div>
-        </div>
+          </div>
+          <div class="checkbox">
+              <label>
+                <input type="checkbox" name="reply_all"> 回复全部
+              </label>
+          </div>          
+          <div class="tab-wrap">
+
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#replyText" aria-controls="replyText" role="tab" data-toggle="tab">文字</a></li>
+              <li role="presentation"><a href="#richText" aria-controls="richText" role="tab" data-toggle="tab">图文消息</a></li>
+            </ul>
+
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="replyText">
+                <div class="pane-inner">
+                  <div class="form-group">
+                    <textarea class="text form-control" placeholder="请输入需要回复的文字"></textarea>
+                  </div>                  
+                </div>
+
+              </div>
+              <div role="tabpanel" class="tab-pane" id="richText">
+                <div class="pane-inner">
+                  <script id="container" name="content" type="text/plain">这里写你的初始化内容
+                  </script>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button id="ruleSave" type="button" class="btn btn-primary">保存</button>
+      </div>
     </div>
-    <script>
-        var ue = UE.getEditor('container', {
-          toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
-            'bold', 'italic', 'underline']]
-        });    
-        $('.save').click(function(){
-            //var rule = $('#modal-7 input[name=rule_name]').val();
-            var data = $('#modal-7 form').serialize();
-            $.ajax({
-                url:"{{ route('admin.wechat-reply.rule-store') }}",
-                type:'post',
-                data:data,
-                success: function(response)
-                {
-                    if (response.status==200){
-                        console.log(response.mgs);
-                        jQuery('#modal-7').modal('hide');
-                    }
-                },
-                dataType:'json'
-            });
-        });
-    </script>
+  </div>
+</div>
+
 @stop
 @section('style')
     {!! Html::style('style/assets/js/datatables/dataTables.bootstrap.css') !!}
@@ -151,4 +196,101 @@
     {!! Html::script('style/assets/js/datatables/dataTables.bootstrap.js') !!}
     {!! Html::script('style/assets/js/datatables/yadcf/jquery.dataTables.yadcf.js') !!}
     {!! Html::script('style/assets/js/datatables/tabletools/dataTables.tableTools.min.js') !!}
+@stop
+@section('other')
+    <script type="text/javascript">
+      var ue = UE.getEditor('container', {
+        toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
+          'bold', 'italic', 'underline']]
+      });
+      $('.show-modal').click(function(){
+        $('#ruleModal').modal('show');
+      });
+      var result = [];
+      $('.tag-input').on('keyup', 'input', function(e){
+        if(e.keyCode == 13){
+          $this = $(this);
+          $parent = $this.closest('.tag-input');
+          var val = $.trim($this.val());
+          if(val && result.indexOf(val) == -1){
+            result.push(val);
+            $parent.find('.keywords').append('<span>' + val + '</span>');
+            $this.val('');
+          }
+        }
+      });
+      $('.tag-input').on('click', 'span', function(e){
+        $this = $(this);
+        var val = $.trim($this.text());
+        var tmp = [];
+        for(var i = 0; i < result.length; i++){
+          if(result[i] !== val){
+            tmp.push(result[i]);
+          }
+        }
+        result = tmp;
+        $this.remove();
+      });
+
+      $('#ruleSave').click(function(){
+        var ruleName = $('#ruleModal [name=ruleName]').val();
+        var keyName = result;
+        var text = $('#ruleModal textarea.text').val();
+        var keywords_TPL = $('#ruleModal .keywords span');
+        var keywords = [];
+        keywords_TPL.each(function(){
+          keywords.push($(this).text());
+        });
+        var reply_all = $('#ruleModal').find('[name=reply_all]').prop('checked');
+        var richText = ue.getContent();
+        var data = {
+          name: ruleName,
+          keywords: keywords,
+          text: text,
+          reply_all: reply_all,
+          richText: richText
+        }
+        console.log(data);
+      });
+
+      $('.dialog-rule-edit').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var button = $(event.relatedTarget) 
+        var data = button.data('rule');
+        var name = data && data.name || '';
+        var keywords = data && data.keywords || [];
+        var text = data && data.text || '';
+        var reply_all = data && data.reply_all || false;
+        var richText = data && data.richText || '';
+        var keywords_TPL = '';
+        for(var i = 0; i < keywords.length; i++){
+          keywords_TPL += '<span>' + keywords[i] + '</span>';
+        }       
+        modal.find('[name=ruleName]').val(name);
+        modal.find('.keywords').html(keywords_TPL);
+        modal.find('textarea.text').val(text);   
+        modal.find('[name=reply_all]').prop('checked', reply_all);   
+        ue.setContent(richText); 
+      });      
+    </script>
+    <script>
+
+        // $('.save').click(function(){
+        //     //var rule = $('#modal-7 input[name=rule_name]').val();
+        //     var data = $('#modal-7 form').serialize();
+        //     $.ajax({
+        //         url:"{{ route('admin.wechat-reply.rule-store') }}",
+        //         type:'post',
+        //         data:data,
+        //         success: function(response)
+        //         {
+        //             if (response.status==200){
+        //                 console.log(response.mgs);
+        //                 jQuery('#modal-7').modal('hide');
+        //             }
+        //         },
+        //         dataType:'json'
+        //     });
+        // });
+    </script>
 @stop

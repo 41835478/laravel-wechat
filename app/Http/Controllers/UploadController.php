@@ -2,56 +2,48 @@
 /**
  * Created by PhpStorm.
  * User: lvdingtao
- * Date: 15/3/31
- * Time: 下午2:51
+ * Date: 9/1/15
+ * Time: 9:05 AM
  */
 
 namespace App\Http\Controllers;
 
 
-
-use Illuminate\Http\Request;
+use App\Http\Requests\UploadRequest;
+use Illuminate\Support\Facades\File;
 
 class UploadController extends Controller{
 
-    public function upload(Request $request){
-
-        if ($request->hasFile('file'))
-        {
-            $type = $request->input('type');
-            //本程序未涉及多文件操作。
-            $files = $request->file('file');
-            foreach($files as $file)
-            {
-                if($file->isValid()){
-                    $realPath = $file->getRealPath(); //取得上传文件所在的路径
-                    $name = $file->getClientOriginalName(); //取得上传文件的原始名称
+    public function upload(UploadRequest $request)
+    {
+        $type = $request->input('type');
+        if($request->ajax()){
+            //确认文件是否有上传
+            if($request->hasFile('file')){
+                //code..
+                $file = $request->file('file');
+                if(!$file->isValid()){
+                    $result = ['status'=>'failed','msg'=>'上传文件无效！'];
+                }else{
                     $extension = $file->getClientOriginalExtension();//取得上传文件的后缀名
                     $path = 'uploads/'.$type.'/';
                     $savePath = $path.date('Ymd',time());
-                    is_dir($savePath) || mkdir($savePath,0777,true); //如果目录不存在则创建
+                    File::exists($savePath) or File::makeDirectory($savePath,0755,true);
 
-                    //
-                    $uniqid = uniqid(); //函数基于以微秒计的当前时间，生成一个唯一的 ID。
-                    $saveFileName = $uniqid.'_'.$type.'.'.$extension;
+                    $saveFileName = uniqid().'_'.$type.'.'.$extension;//函数基于以微秒计的当前时间，生成一个唯一的 ID。
+
                     $file->move($savePath,$saveFileName);
 
                     $fullFileName = $savePath.'/'.$saveFileName;
+
+                    $result = ['status'=>'success','msg'=>'上传成功！','path'=>$fullFileName];
                 }
+
+            }else{
+                $result = ['status'=>'failed','msg'=>'请选择上传文件！'];
             }
-            return response()->json(['msg' => '上传成功', 'state' => 'success','url'=>url('').'/'.$fullFileName]);
-
-        }else{
-            return response()->json(['msg' => '上传失败', 'state' => 'fail','url'=>'']);
+            return $result;
         }
-        //return response()->json(['msg' => '上传成功', 'state' => 'success','url'=>url('').'/'.$fullFileName]);
 
-    }
-
-    public function uploadFile(Request $request){
-        if($request->hasFile('file')){
-
-        }
-        return response()->json(['msg' => $request->hasFile('file'), 'state' => 'success','url'=>url('').'/']);
     }
 } 

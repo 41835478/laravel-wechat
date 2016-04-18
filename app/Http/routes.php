@@ -271,6 +271,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     //群发
     Route::resource('wechat-send', 'WechatSendController',['names'=>['index'=>'admin.wechat-send']]);
 
+    //chexi
+    Route::resource('series', 'SeriesController',['names'=>['index'=>'admin.series']]);
+
     //客服
     Route::post('wechat-staff/invite-create',[
         'as'=>'admin.wechat-staff.invite-create','uses'=>'WechatStaffController@inviteCreate'

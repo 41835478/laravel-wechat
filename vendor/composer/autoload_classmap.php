@@ -24,7 +24,7 @@ return array(
     'CreateRepliesTable' => $baseDir . '/database/migrations/2015_07_22_165319_create_replies_table.php',
     'CreateReplyNewsTable' => $baseDir . '/database/migrations/2015_07_24_112327_create_reply_news_table.php',
     'CreateReplyTextsTable' => $baseDir . '/database/migrations/2015_07_22_164727_create_reply_texts_table.php',
-    'CreateSeriesTable' => $baseDir . '/database/migrations/2016_04_17_143223_create_series_table.php',
+    'CreateSeriesTable' => $baseDir . '/database/migrations/2016_04_18_013444_create_series_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'CreateWechatMenusTable' => $baseDir . '/database/migrations/2016_04_16_021351_create_wechat_menus_table.php',
     'CreateWechatNewsTable' => $baseDir . '/database/migrations/2015_07_25_111238_create_wechat_news_table.php',

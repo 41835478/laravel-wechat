@@ -26,6 +26,7 @@ return array(
     'CreateReplyTextsTable' => $baseDir . '/database/migrations/2015_07_22_164727_create_reply_texts_table.php',
     'CreateSeriesTable' => $baseDir . '/database/migrations/2016_04_18_013444_create_series_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateWechatMediasTable' => $baseDir . '/database/migrations/2016_04_18_070718_create_wechat_medias_table.php',
     'CreateWechatMenusTable' => $baseDir . '/database/migrations/2016_04_16_021351_create_wechat_menus_table.php',
     'CreateWechatNewsTable' => $baseDir . '/database/migrations/2015_07_25_111238_create_wechat_news_table.php',
     'CreateWechatServicesTable' => $baseDir . '/database/migrations/2016_04_17_013832_create_wechat_services_table.php',

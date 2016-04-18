@@ -11,6 +11,7 @@ use App\Wechat;
 use App\WechatNews;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\Text;
+use Guzzle\Common\Collection;
 
 /*
  * 微信交互控制器
@@ -56,6 +57,7 @@ class WechatController extends WechatBaseController{
                         return $text;
 
                         break;
+
                     case 'VIEW':
 
                         $text = new Text();
@@ -72,6 +74,9 @@ class WechatController extends WechatBaseController{
                 if($message->Content=='客服'){
                     //多客服转发
                     return new \EasyWeChat\Message\Transfer();
+                }else{
+                    //关键字自动回复处理
+
                 }
 
             }
@@ -88,31 +93,42 @@ class WechatController extends WechatBaseController{
          * 监听事件类型
          * 关注事件回复
          * */
-
+        $message = (object)[
+            'Content'=>'test',
+            'ToUserName'=>'gh_68f0112f08be'
+        ];
+        //$message=collect($arr);
+        //dd($arr->Content);
         //获取公众号信息
-        $public_number = $message->ToUserName;
-        $wechat = Wechat::where('wechat_account','=',$public_number)->firstOrFail();
-        //获取关键词对象
-        $message->Content;
+        $public_number = $message->ToUserName;  //公众号原始ID
+        $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();
+
         //查询关键字,预载入关键字规则
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
             $query->where('wechat_id','=',$wechat->id);
         }])->where('keyword','like',"$message->Content")->first();
+
         //查询对应回复   一对多
         $replies = $keyword->keywordRule->reply;
-        //dd($replies);
+
         foreach ($replies as $key => $reply) {
+            //dd($reply);
+            //dd($reply->text);
             $contents[$key] = $reply->{$reply->reply_type};
             $contents[$key]['reply_type'] = $reply->reply_type;
         }
+        //
+        //dd($contents);
         //取随机数
-        $num = mt_rand(0,count($replies));
+        $num = mt_rand(0,count($replies)-1);
 
         $content = $contents[$num];
 
         switch($content['reply_type'])
         {
             case 'text':
+                dd($content);
+                break;
             case 'image':
             case 'voice':
             case 'video':
@@ -125,12 +141,16 @@ class WechatController extends WechatBaseController{
             case 'news':
                 //查询内容
                 $news = WechatNews::find($content->content);
+                $text = new Text();
+                $text->content = $reply->text->content;
+
+                return $text;
 //                return Message::make('news')->items(function() use ($news){
 //                    return array(
 //                        Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover),
 //                    );
 //                });
-                breadk;
+                break;
         }
     }
 

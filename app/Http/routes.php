@@ -53,6 +53,10 @@ Route::get('posts/{nodeId?}', 'Home\PostController@postsList');
 
 Route::group(['namespace' => 'Wechat'],function(){
     Route::match(['get','post'],'wechat/auth/{wechatId}','WechatController@index');
+
+    Route::post('reply/{message}',[
+        'as'=>'reply','uses'=>'WechatController@reply'
+    ]);
 });
 
 
@@ -286,6 +290,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
         'as'=>'admin.wechat-staff.invite-store','uses'=>'WechatStaffController@inviteStore'
     ]);
     Route::resource('wechat-staff', 'WechatStaffController',['names'=>['index'=>'admin.wechat-staff']]);
+    Route::resource('wechat-news', 'WechatNewsController',['names'=>['index'=>'admin.wechat-news']]);
 
 });
 

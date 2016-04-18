@@ -11,63 +11,63 @@
  @endif
  @stop
 <style>
-.pane-inner{
-  margin-top:5px;
-}
-.tag-input {
-  display: block;
-  width: 100%;
-  height: 48px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-.tag-input .keywords{
-  font-style: normal;
-}
-.tag-input span{
-  text-align: center;
-  border-radius: 4px;
-  color:#fff;
-  background-color: #337ab7;
-  padding: 5px 15px 5px 10px;
-  margin-right:5px;
-  cursor: pointer;
-  position: relative;
-}
-.tag-input span:hover{
-  color: #fff;
-  background-color: #286090;
-}
-.tag-input span::after{
-  content: '\00d7';
-  position: absolute;
-  top: 2px;
-  right: 5px;
-}
+  .pane-inner{
+    margin-top:5px;
+  }
+  .tag-input {
+    display: block;
+    width: 100%;
+    height: 48px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  }
+  .tag-input .keywords{
+    font-style: normal;
+  }
+  .tag-input span{
+    text-align: center;
+    border-radius: 4px;
+    color:#fff;
+    background-color: #337ab7;
+    padding: 5px 15px 5px 10px;
+    margin-right:5px;
+    cursor: pointer;
+    position: relative;
+  }
+  .tag-input span:hover{
+    color: #fff;
+    background-color: #286090;
+  }
+  .tag-input span::after{
+    content: '\00d7';
+    position: absolute;
+    top: 2px;
+    right: 5px;
+  }
 
-.tag-input input{
-  border:none;
-  height: 34px;
-  padding: 2px 3px;
-}
-.tag-input input:hover,
-.tag-input input:active,
-.tag-input input:focus {
-  border:none;
-  height: 34px;
-  padding: 2px 3px;
-  outline: none;
-}  
+  .tag-input input{
+    border:none;
+    height: 34px;
+    padding: 2px 3px;
+  }
+  .tag-input input:hover,
+  .tag-input input:active,
+  .tag-input input:focus {
+    border:none;
+    height: 34px;
+    padding: 2px 3px;
+    outline: none;
+  }  
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -82,7 +82,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">规则列表</h3>
-    <a class="btn btn-secondary show-modal" href="javascript:;">添加规则</a>
+    <a class="add-new-rule btn btn-secondary" href="javascript:;">添加规则</a>
     <div class="panel-options">
         <a href="#" data-toggle="panel">
             <span class="collapse-icon">&ndash;</span>
@@ -122,68 +122,71 @@
     {!!$rules->render()!!}
   </div>
 </div>
-<!-- 添加规则模版 -->
-<div class="dialog-rule-edit modal fade" id="ruleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">关键词规则</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">规则名称：</label>
-            <input type="text" class="form-control" name="ruleName">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">关键词列表：</label>
-            <div class="tag-input form-control">
-              <i class="keywords"></i>
-              <input type="text">
+@section('other')
+  <!-- 添加规则模版 -->
+  <div class="dialog-rule-edit modal fade" id="ruleModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">关键词规则</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">规则名称：</label>
+              <input type="text" class="form-control" name="ruleName">
             </div>
-          </div>
-          <div class="checkbox">
-              <label>
-                <input type="checkbox" name="reply_all"> 回复全部
-              </label>
-          </div>          
-          <div class="tab-wrap">
-
-            <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active"><a href="#replyText" aria-controls="replyText" role="tab" data-toggle="tab">文字</a></li>
-              <li role="presentation"><a href="#richText" aria-controls="richText" role="tab" data-toggle="tab">图文消息</a></li>
-            </ul>
-
-            <div class="tab-content">
-              <div role="tabpanel" class="tab-pane active" id="replyText">
-                <div class="pane-inner">
-                  <div class="form-group">
-                    <textarea class="text form-control" placeholder="请输入需要回复的文字"></textarea>
-                  </div>                  
-                </div>
-
-              </div>
-              <div role="tabpanel" class="tab-pane" id="richText">
-                <div class="pane-inner">
-                  <script id="container" name="content" type="text/plain">这里写你的初始化内容
-                  </script>
-                </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">关键词列表：</label>
+              <div class="tag-input form-control">
+                <i class="keywords"></i>
+                <input type="text">
               </div>
             </div>
+            <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="reply_all"> 回复全部
+                </label>
+            </div>          
+            <div class="tab-wrap">
 
-          </div>
-        </form>        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button id="ruleSave" type="button" class="btn btn-primary">保存</button>
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#replyText" aria-controls="replyText" role="tab" data-toggle="tab">文字</a></li>
+                <li role="presentation"><a href="#richText" aria-controls="richText" role="tab" data-toggle="tab">图文消息</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="replyText">
+                  <div class="pane-inner">
+                    <div class="form-group">
+                      <textarea class="text form-control" placeholder="请输入需要回复的文字"></textarea>
+                    </div>                  
+                  </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="richText">
+                  <div class="pane-inner">
+                    <script id="container" name="content" type="text/plain">这里写你的初始化内容
+                    </script>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </form>        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button id="ruleSave" type="button" class="btn btn-primary">保存</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+@stop
+
 
 @stop
 @section('style')

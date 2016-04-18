@@ -1,6 +1,8 @@
 var ue = UE.getEditor('container', {
-  toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
-    'bold', 'italic', 'underline']]
+  toolbars: [
+      ['fullscreen', 'source', 'undo', 'redo'],
+      ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+  ]
 });
 var result = [];
 $('.tag-input').on('keyup', 'input', function(e){

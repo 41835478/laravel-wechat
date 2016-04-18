@@ -2,9 +2,6 @@ var ue = UE.getEditor('container', {
   toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
     'bold', 'italic', 'underline']]
 });
-$('.add-new-rule, show-rule-modal').click(function(){
-  $('#ruleModal').modal('show');
-});
 var result = [];
 $('.tag-input').on('keyup', 'input', function(e){
   if(e.keyCode == 13){

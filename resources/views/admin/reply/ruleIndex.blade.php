@@ -83,7 +83,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">规则列表</h3>
     <div class="panel-options">
-      <button class="add-new-rule btn btn-secondary" href="javascript:;">添加规则</button>
+      <button class="btn btn-secondary" data-toggle="modal" data-target="#ruleModal">添加规则</button>
     </div>
   </div>
   <div class="panel-body">
@@ -103,8 +103,10 @@
                     <a 
                       href="javascript:;" 
                       data-ruleid="{{ $item->id }}" 
+                      data-toggle="modal" 
+                      data-target="#ruleModal"
                       data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
-                      class="btn btn-secondary btn-sm btn-icon icon-left show-rule-modal">
+                      class="btn btn-secondary btn-sm btn-icon icon-left">
                       修改
                     </a>
                     <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">

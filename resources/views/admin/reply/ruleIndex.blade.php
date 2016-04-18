@@ -143,37 +143,20 @@
                 <i class="keywords"></i>
                 <input type="text">
               </div>
+            </div> 
+            <div class="form-group">
+              <label>文字消息：</label>
+              <textarea class="text form-control" placeholder="请输入需要回复的文字"></textarea>
+            </div>
+            <div class="form-group">
+              <label>图文消息：</label>
+              <script id="container" name="content" type="text/plain"></script>
             </div>
             <div class="checkbox">
                 <label>
                   <input type="checkbox" name="reply_all"> 回复全部
                 </label>
-            </div>          
-            <div class="tab-wrap">
-
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#replyText" aria-controls="replyText" role="tab" data-toggle="tab">文字</a></li>
-                <li role="presentation"><a href="#richText" aria-controls="richText" role="tab" data-toggle="tab">图文消息</a></li>
-              </ul>
-
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="replyText">
-                  <div class="pane-inner">
-                    <div class="form-group">
-                      <textarea class="text form-control" placeholder="请输入需要回复的文字"></textarea>
-                    </div>                  
-                  </div>
-
-                </div>
-                <div role="tabpanel" class="tab-pane" id="richText">
-                  <div class="pane-inner">
-                    <script id="container" name="content" type="text/plain">这里写你的初始化内容
-                    </script>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+            </div>            
           </form>        
         </div>
         <div class="modal-footer">

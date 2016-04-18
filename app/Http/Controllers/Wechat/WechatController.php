@@ -30,7 +30,7 @@ class WechatController extends WechatBaseController{
         //事件服务
         $server = $wechatApp->server;
         //接收事件
-        $server->setMessageHandler(function($message) use ($wechatId){
+        $server->setMessageHandler(function($message) use ($wechatId,$wechatApp){
             // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
             // 当 $message->MsgType 为 event 时为事件
             if ($message->MsgType == 'event') {
@@ -68,6 +68,12 @@ class WechatController extends WechatBaseController{
                         # code...
                         break;
                 }
+            }elseif($message->MsgType == 'text'){
+                if($message->Content=='客服'){
+                    $msg = new Text(['content' => $message->Content]);
+                    $wechatApp->staff->message($msg)->to($message->FromUserName)->send();
+                }
+
             }
         });
 

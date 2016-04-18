@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class WechatStaffController extends WechatBaseController
 {
@@ -154,5 +154,46 @@ class WechatStaffController extends WechatBaseController
             $result = ['status'=>201,'msg'=>'邀请失败!'];
         }
         return response()->json($result);
+    }
+
+    public function upload(Requests\UploadRequest $request)
+    {
+        $kf_account = $request->input('kf_account');
+        $type = $request->input('type');
+        if($request->ajax()){
+            //确认文件是否有上传
+            if($request->hasFile('file')){
+                //code..
+                $file = $request->file('file');
+                if(!$file->isValid()){
+                    $result = ['status'=>'failed','msg'=>'上传文件无效！'];
+                }else{
+                    $extension = $file->getClientOriginalExtension();//取得上传文件的后缀名
+                    $path = 'uploads/'.$type.'/';
+                    $savePath = $path.date('Ymd',time());
+                    File::exists($savePath) or File::makeDirectory($savePath,0755,true);
+
+                    $saveFileName = uniqid().'_'.$type.'.'.$extension;//函数基于以微秒计的当前时间，生成一个唯一的 ID。
+
+                    $file->move($savePath,$saveFileName);
+
+                    $fullFileName = $savePath.'/'.$saveFileName;
+
+                    //$result = ['status'=>'success','msg'=>'上传成功！','path'=>$fullFileName];
+                    $result = $this->staff->avatar($kf_account, $fullFileName);
+                    if($result->errcode==0){
+                        $result = ['status'=>'success','msg'=>'上传成功！'];
+                    }else{
+                        $result = ['status'=>'fail','msg'=>'上传成功！'];
+                    }
+                    return response()->json($result);
+                }
+
+            }else{
+                $result = ['status'=>'failed','msg'=>'请选择上传文件！'];
+            }
+            return $result;
+        }
+
     }
 }

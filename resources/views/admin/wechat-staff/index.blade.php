@@ -14,7 +14,6 @@
     <div class="col-sm-12">
         <div class="panel panel-default">
             <a class="btn btn-primary" href="{{ route('admin.wechat-staff.create') }}">添加客服</a>
-            <a class="btn btn-primary" href="{{ route('admin.wechat-staff') }}">推送菜单</a>
         </div>
     </div>
 </div>
@@ -113,7 +112,7 @@
                             邀请
                         </a>
                         @endif
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
+                        <a href="#" data-account="{{ $item['kf_account'] }}" class="btn btn-secondary btn-sm btn-icon icon-left upload">
                             头像
                         </a>
                         {!! Form::open(['route'=>['admin.wechat-staff.destroy',$item['kf_account']],'role'=>'form','class'=>'form-horizontal','method'=>'delete','style'=>'display:inline']) !!}
@@ -133,6 +132,7 @@
 </div>
 
 @stop
+
 @section('other')
     <script type="text/javascript">
         $('.invite').click(function(){
@@ -201,13 +201,93 @@
             });
         });
     </script>
+
+    @include('upload.single',['type'=>'avatar'])
 @stop
 @section('style')
     {!! Html::style('style/assets/js/datatables/dataTables.bootstrap.css') !!}
+    {!! Html::style('style/assets/js/dropzone/css/dropzone.css') !!}
 @stop
 @section('script')
     {!! Html::script('style/assets/js/datatables/js/jquery.dataTables.min.js') !!}
     {!! Html::script('style/assets/js/datatables/dataTables.bootstrap.js') !!}
     {!! Html::script('style/assets/js/datatables/yadcf/jquery.dataTables.yadcf.js') !!}
     {!! Html::script('style/assets/js/datatables/tabletools/dataTables.tableTools.min.js') !!}
+    {!! Html::script('style/assets/js/dropzone/dropzone.min.js') !!}
+    <script>
+
+        var kf_account = '';
+        $('.upload').click(function(){
+            var obj = $(this);
+            showAjaxModal(obj);
+        });
+        function showAjaxModal(obj)
+        {
+            jQuery('#upload').modal('show');
+            kf_account = obj.data('account') || '';
+            $('input[name=kf_account]').val(kf_account);
+            //alert($('input[name=kf_account]').val());
+        }
+
+        // Get the template HTML and remove it from the doument
+        var previewNode = document.querySelector("#template");
+        previewNode.id = "";
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+
+        var myDropzone = new Dropzone('#uploadForm', { // Make the whole body a dropzone
+            //paramName:'file',
+            url: "{{ route('admin.wechat-staff.upload') }}", // Set the url
+            maxFiles:1,
+            thumbnailWidth: 80,
+            thumbnailHeight: 80,
+            parallelUploads: 20,
+            previewTemplate: previewTemplate,
+            autoQueue: false, // Make sure the files aren't queued until manually added
+            previewsContainer: "#previews", // Define the container to display the previews
+            clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+        });
+
+        myDropzone.on("addedfile", function(file) {
+            // Hookup the start button
+            file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+        });
+
+        // Update the total progress bar
+        myDropzone.on("totaluploadprogress", function(progress) {
+            document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+        });
+
+        myDropzone.on("sending", function(file) {
+            // Show the total progress bar when upload starts
+            document.querySelector("#total-progress").style.opacity = "1";
+            // And disable the start button
+            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+        });
+        myDropzone.on("success", function(file) {
+            var data = eval('(' + file.xhr.responseText + ')');
+            alert(data.msg);
+
+        });
+        myDropzone.on("error", function(file) {
+            var res = eval('(' + file.xhr.responseText + ')');
+            //显示错误信息
+            document.querySelector("#error").innerHTML = res.file[0];
+        });
+
+        // Hide the total progress bar when nothing's uploading anymore
+        myDropzone.on("queuecomplete", function(progress) {
+            document.querySelector("#total-progress").style.opacity = "0";
+        });
+
+        // Setup the buttons for all transfers
+        // The "add files" button doesn't need to be setup because the config
+        // `clickable` has already been specified.
+        document.querySelector("#actions .start").onclick = function() {
+            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+        };
+        document.querySelector("#actions .cancel").onclick = function() {
+            myDropzone.removeAllFiles(true);
+        };
+    </script>
 @stop

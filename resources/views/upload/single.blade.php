@@ -7,7 +7,6 @@
  */
  ?>
 
-@section('others')
 	<div class="modal fade" id="upload">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -20,6 +19,7 @@
 				<div class="modal-body">
 				{!! Form::open(['route'=>['upload'],'role'=>'form','id'=>'uploadForm','enctype'=>'multipart/form-data']) !!}
                     {!! Form::hidden('type',$type) !!}
+                    {!! Form::hidden('kf_account','') !!}
                 {!! Form::close() !!}
                     <div id="actions" class="row">
                       <div class="col-lg-7">
@@ -90,75 +90,3 @@
 			</div>
 		</div>
 	</div>
-@stop
-
-@section('css')
-    {!! Html::style('assets/js/dropzone/css/dropzone.css') !!}
-@stop
-
-@section('scripts')
-    {!! Html::script('assets/js/dropzone/dropzone.min.js') !!}
-    <script>
-      // Get the template HTML and remove it from the doument
-      var previewNode = document.querySelector("#template");
-      previewNode.id = "";
-      var previewTemplate = previewNode.parentNode.innerHTML;
-      previewNode.parentNode.removeChild(previewNode);
-
-      var myDropzone = new Dropzone('#uploadForm', { // Make the whole body a dropzone
-        //paramName:'file',
-        url: "{{ route('upload') }}", // Set the url
-        maxFiles:1,
-        thumbnailWidth: 80,
-        thumbnailHeight: 80,
-        parallelUploads: 20,
-        previewTemplate: previewTemplate,
-        autoQueue: false, // Make sure the files aren't queued until manually added
-        previewsContainer: "#previews", // Define the container to display the previews
-        clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-      });
-
-      myDropzone.on("addedfile", function(file) {
-        // Hookup the start button
-        file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
-      });
-
-      // Update the total progress bar
-      myDropzone.on("totaluploadprogress", function(progress) {
-        document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
-      });
-
-      myDropzone.on("sending", function(file) {
-        // Show the total progress bar when upload starts
-        document.querySelector("#total-progress").style.opacity = "1";
-        // And disable the start button
-        file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
-      });
-      myDropzone.on("success", function(file) {
-        var data = eval('(' + file.xhr.responseText + ')');
-        $('#pic_url').val(data.path);
-        $('#preview_pic').html('<img src="'+ "{{url('')}}/" + data.path +'" width="80">');
-
-      });
-      myDropzone.on("error", function(file) {
-        var res = eval('(' + file.xhr.responseText + ')');
-        //显示错误信息
-        document.querySelector("#error").innerHTML = res.file[0];
-      });
-
-      // Hide the total progress bar when nothing's uploading anymore
-      myDropzone.on("queuecomplete", function(progress) {
-        document.querySelector("#total-progress").style.opacity = "0";
-      });
-
-      // Setup the buttons for all transfers
-      // The "add files" button doesn't need to be setup because the config
-      // `clickable` has already been specified.
-      document.querySelector("#actions .start").onclick = function() {
-        myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
-      };
-      document.querySelector("#actions .cancel").onclick = function() {
-        myDropzone.removeAllFiles(true);
-      };
-    </script>
-@stop

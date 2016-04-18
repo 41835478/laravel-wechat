@@ -275,6 +275,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::resource('series', 'SeriesController',['names'=>['index'=>'admin.series']]);
 
     //客服
+    Route::post('wechat-staff/upload',[
+        'as'=>'admin.wechat-staff.upload','uses'=>'WechatStaffController@upload'
+    ]);
+
     Route::post('wechat-staff/invite-create',[
         'as'=>'admin.wechat-staff.invite-create','uses'=>'WechatStaffController@inviteCreate'
     ]);

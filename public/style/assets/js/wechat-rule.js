@@ -2,7 +2,7 @@ var ue = UE.getEditor('container', {
   toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
     'bold', 'italic', 'underline']]
 });
-$('.add-new-rule').click(function(){
+$('.add-new-rule, show-rule-modal').click(function(){
   $('#ruleModal').modal('show');
 });
 var result = [];

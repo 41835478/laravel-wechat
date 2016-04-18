@@ -82,15 +82,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">规则列表</h3>
-    <a class="add-new-rule btn btn-secondary" href="javascript:;">添加规则</a>
     <div class="panel-options">
-        <a href="#" data-toggle="panel">
-            <span class="collapse-icon">&ndash;</span>
-            <span class="expand-icon">+</span>
-        </a>
-        <a href="#" data-toggle="remove">
-            &times;
-        </a>
+      <button class="add-new-rule btn btn-secondary" href="javascript:;">添加规则</button>
     </div>
   </div>
   <div class="panel-body">
@@ -107,7 +100,11 @@
             <tr>
                 <td>{{ $item->rule_name }}</td>
                 <td>
-                    <a href="javascript:;" data-ruleid="{{ $item->id }}" class="btn btn-secondary btn-sm btn-icon icon-left show-modal">
+                    <a 
+                      href="javascript:;" 
+                      data-ruleid="{{ $item->id }}" 
+                      data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
+                      class="btn btn-secondary btn-sm btn-icon icon-left show-rule-modal">
                       修改
                     </a>
                     <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">

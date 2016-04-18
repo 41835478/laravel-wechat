@@ -21,97 +21,47 @@
 </div>
 <!-- Removing search and results count filter -->
 <div class="panel panel-default">
-				<div class="panel-heading">
-                    <h3 class="panel-title">规则列表</h3>
-                    <a class="btn btn-secondary show-modal" href="javascript:;">添加规则</a>
-                    <div class="panel-options">
-                        <a href="#" data-toggle="panel">
-                            <span class="collapse-icon">&ndash;</span>
-                            <span class="expand-icon">+</span>
-                        </a>
-                        <a href="#" data-toggle="remove">
-                            &times;
-                        </a>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    
-                    <script type="text/javascript">
-                        jQuery(document).ready(function($)
-                           {
-                           $("#example-2").dataTable({
-                             dom: "t" + "<'row'<'col-xs-6'i><'col-xs-6'p>>",
-                             aoColumns: [
-                                         {bSortable: false},
-                                         null,
-                                         null
-                                         ],
-                             });
-                           
-                           // Replace checkboxes when they appear
-                           var $state = $("#example-2 thead input[type='checkbox']");
-                           
-                           $("#example-2").on('draw.dt', function()
-                                              {
-                                              cbr_replace();
-                                              
-                                              $state.trigger('change');
-                                              });
-                           
-                           // Script to select all checkboxes
-                           $state.on('change', function(ev)
-                                     {
-                                     var $chcks = $("#example-2 tbody input[type='checkbox']");
-                                     
-                                     if($state.is(':checked'))
-                                     {
-                                     $chcks.prop('checked', true).trigger('change');
-                                     }
-                                     else
-                                     {
-                                     $chcks.prop('checked', false).trigger('change');
-                                     }
-                                     });
-                           });
-                        </script>
-                    
-                    <table class="table table-bordered table-striped" id="example-2">
-                        <thead>
-                            <tr>
-                                <th class="no-sorting">
-                                    <input type="checkbox" class="cbr">
-                                </th>
-                                <th>规则名称</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody class="middle-align">
-                            @foreach($rules as $item)
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="cbr">
-                                </td>
-                                <td>{{ $item->rule_name }}</td>
-                                <td>
-                                    <a href="javascript:;" data-ruleid="{{ $item->id }}" class="btn btn-secondary btn-sm btn-icon icon-left show-modal">
-                                        修改
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-secondary btn-sm btn-icon icon-left show-keyword">
-                                        关键字
-                                    </a>
-                                    
-                                    <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                                        回复
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
-                    {!!$rules->render()!!}
-                </div>
+  <div class="panel-heading">
+    <h3 class="panel-title">规则列表</h3>
+    <a class="btn btn-secondary show-modal" href="javascript:;">添加规则</a>
+    <div class="panel-options">
+        <a href="#" data-toggle="panel">
+            <span class="collapse-icon">&ndash;</span>
+            <span class="expand-icon">+</span>
+        </a>
+        <a href="#" data-toggle="remove">
+            &times;
+        </a>
+    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered table-striped" id="example-2">
+        <thead>
+          <tr>
+            <th>规则名称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        
+        <tbody class="middle-align">
+            @foreach($rules as $item)
+            <tr>
+                <td>{{ $item->rule_name }}</td>
+                <td>
+                    <a href="javascript:;" data-ruleid="{{ $item->id }}" class="btn btn-secondary btn-sm btn-icon icon-left show-modal">
+                      修改
+                    </a>
+                    <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
+                      删除
+                    </a>
+                </td>
+            </tr>
+            @endforeach
+            
+        </tbody>
+    </table>
+    {!!$rules->render()!!}
+  </div>
 </div>
 
 

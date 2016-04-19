@@ -159,6 +159,7 @@ class WechatMenuController extends WechatBaseController
 
         $menus = WechatMenu::with('subs')
                             ->where('wechat_id',$this->wechat->id)
+                            ->where('level',1)
                             ->where('menu_id',0)->get();
 
         //构建菜单

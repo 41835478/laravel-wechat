@@ -113,7 +113,7 @@ class WechatMenuController extends WechatBaseController
     public function update(Request $request, $id)
     {
         //
-        $data = $request->except('_token','_method');
+        $data = $request->except('_token','_method','level');
         //dd($data);
         $result = WechatMenu::where('id',$id)->update($data);
         if($result) {
@@ -163,21 +163,12 @@ class WechatMenuController extends WechatBaseController
 
         //构建菜单
         $buttons = [];
-
         foreach($menus as $key=>$menu){
-            $buttons[$key] = [
-                'type'  =>  $menu->type,
-                "name"  =>  $menu->name,
-            ];
 
-            if($menu->type=='view'){
-                $buttons[$key]['url'] = $menu->content;
-            }elseif($menu->type=='click'){
-
-                $buttons[$key]['key'] = 'test';
-            }
-
-            if($menu->subs){
+            if(count($menu->subs)>0){
+                $buttons[$key] = [
+                    "name"  =>  $menu->name,
+                ];
                 foreach($menu->subs as $k=>$m){
                     $buttons[$key]['sub_button'][$k] = [
                         'type'  =>  $m->type,
@@ -190,9 +181,20 @@ class WechatMenuController extends WechatBaseController
                         $buttons[$key]['sub_button'][$k]['key'] = 'test';
                     }
                 }
+            }else{
+                $buttons[$key] = [
+                    'type'  =>  $menu->type,
+                    "name"  =>  $menu->name,
+                ];
+
+                if($menu->type=='view'){
+                    $buttons[$key]['url'] = $menu->content;
+                }elseif($menu->type=='click'){
+
+                    $buttons[$key]['key'] = 'test';
+                }
             }
         }
-
         $res = $this->wechatApp->menu->add($buttons);
         if($res->errcode==0){
             flash()->success('推送成功');

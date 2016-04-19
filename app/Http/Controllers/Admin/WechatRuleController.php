@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\KeywordRule;
+use App\Reply;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -26,6 +27,12 @@ class WechatRuleController extends BaseController
 
         return view('admin.reply.ruleIndex',compact('rules'));
     }
+
+    public function create()
+    {
+        return view('admin.reply.create-rule');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -95,6 +102,8 @@ class WechatRuleController extends BaseController
     public function edit($id)
     {
         //
+        $reply = Reply::with('keywords','replies')->find($id);
+        return view('admin.reply.edit-rule',compact('reply'));
     }
 
     /**

@@ -16,7 +16,7 @@ class ApiController extends Controller
     //此接口不提供
     public function getKeywordRules()
     {
-        $rules = KeywordRule::with('keywords','replies')->where('wechat_id',$this->wechat->id)->paginate(10);
+        $rules = KeywordRule::with('keywords','replies')->where('wechat_id',1)->paginate(10);
         //dd($rules);
         foreach($rules as $rule){
             //dd($rule);
@@ -52,26 +52,111 @@ class ApiController extends Controller
         $keywords  = $request->input('keywords');
         $replies   = $request->input('replies');
         //添加规则
-        $rule = KeywordRule::FirstOrCreate([
+        $rule = KeywordRule::firstOrCreate([
             'rule_name'     => $rule_name,
             'wechat_id'     => $wechat_id
         ]);
-        //反序列化关键词列表
-        //$keywords = unserialize($keywords);
-        $keywords = [
-            [
-                'keyword'        => 'test',
-                'match_type'     => 1
-            ],
-            [
-                'keyword'        => 'test2',
-                'match_type'     => 1
-            ],
-            [
-                'keyword'        => 'test3',
-                'match_type'     => 2
-            ],
-        ];
+        //关键词列表
+        $keywords = json_decode($keywords);
+//        $keywords = [
+//            [
+//                'keyword'        => 'test',
+//                'match_type'     => 1
+//            ],
+//            [
+//                'keyword'        => 'test2',
+//                'match_type'     => 1
+//            ],
+//            [
+//                'keyword'        => 'test3',
+//                'match_type'     => 2
+//            ],
+//        ];
+
+        $kws = [];
+        foreach($keywords as $key=>$keyword){
+            $kws[] = new Keyword([
+                'keyword'        => $keyword['keyword'],
+                'match_type'     => $keyword['match_type']
+            ]);
+        }
+        //dd(serialize($keywords));
+        //删除原有关键词
+        //Keyword::where('keyword_rule_id',$rule->id)->delete();
+        //添加关键词
+        $rule->keywords()->saveMany($kws);
+
+        //添加回复
+        $replies = json_decode($replies);
+//        $replies = [
+//            [
+//                'message_type'        => 'text',
+//                'content'             => '这是文本回复1'
+//            ],
+//            [
+//                'message_type'        => 'text',
+//                'content'             => '这是文本回复2'
+//            ],
+//            [
+//                'message_type'        => 'news',
+//                'content_id'          => 2
+//            ],
+//        ];
+
+        $rps = [];
+        foreach($replies as $key=>$reply){
+            if($reply['message_type']=='text'){
+                $text = WechatText::firstOrCreate([
+                    'body'  => $reply['content']
+                ]);
+                $reply['content_id'] = $text->id;
+            }
+            $rps[] = new Reply([
+                'message_type'           => $reply['message_type'],
+                'content_id'             => $reply['content_id']
+            ]);
+        }
+
+        //删除原有回复
+        //Reply::where('keyword_rule_id',$rule->id)->delete();
+        $rule->replies()->saveMany($rps);
+        if($rule->id){
+            $rule = $this->_getRuleMedias($rule->id);
+            $result = ['status'=>200,'msg'=>'添加成功','data'=>$rule];
+        }else{
+            $result = ['status'=>201,'msg'=>'添加失败'];
+        }
+        return response()->json($result);
+    }
+
+    //更新规则
+    public function postUpdateRule(Request $request)
+    {
+        $rule_id   = $request->input('rule_id');
+        $rule_name = $request->input('rule_name');
+        $wechat_id = $request->input('wechat_id');
+        $keywords  = $request->input('keywords');
+        $replies   = $request->input('replies');
+        //更新规则
+        $rule = KeywordRule::find($rule_id);
+        $rule->rule_name = $rule_name;
+        $rule->save();
+        //关键词列表
+        //$keywords = json_decode($keywords);
+//        $keywords = [
+//            [
+//                'keyword'        => 'test',
+//                'match_type'     => 1
+//            ],
+//            [
+//                'keyword'        => 'test2',
+//                'match_type'     => 1
+//            ],
+//            [
+//                'keyword'        => 'test3',
+//                'match_type'     => 2
+//            ],
+//        ];
         $kws = [];
         foreach($keywords as $key=>$keyword){
             $kws[] = new Keyword([
@@ -85,24 +170,25 @@ class ApiController extends Controller
         $rule->keywords()->saveMany($kws);
 
         //添加回复
-        $replies = [
-            [
-                'message_type'        => 'text',
-                'content'             => '这是文本回复1'
-            ],
-            [
-                'message_type'        => 'text',
-                'content'             => '这是文本回复2'
-            ],
-            [
-                'message_type'        => 'news',
-                'content_id'          => 2
-            ],
-        ];
+//        $replies = json_decode($replies);
+//        $replies = [
+//            [
+//                'message_type'        => 'text',
+//                'content'             => '这是文本回复1'
+//            ],
+//            [
+//                'message_type'        => 'text',
+//                'content'             => '这是文本回复2'
+//            ],
+//            [
+//                'message_type'        => 'news',
+//                'content_id'          => 2
+//            ],
+//        ];
         $rps = [];
         foreach($replies as $key=>$reply){
             if($reply['message_type']=='text'){
-                $text = WechatText::FirstOrCreate([
+                $text = WechatText::firstOrCreate([
                     'body'  => $reply['content']
                 ]);
                 $reply['content_id'] = $text->id;
@@ -117,19 +203,12 @@ class ApiController extends Controller
         Reply::where('keyword_rule_id',$rule->id)->delete();
         $rule->replies()->saveMany($rps);
         if($rule->id){
-
             $rule = $this->_getRuleMedias($rule->id);
-            $result = ['status'=>200,'msg'=>'添加成功','data'=>$rule];
+            $result = ['status'=>200,'msg'=>'更新成功','data'=>$rule];
         }else{
-            $result = ['status'=>201,'msg'=>'添加失败'];
+            $result = ['status'=>201,'msg'=>'更新失败'];
         }
         return response()->json($result);
-    }
-
-    //更新规则
-    public function postUpdateRule(Request $request)
-    {
-
     }
 
     //删除规则

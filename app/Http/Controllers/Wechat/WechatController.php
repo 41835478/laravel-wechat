@@ -9,7 +9,9 @@ use App\Keyword;
 use App\Reply;
 use App\Wechat;
 use App\WechatNews;
+use App\WechatText;
 use EasyWeChat\Foundation\Application;
+use EasyWeChat\Message\Article;
 use EasyWeChat\Message\Text;
 use Guzzle\Common\Collection;
 
@@ -109,25 +111,28 @@ class WechatController extends WechatBaseController{
         }])->where('keyword','like',"$message->Content")->first();
 
         //查询对应回复   一对多
-        $replies = $keyword->keywordRule->reply;
-
-        foreach ($replies as $key => $reply) {
-            //dd($reply);
-            //dd($reply->text);
-            $contents[$key] = $reply->{$reply->reply_type};
-            $contents[$key]['reply_type'] = $reply->reply_type;
-        }
+        $replies = $keyword->keywordRule->replies;
+        dd($replies);
+//        foreach ($replies as $key => $reply) {
+//            $contents[$key] = $reply->{$reply->reply_type};
+//            $contents[$key]['reply_type'] = $reply->reply_type;
+//        }
         //
         //dd($contents);
         //取随机数
         $num = mt_rand(0,count($replies)-1);
 
-        $content = $contents[$num];
+        $content = $replies[$num];
 
-        switch($content['reply_type'])
+        switch($content['message_type'])
         {
             case 'text':
-                dd($content);
+                //查询text
+                $rep = WechatText::find($content['content_id']);
+                $text = new Text();
+                $text->content = $rep->body;
+
+                return $text;
                 break;
             case 'image':
             case 'voice':
@@ -141,15 +146,14 @@ class WechatController extends WechatBaseController{
             case 'news':
                 //查询内容
                 $news = WechatNews::find($content->content);
-                $text = new Text();
-                $text->content = $reply->text->content;
+                $res = new News([
+                    'title'         => $news->title,
+                    'image'         => $news->pic_url,
+                    'description'   => $news->description,
+                    'url'           => $news->news_url
+                ]);
 
-                return $text;
-//                return Message::make('news')->items(function() use ($news){
-//                    return array(
-//                        Message::make('news_item')->title($news->title)->url($news->news_url)->picUrl($news->cover),
-//                    );
-//                });
+                return $res;
                 break;
         }
     }

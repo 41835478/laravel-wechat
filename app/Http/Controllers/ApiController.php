@@ -134,7 +134,6 @@ class ApiController extends Controller
     {
         $rule_id   = $request->input('rule_id');
         $rule_name = $request->input('rule_name');
-        $wechat_id = $request->input('wechat_id');
         $keywords  = $request->input('keywords');
         $replies   = $request->input('replies');
         //更新规则
@@ -220,7 +219,14 @@ class ApiController extends Controller
     //获取图文列表
     public function getNewsLists(Request $request)
     {
-
+        $last_id = $request->input('last_id');
+        $wechat_id = $request->input('wechat_id');
+        $query = WechatNews::where('wechat_id',$wechat_id);
+        if($last_id){
+            $query->where('id','>',$last_id);
+        }
+        $news = $query->take(10)->get();
+        return response()->json($news);
     }
 
     //获取规则下图文内容

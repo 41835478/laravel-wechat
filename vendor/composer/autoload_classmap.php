@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddFieldsToUsersTable' => $baseDir . '/database/migrations/2015_04_10_104759_add_fields_to_users_table.php',
     'AddFieldsToUsersTalbe' => $baseDir . '/database/migrations/2015_03_20_212614_add_fields_to_users_talbe.php',
+    'AddForeignKeyToKeywordsTable' => $baseDir . '/database/migrations/2016_04_19_080229_add_foreign_key_to_keywords_table.php',
+    'AddForeignKeyToRepliesTable' => $baseDir . '/database/migrations/2016_04_19_075947_add_foreign_key_to_replies_table.php',
     'CreateAwardsTable' => $baseDir . '/database/migrations/2015_06_08_105300_create_awards_table.php',
     'CreateCoversTable' => $baseDir . '/database/migrations/2015_04_15_152626_create_covers_table.php',
     'CreateEventsTable' => $baseDir . '/database/migrations/2015_06_08_105212_create_events_table.php',

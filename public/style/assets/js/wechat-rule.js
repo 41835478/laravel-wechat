@@ -1,9 +1,3 @@
-var ue = UE.getEditor('container', {
-  toolbars: [
-      ['fullscreen', 'source', 'undo', 'redo'],
-      ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
-  ]
-});
 var result = [];
 $('.tag-input').on('keyup', 'input', function(e){
   if(e.keyCode == 13){
@@ -30,43 +24,21 @@ $('.tag-input').on('click', 'span', function(e){
   $this.remove();
 });
 
-$('#ruleSave').click(function(){
-  var ruleName = $('#ruleModal [name=ruleName]').val();
-  var keyName = result;
-  var text = $('#ruleModal textarea.text').val();
-  var keywords_TPL = $('#ruleModal .keywords span');
-  var keywords = [];
-  keywords_TPL.each(function(){
-    keywords.push($(this).text());
-  });
-  var reply_all = $('#ruleModal').find('[name=reply_all]').prop('checked');
-  var richText = ue.getContent();
-  var data = {
-    name: ruleName,
-    keywords: keywords,
-    text: text,
-    reply_all: reply_all,
-    richText: richText
-  }
-  console.log(data);
-});
+//  增加 输入框
 
-$('.dialog-rule-edit').on('show.bs.modal', function (event) {
-  var modal = $(this);
-  var button = $(event.relatedTarget) 
-  var data = button.data('rule');
-  var name = data && data.name || '';
-  var keywords = data && data.keywords || [];
-  var text = data && data.text || '';
-  var reply_all = data && data.reply_all || false;
-  var richText = data && data.richText || '';
-  var keywords_TPL = '';
-  for(var i = 0; i < keywords.length; i++){
-    keywords_TPL += '<span>' + keywords[i] + '</span>';
-  }       
-  modal.find('[name=ruleName]').val(name);
-  modal.find('.keywords').html(keywords_TPL);
-  modal.find('textarea.text').val(text);   
-  modal.find('[name=reply_all]').prop('checked', reply_all);   
-  ue.setContent(richText); 
+$('.m-mutiple-text').on('click', '.btn-add', function(){
+  var $this = $(this);
+  var $parent = $this.closest('.m-mutiple-text');
+  var tpl = $('#inputText').html();
+  $parent.append(tpl);
+  $parent.find('.btn-add').hide();
+  $parent.find('.btn-del').show();
+})
+
+// 图文消息
+
+$('.media').on('click', function(){
+  var $checkbox = $(this).find('input[type=checkbox]');
+  var flag = $checkbox.prop('checked');
+  $checkbox.prop('checked', !flag);
 });

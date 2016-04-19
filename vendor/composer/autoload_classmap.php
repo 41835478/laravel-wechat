@@ -31,6 +31,7 @@ return array(
     'CreateWechatNewsTable' => $baseDir . '/database/migrations/2015_07_25_111238_create_wechat_news_table.php',
     'CreateWechatServicesTable' => $baseDir . '/database/migrations/2016_04_17_013832_create_wechat_services_table.php',
     'CreateWechatStaffsTable' => $baseDir . '/database/migrations/2016_04_17_072159_create_wechat_staffs_table.php',
+    'CreateWechatTextsTable' => $baseDir . '/database/migrations/2016_04_18_161449_create_wechat_texts_table.php',
     'CreateWechatsTable' => $baseDir . '/database/migrations/2015_06_18_163635_create_wechats_table.php',
     'CreateWinnersTable' => $baseDir . '/database/migrations/2015_06_08_105358_create_winners_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

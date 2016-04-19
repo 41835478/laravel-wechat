@@ -292,7 +292,13 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::resource('wechat-staff', 'WechatStaffController',['names'=>['index'=>'admin.wechat-staff']]);
     Route::resource('wechat-news', 'WechatNewsController',['names'=>['index'=>'admin.wechat-news']]);
 
+
 });
+
+
+//接口
+Route::Controller('api', 'ApiController');
+
 
 /*文件上传*/
 Route::post('upload',[

@@ -51,15 +51,22 @@ class WechatMenuController extends WechatBaseController
         $data['wechat_id'] = $this->wechat->id;
         if(isset($data['menu_id'])){
             $limit = 5;
-            $level = 2;
+            $level = '二';
+            $count = WechatMenu::where('wechat_id',$this->wechat->id)
+                                ->where('level',2)
+                                ->where('menu_id',$data['menu_id'])
+                                ->count();
         }else{
             $limit = 3;
-            $level = 1;
+            $level = '一';
+            $count = WechatMenu::where('wechat_id',$this->wechat->id)
+                                ->where('level',1)
+                                ->where('menu_id',0)
+                                ->count();
         }
-        //dd($data);
-        $count = WechatMenu::where('wechat_id',$this->wechat->id)->where('level',$level)->count();
+
         if($count>=$limit){
-            flash()->error('一级菜单不能超过三个~');
+            flash()->error($level.'级菜单不能超过'.$limit.'个~');
         }else{
             $result = WechatMenu::create($data);
             if($result) {

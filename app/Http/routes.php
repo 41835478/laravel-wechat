@@ -59,7 +59,7 @@ Route::group(['namespace' => 'Wechat'],function(){
     ]);
 
     //授权
-    Route::match(['get','post'],'wechat/{wechatId}/webAuth/','WechatController@webAuthorization');
+    Route::match(['get','post'],'wechat/{wechatId}/webAuth','WechatController@webAuthorization');
 
 });
 

@@ -199,7 +199,7 @@ class WechatController extends WechatBaseController{
              */
             'oauth' => [
                 'scopes'   => ['snsapi_userinfo'],
-                'callback' => '/examples/oauth_callback.php',
+                'callback' => url('wechat/'.$wechatId.'/webAuth'),
             ],
 
             /**
@@ -225,10 +225,14 @@ class WechatController extends WechatBaseController{
     //微信网页授权
     public function webAuthorization($wechatId)
     {
+        //判断是否授权
+        if(Auth::check()){
 
-        $wechatApp = $this->instanceWechatServer($wechatId);
-        $auth = $wechatApp->oauth;
-        $response = $auth->scopes(['snsapi_userinfo'])->redirect();
-        return $response;
+        }else{
+            $wechatApp = $this->instanceWechatServer($wechatId);
+            $auth = $wechatApp->oauth;
+            $response = $auth->scopes(['snsapi_userinfo'])->redirect();
+            return $response;
+        }
     }
 }

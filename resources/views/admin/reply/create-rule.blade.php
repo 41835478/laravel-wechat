@@ -183,4 +183,5 @@
 @stop
 @section('script')
     {!! Html::script('style/assets/js/vue.js') !!}
+    {!! Html::script('style/assets/js/wechat-rule-create.js') !!}
 @stop

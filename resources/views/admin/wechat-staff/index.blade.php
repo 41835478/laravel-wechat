@@ -107,12 +107,12 @@
                             编辑
                         </a>
 
-                        @if(!isset($item['kf_wx']) && !isset($item['invite_wx'])))
+                        @if(!isset($item['kf_wx']) && !isset($item['invite_wx']))
                         <a href="javascript:;" data-account="{{ $item['kf_account'] }}" class="btn btn-danger btn-sm btn-icon icon-left invite">
                             邀请
                         </a>
                         @endif
-                        <a href="#" data-account="{{ $item['kf_account'] }}" class="btn btn-secondary btn-sm btn-icon icon-left upload">
+                        <a href="javascript:;" data-account="{{ $item['kf_account'] }}" class="btn btn-secondary btn-sm btn-icon icon-left upload">
                             头像
                         </a>
                         {!! Form::open(['route'=>['admin.wechat-staff.destroy',$item['kf_account']],'role'=>'form','class'=>'form-horizontal','method'=>'delete','style'=>'display:inline']) !!}
@@ -219,9 +219,9 @@
         var kf_account = '';
         $('.upload').click(function(){
             var obj = $(this);
-            showAjaxModal(obj);
+            showAvatarModal(obj);
         });
-        function showAjaxModal(obj)
+        function showAvatarModal(obj)
         {
             jQuery('#upload').modal('show');
             kf_account = obj.data('account') || '';

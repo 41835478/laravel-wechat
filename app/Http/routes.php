@@ -59,7 +59,13 @@ Route::group(['namespace' => 'Wechat'],function(){
     ]);
 
     //授权
-    Route::match(['get','post'],'wechat/{wechatId}/webAuth','WechatController@webAuthorization');
+    Route::get('wechat/{wechatId}/webAuth',[
+        'as'=>'wechat.auth','uses'=>'WechatController@webAuthorization'
+    ]);
+    //回调
+    Route::get('wechat/{wechatId}/callback',[
+        'as'=>'wechat.callback','uses'=>'WechatController@webCallBack'
+    ]);
 
 });
 

@@ -53,23 +53,20 @@ class WechatController extends WechatBaseController{
 
                     case 'CLICK':
 
-                        $text = new Text();
-                        $text->content = '这是自定义点击事件';
-
-                        return $text;
+                        return $this->reply($message);
 
                         break;
 
-                    case 'VIEW':
-
-                        $text = new Text();
-                        $text->content = '这是自定义VIEW事件';
-
-                        return $text;
-
-                        break;
+//                    case 'VIEW':
+//
+//                        $text = new Text();
+//                        $text->content = '这是自定义VIEW事件';
+//
+//                        return $text;
+//
+//                        break;
                     default:
-                        # code...
+                        return '';
                         break;
                 }
             }elseif($message->MsgType == 'text'){
@@ -78,7 +75,7 @@ class WechatController extends WechatBaseController{
                     return new \EasyWeChat\Message\Transfer();
                 }else{
                     //关键字自动回复处理
-                    $this->reply($message);
+                    return $this->reply($message);
                 }
 
             }
@@ -106,13 +103,18 @@ class WechatController extends WechatBaseController{
         $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();
 
         //查询关键字,预载入关键字规则
+        if($message->MsgType=='event' && $message->Event=='CLICK'){
+            $keyword = $message->EventKey;
+        }else{
+            $keyword = $message->Content;
+        }
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
             $query->where('wechat_id','=',$wechat->id);
-        }])->where('keyword','like',"$message->Content")->first();
+        }])->where('keyword','like',"$keyword")->first();
 
         //查询对应回复   一对多
         $replies = $keyword->keywordRule->replies;
-        dd($replies);
+        //dd($replies);
 //        foreach ($replies as $key => $reply) {
 //            $contents[$key] = $reply->{$reply->reply_type};
 //            $contents[$key]['reply_type'] = $reply->reply_type;
@@ -199,7 +201,7 @@ class WechatController extends WechatBaseController{
              */
             'oauth' => [
                 'scopes'   => ['snsapi_userinfo'],
-                'callback' => url('wechat/'.$wechatId.'/webAuth'),
+                'callback' => route('wechat.callback',$wechatId),
             ],
 
             /**
@@ -229,10 +231,21 @@ class WechatController extends WechatBaseController{
         if(Auth::check()){
 
         }else{
+
             $wechatApp = $this->instanceWechatServer($wechatId);
             $auth = $wechatApp->oauth;
             $response = $auth->scopes(['snsapi_userinfo'])->redirect();
             return $response;
+
         }
+    }
+
+    //微信授权回调页
+    public function webCallBack($wechatId)
+    {
+        $wechatApp = $this->instanceWechatServer($wechatId);
+        $oauth = $wechatApp->oauth;
+        $user = $oauth->user();
+        dd($user);
     }
 }

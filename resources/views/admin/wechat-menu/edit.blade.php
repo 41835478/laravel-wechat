@@ -93,14 +93,18 @@
 
                     <div class="form-group-separator"></div>
 
-                    <div class="new-form">
+                    <div class="form-group new-form">
                         @if($wechat_menu->type=='view')
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="content">排序</label>
+                            <label class="col-sm-2 control-label" for="content">页面地址</label>
 
-                                <div class="col-sm-10">
-                                    <input type="text" name="content" value="{{ $wechat_menu->content }}" class="form-control" id="content" placeholder="页面地址">
-                                </div>
+                            <div class="col-sm-10">
+                                <input type="text" name="content" value="{{ $wechat_menu->content }}" class="form-control" id="content" placeholder="页面地址">
+                            </div>
+                        @elseif($wechat_menu->type=='click')
+                            <label class="col-sm-2 control-label" for="content">KEY</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" name="key" value="{{ $wechat_menu->key }}" class="form-control" id="key" placeholder="KEY">
                             </div>
                         @endif
                     </div>
@@ -134,16 +138,17 @@
             var content = '';
             if (this.value=='click'){
 
-
+                content += '<label class="col-sm-2 control-label" for="key">KEY</label>';
+                content += '<div class="col-sm-10">';
+                content += '<input type="text" name="key" @if($wechat_menu->type=='click') value="{{ $wechat_menu->key }}" @endif class="form-control" id="key" placeholder="KEY">';
+                content += '</div>';
                 new_form.html(content);
 
             }else if(this.value=='view')
             {
-                content += '<div class="form-group">';
                 content += '<label class="col-sm-2 control-label" for="content">页面地址</label>';
                 content += '<div class="col-sm-10">';
                 content += '<input type="text" name="content" @if($wechat_menu->type=='view') value="{{ $wechat_menu->content }}" @endif class="form-control" id="content" placeholder="页面地址">';
-                content += '</div>';
                 content += '</div>';
 
                 new_form.html(content);

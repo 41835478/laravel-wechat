@@ -67,6 +67,14 @@ Route::group(['namespace' => 'Wechat'],function(){
         'as'=>'wechat.callback','uses'=>'WechatController@webCallBack'
     ]);
 
+    //第三方授权
+    Route::get('wechat/{wechatId}/thirdAuth',[
+        'as'=>'wechat.thirdAuth','uses'=>'WechatController@thirdPartyAuthorization'
+    ]);
+    //第三方回调
+    Route::get('wechat/{wechatId}/thirdCallback',[
+        'as'=>'wechat.thirdCallback','uses'=>'WechatController@thirdCallback'
+    ]);
 });
 
 

@@ -32,5 +32,7 @@ class Kernel extends HttpKernel
         'access' => \App\Http\Middleware\AccessControl::class,
         'apiauth' => \App\Http\Middleware\ApiAuthenticate::class,
         'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
+        //新增微信授权中间件
+        'wechat'  =>  \App\Http\Middleware\WechatMiddleware::class,
     ];
 }

@@ -92,7 +92,12 @@
 
                     <div class="form-group-separator"></div>
 
-                    <div class="new-form">
+                    <div class="form-group new-form">
+                        <label class="col-sm-2 control-label" for="key">KEY</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="key" class="form-control" id="key" placeholder="KEY(关键词)">
+                        </div>
                     </div>
 
                     <div class="form-group-separator"></div>
@@ -124,16 +129,18 @@
             var content = '';
             if (this.value=='click'){
 
+                content += '<label class="col-sm-2 control-label" for="key">KEY</label>';
+                content += '<div class="col-sm-10">';
+                content += '<input type="text" name="key" class="form-control" id="key" placeholder="KEY">';
+                content += '</div>';
 
                 new_form.html(content);
 
             }else if(this.value=='view')
             {
-                content += '<div class="form-group">';
                 content += '<label class="col-sm-2 control-label" for="content">页面地址</label>';
                 content += '<div class="col-sm-10">';
                 content += '<input type="text" name="content" class="form-control" id="content" placeholder="页面地址">';
-                content += '</div>';
                 content += '</div>';
 
                 new_form.html(content);

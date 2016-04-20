@@ -14,6 +14,7 @@ use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\Article;
 use EasyWeChat\Message\Text;
 use Guzzle\Common\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -225,27 +226,51 @@ class WechatController extends WechatBaseController{
 
 
     //微信网页授权
-    public function webAuthorization($wechatId)
+    public function webAuthorization(Request $request,$wechatId)
     {
         //判断是否授权
-        if(Auth::check()){
-
+        if($request->session()->get('wechat_id', '0')==$wechatId && $request->session()->get('wechat_user', '')!=''){
+           //跳转到业务页
+            $target_url = $request->session()->put('target_url',$request->url());
+            return redirect($target_url);
         }else{
-
+            //进行授权
             $wechatApp = $this->instanceWechatServer($wechatId);
             $auth = $wechatApp->oauth;
             $response = $auth->scopes(['snsapi_userinfo'])->redirect();
             return $response;
-
         }
     }
 
     //微信授权回调页
-    public function webCallBack($wechatId)
+    public function webCallBack(Request $request,$wechatId)
     {
         $wechatApp = $this->instanceWechatServer($wechatId);
         $oauth = $wechatApp->oauth;
         $user = $oauth->user();
-        dd($user);
+        $request->session()->put('wechat_id',$wechatId);
+        $request->session()->put('wechat_user',$user);
+        //var_dump($request->session()->all());
+        //$request->session()->flush();
+        //跳转到业务页
+        // todo
+        return redirect($request->session()->get('target_url'));
+    }
+
+    /*
+     * 第三方授权
+     * 接受第三方的重定向url redirect
+     * 拉取授权后将用户信息拼接到第三方redirect上
+     * 重定向到redirect
+     *
+     * */
+    public function thirdPartyAuthorization(Request $request,$wechatId)
+    {
+        $third_url = $request->input('redirect');
+        //进行授权
+        $wechatApp = $this->instanceWechatServer($wechatId);
+        $auth = $wechatApp->oauth;
+        $response = $auth->scopes(['snsapi_userinfo'])->redirect();
+        return $response;
     }
 }

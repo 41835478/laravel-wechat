@@ -117,7 +117,7 @@ class ApiController extends Controller
                 ]);
                 $reply['content_id'] = $text->id;
             }
-            $has = Keyword::where('keyword_rule_id',$rule->id)
+            $has = Reply::where('keyword_rule_id',$rule->id)
                             ->where('message_type',$reply['message_type'])
                             ->where('content_id',$reply['content_id'])
                             ->first();
@@ -162,8 +162,7 @@ class ApiController extends Controller
             if(empty($has)){
                 $kws[] = new Keyword([
                     'keyword'        => $keyword['keyword'],
-                    'match_type'     => $keyword['match_type'],
-                    'wechat_id'      => $wechat_id
+                    'match_type'     => $keyword['match_type']
                 ]);
             }
         }
@@ -181,7 +180,7 @@ class ApiController extends Controller
                 ]);
                 $reply['content_id'] = $text->id;
             }
-            $has = Keyword::where('keyword_rule_id',$rule->id)
+            $has = Reply::where('keyword_rule_id',$rule->id)
                 ->where('message_type',$reply['message_type'])
                 ->where('content_id',$reply['content_id'])
                 ->first();
@@ -189,8 +188,7 @@ class ApiController extends Controller
             if(empty($has)){
                 $rps[] = new Reply([
                     'message_type'           => $reply['message_type'],
-                    'content_id'             => $reply['content_id'],
-                    'wechat_id'              => $wechat_id
+                    'content_id'             => $reply['content_id']
                 ]);
             }
 

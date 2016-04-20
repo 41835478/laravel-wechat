@@ -14,13 +14,13 @@ use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\Article;
 use EasyWeChat\Message\Text;
 use Guzzle\Common\Collection;
+use Illuminate\Support\Facades\Auth;
 
 /*
  * 微信交互控制器
  *
  * */
 class WechatController extends WechatBaseController{
-
 
     public function __construct()
     {
@@ -78,7 +78,7 @@ class WechatController extends WechatBaseController{
                     return new \EasyWeChat\Message\Transfer();
                 }else{
                     //关键字自动回复处理
-
+                    $this->reply($message);
                 }
 
             }
@@ -95,10 +95,10 @@ class WechatController extends WechatBaseController{
          * 监听事件类型
          * 关注事件回复
          * */
-        $message = (object)[
-            'Content'=>'test',
-            'ToUserName'=>'gh_68f0112f08be'
-        ];
+//        $message = (object)[
+//            'Content'=>'test',
+//            'ToUserName'=>'gh_68f0112f08be'
+//        ];
         //$message=collect($arr);
         //dd($arr->Content);
         //获取公众号信息
@@ -156,16 +156,6 @@ class WechatController extends WechatBaseController{
                 return $res;
                 break;
         }
-    }
-
-    /*
-     * 获取回复消息对象
-     * 关注回复、关键字回复、自定义菜单等。
-     * */
-    public function getMessageObject()
-    {
-         //return $message;
-        return 'text';
     }
 
     public function instanceWechatServer($wechatId)
@@ -231,4 +221,14 @@ class WechatController extends WechatBaseController{
 
     }
 
+
+    //微信网页授权
+    public function webAuthorization($wechatId)
+    {
+
+        $wechatApp = $this->instanceWechatServer($wechatId);
+        $auth = $wechatApp->oauth;
+        $response = $auth->scopes(['snsapi_userinfo'])->redirect();
+        return $response;
+    }
 }

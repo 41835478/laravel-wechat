@@ -57,6 +57,10 @@ Route::group(['namespace' => 'Wechat'],function(){
     Route::post('reply/{message}',[
         'as'=>'reply','uses'=>'WechatController@reply'
     ]);
+
+    //授权
+    Route::match(['get','post'],'wechat/{wechatId}/webAuth/','WechatController@webAuthorization');
+
 });
 
 
@@ -252,6 +256,12 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     ]);
     Route::post('wechat-reply/rule/createOrEdit',[
         'as'=>'admin.wechat-reply.rule-createOrEdit','uses'=>'WechatRuleController@createOrEdit'
+    ]);
+    Route::get('wechat-rule/create',[
+        'as'=>'admin.wechat-reply.rule-create','uses'=>'WechatRuleController@create'
+    ]);
+    Route::get('wechat-rule/{rule_id}/edit',[
+        'as'=>'admin.wechat-reply.rule-edit','uses'=>'WechatRuleController@edit'
     ]);
     Route::post('wechat-reply/rule/store',[
         'as'=>'admin.wechat-reply.rule-store','uses'=>'WechatRuleController@store'

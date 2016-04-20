@@ -96,12 +96,12 @@
         </thead>
         
         <tbody class="middle-align">
-            @foreach($rules as $item)
+
             <tr>
-                <td>{{ $item->rule_name }}</td>
+                <td>默认规则名</td>
                 <td>
                     <button 
-                      data-ruleid="{{ $item->id }}" 
+                      data-ruleid="1"
                       data-toggle="modal" 
                       data-target="#ruleModal"
                       data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
@@ -113,11 +113,41 @@
                     </button>
                 </td>
             </tr>
-            @endforeach
-            
+            <tr>
+                <td>默认规则名</td>
+                <td>
+                    <button
+                            data-ruleid="1"
+                            data-toggle="modal"
+                            data-target="#ruleModal"
+                            data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
+                            class="btn btn-secondary btn-sm btn-icon icon-left">
+                        修改
+                    </button>
+                    <button class="btn btn-danger btn-sm btn-icon icon-left">
+                        删除
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>默认规则名</td>
+                <td>
+                    <button
+                            data-ruleid="1"
+                            data-toggle="modal"
+                            data-target="#ruleModal"
+                            data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
+                            class="btn btn-secondary btn-sm btn-icon icon-left">
+                        修改
+                    </button>
+                    <button class="btn btn-danger btn-sm btn-icon icon-left">
+                        删除
+                    </button>
+                </td>
+            </tr>
         </tbody>
     </table>
-    {!!$rules->render()!!}
+
   </div>
 </div>
 @section('other')

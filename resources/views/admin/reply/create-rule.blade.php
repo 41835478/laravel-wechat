@@ -159,7 +159,7 @@
           </div>          
           <div class="media-left">
             <a href="#">
-              <img class="media-object" :src="item.pic_url">
+              <img class="media-object" :src="item.news_url + '/' + item.pic_url">
             </a>
           </div>
           <div class="media-body">

@@ -11,6 +11,9 @@
  @endif
  @stop
 <style>
+  .pane-inner{
+    margin-top:5px;
+  }
   .tag-input {
     display: block;
     width: 100%;
@@ -66,170 +69,95 @@
     outline: none;
   }  
 </style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <a class="btn btn-primary" href="{{ route('admin.wechat-reply.subscribeCreate') }}">被添加自动回复</a>
+            <a class="btn btn-primary" href="javascript:;">消息自动回复</a>
+            <a class="btn btn-primary" href="{{ route('admin.wechat-reply.rule') }}">关键词自动回复</a>
+        </div>
+    </div>
+</div>
 <!-- Removing search and results count filter -->
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3>新建规则</h3>
+    <h3 class="panel-title">规则列表</h3>
+    <div class="panel-options">
+      <button class="btn btn-secondary" data-toggle="modal" data-target="#ruleModal">添加规则</button>
+    </div>
   </div>
   <div class="panel-body">
-    <div class="form-group">
-      <label>规则名称：</label>
-      <input type="text" class="form-control" name="name">
-    </div>
-    <div class="form-group">
-      <label>关键词列表：</label>
-      <div class="tag-input form-control">
-        <i class="keywords"></i>
-        <input type="text">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>文字消息：</label>
-      <div class="m-mutiple-text">
-        <div class="row">
-          <div class="col-xs-10">
-            <input class="text form-control" type="text" placeholder="请输入需要回复的文字">
-          </div>
-          <div class="col-xs-2">
-            <button class="btn btn-default btn-del">
-              <i class="fa fa-times"></i> 删除
-            </button>            
-            <button class="btn btn-default btn-add">
-              <i class="fa fa-plus"></i> 添加
-            </button>
-          </div>
-        </div>         
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="row">
-        <div class="col-xs-10">
-          <label>图文消息：</label>
-        </div>
-        <div class="col-xs-2">
-          <button class="btn btn-default btn-add" data-toggle="modal" data-target="#addRichText">
-            <i class="fa fa-plus"></i> 添加
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTQyZDFlOThiMCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NDJkMWU5OGIwIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading">Media heading</h4>
-            </div>
-            <div class="media-right">
-              <button type="button" class="btn btn-danger">删除</button>
-            </div>                               
-          </div>
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTQyZDFlOThiMCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NDJkMWU5OGIwIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading">Media heading</h4>
-            </div>
-            <div class="media-right">
-              <button type="button" class="btn btn-danger">删除</button>
-            </div>                               
-          </div>
-          <div class="media">
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTQyZDFlOThiMCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NDJkMWU5OGIwIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading">Media heading</h4>
-            </div>
-            <div class="media-right">
-              <button type="button" class="btn btn-danger">删除</button>
-            </div>                               
-          </div>                                        
-        </div>
-     
-      </div>
-    </div>           
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" name="reply_all"> 回复全部
-      </label>
-    </div>        
-    <div class="form-group">
-      <button class="btn btn-danger btn-danger btn-lg pull-right">创建</button>
-    </div>    
+    <table class="table table-bordered table-striped" id="example-2">
+        <thead>
+          <tr>
+            <th>规则名称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        
+        <tbody class="middle-align">
+            @foreach($rules as $item)
+            <tr>
+                <td>{{ $item->rule_name }}</td>
+                <td>
+                    <button 
+                      data-ruleid="{{ $item->id }}" 
+                      data-toggle="modal" 
+                      data-target="#ruleModal"
+                      data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
+                      class="btn btn-secondary btn-sm btn-icon icon-left">
+                      修改
+                    </button>
+                    <button class="btn btn-danger btn-sm btn-icon icon-left">
+                      删除
+                    </button>
+                </td>
+            </tr>
+            @endforeach
+            
+        </tbody>
+    </table>
+    {!!$rules->render()!!}
   </div>
 </div>
-<script id="inputText" type="x/template">
-  <div class="row">
-    <div class="col-xs-10">
-      <input class="text form-control" type="text" placeholder="请输入需要回复的文字">
-    </div>
-    <div class="col-xs-2">
-      <button class="btn btn-default btn-add">
-        <i class="fa fa-plus"></i> 添加
-      </button>
-    </div>
-  </div>  
-</script>
 @section('other')
-  <!-- 图文消息弹窗 -->
-  <div class="modal" id="addRichText">
+  <!-- 添加规则模版 -->
+  <div class="dialog-rule-edit modal fade" id="ruleModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span>&times;</span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" id="myModalLabel">选择图文消息</h4>
+          <h4 class="modal-title" id="myModalLabel">关键词规则</h4>
         </div>
         <div class="modal-body">
-          <div class="media">
-            <div class="media-left">
-              <input type="checkbox">
-            </div>             
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTQyZDFlOThiMCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NDJkMWU5OGIwIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
-              </a>
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">规则名称：</label>
+              <input type="text" class="form-control" name="ruleName">
             </div>
-            <div class="media-body">
-              <h4 class="media-heading">Media heading</h4>
-            </div>                  
-          </div>
-          <div class="media">
-            <div class="media-left">
-              <input type="checkbox">
-            </div>             
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTQyZDFlOThiMCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NDJkMWU5OGIwIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
-              </a>
+            <div class="form-group">
+              <label for="exampleInputPassword1">关键词列表：</label>
+              <div class="tag-input form-control">
+                <i class="keywords"></i>
+                <input type="text">
+              </div>
+            </div> 
+            <div class="form-group">
+              <label>文字消息：</label>
+              <textarea class="text form-control" placeholder="请输入需要回复的文字"></textarea>
             </div>
-            <div class="media-body">
-              <h4 class="media-heading">Media heading</h4>
-            </div>         
-          </div>
-          <div class="media">
-            <div class="media-left">
-              <input type="checkbox">
-            </div>             
-            <div class="media-left">
-              <a href="#">
-                <img class="media-object" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTQyZDFlOThiMCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NDJkMWU5OGIwIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 64px; height: 64px;">
-              </a>
+            <div class="form-group">
+              <label>图文消息：</label>
+              <script id="container" name="content" type="text/plain"></script>
             </div>
-            <div class="media-body">
-              <h4 class="media-heading">Media heading</h4>
-            </div>         
-          </div>           
+            <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="reply_all"> 回复全部
+                </label>
+            </div>            
+          </form>        
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -246,6 +174,8 @@
     {!! Html::style('style/assets/js/datatables/dataTables.bootstrap.css') !!}
 @stop
 @section('script')
+    {!! Html::script('style/assets/js/ueditor/ueditor.config.js') !!}
+    {!! Html::script('style/assets/js/ueditor/ueditor.all.js') !!}
     {!! Html::script('style/assets/js/datatables/js/jquery.dataTables.min.js') !!}
     {!! Html::script('style/assets/js/datatables/dataTables.bootstrap.js') !!}
     {!! Html::script('style/assets/js/datatables/yadcf/jquery.dataTables.yadcf.js') !!}

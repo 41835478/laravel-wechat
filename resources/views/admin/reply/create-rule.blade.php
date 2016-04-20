@@ -111,7 +111,7 @@
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{reply.title}}</h4>
+            <h4 class="media-heading">@{{reply.title}}</h4>
           </div>
           <div class="media-right">
             <button @click="delReply($index)">del</button>
@@ -163,7 +163,7 @@
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{item.title}}</h4>
+            <h4 class="media-heading">@{{item.title}}</h4>
           </div>                             
         </div>
       </div>

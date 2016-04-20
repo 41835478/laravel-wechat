@@ -40,7 +40,9 @@ var app = new Vue({
     },
     showaddNewsDialog: function() {
       var self = this;
-      $.getJSON('/api/news-lists', function(data) {
+      $.getJSON('/api/news-lists', {
+        wechat_id: '1'
+      }, function(data) {
         var tmpData = data.map(function(item) {
           item.checked = false;
           return item;

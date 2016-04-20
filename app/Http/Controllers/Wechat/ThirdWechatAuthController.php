@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\WechatUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,13 +25,23 @@ class ThirdWechatAuthController extends BaseController
      * */
     public function thirdPartyAuthorization(Request $request,$wechatId)
     {
-        $third_url = $request->input('redirect');
-        $request->session()->put('third_url',$third_url);
-        //进行授权
-        $wechatApp = $this->instanceWechatServer($wechatId);
-        $auth = $wechatApp->oauth;
-        $response = $auth->scopes(['snsapi_userinfo'])->redirect();
-        return $response;
+
+        //判断是否授权
+        if($request->session()->get('wechat_id', '0')==$wechatId && $request->session()->get('wechat_user', '')!=''){
+            //跳转到业务页
+            $third_url = $request->input('redirect');
+            $request->session()->put('third_url',$third_url);
+            $character = strstr($third_url,'?')?'&':'?';
+            $query = http_build_query($request->session()->get('wechat_user', ''));
+            $target_url = $third_url.$character.$query;
+            return redirect($target_url);
+        }else{
+            //进行授权
+            $wechatApp = $this->instanceWechatServer($wechatId);
+            $auth = $wechatApp->oauth;
+            $response = $auth->scopes(['snsapi_userinfo'])->redirect();
+            return $response;
+        }
     }
 
 
@@ -50,6 +61,13 @@ class ThirdWechatAuthController extends BaseController
             'country'       =>  $user->country,
             'headimgurl'    =>  $user->headimgurl
         ];
+
+        //用户信息入库
+        WechatUser::create($user_info);
+
+        $request->session()->put('wechat_id',$wechatId);
+        $request->session()->put('wechat_user',$user);
+
         $character = strstr($third_url,'?')?'&':'?';
         $query = http_build_query($user_info);
         $target_url = $third_url.$character.$query;

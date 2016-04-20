@@ -248,8 +248,10 @@ class WechatController extends WechatBaseController{
         $wechatApp = $this->instanceWechatServer($wechatId);
         $oauth = $wechatApp->oauth;
         $user = $oauth->user();
+
         $request->session()->put('wechat_id',$wechatId);
         $request->session()->put('wechat_user',$user);
+
         //var_dump($request->session()->all());
         //$request->session()->flush();
         //跳转到业务页

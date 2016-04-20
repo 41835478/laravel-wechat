@@ -18,6 +18,7 @@ class CreateKeywordsTable extends Migration {
             $table->string('keyword');
             $table->string('match_type');
             $table->integer('keyword_rule_id');
+			$table->integer('wechat_id')->index();
 			$table->timestamps();
 		});
 	}

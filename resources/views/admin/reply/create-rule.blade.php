@@ -101,7 +101,7 @@
             <input class="form-control" type="text" v-model="reply.content">
           </div>
           <div class="media-right">
-            <button @click="delReply($index)">del</button>
+            <button class="btn btn-link" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
           </div>
         </div>
         <div v-if="reply.message_type == 'news'" class="media">
@@ -114,10 +114,10 @@
             <h4 class="media-heading">@{{reply.title}}</h4>
           </div>
           <div class="media-right">
-            <button @click="delReply($index)">del</button>
+            <button class="btn btn-link" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
           </div>
         </div>       
-      </template>        
+      </template>
     </div>
     <div class="form-group-separator"></div> 
     <button class="btn btn-primary" @click="submitData">提交</button>           

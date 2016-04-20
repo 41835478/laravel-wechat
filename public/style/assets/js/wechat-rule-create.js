@@ -40,7 +40,7 @@ var app = new Vue({
     },
     showaddNewsDialog: function() {
       var self = this;
-      $.getJSON('news.json', function(data) {
+      $.getJSON('/api/news-lists', function(data) {
         var tmpData = data.map(function(item) {
           item.checked = false;
           return item;
@@ -74,7 +74,8 @@ var app = new Vue({
         }
         return obj;
       });
-      $.post({
+      $.ajax({
+        type: "POST",
         url: '/api/create-rule',
         data: data,
         dataType: 'json',

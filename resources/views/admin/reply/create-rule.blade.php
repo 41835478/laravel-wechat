@@ -23,7 +23,9 @@
       width: 10000px
   }
   .media-object {
-      display: block
+    display: block;
+    max-width: 100px;
+    height: auto;
   }
   .media-object.img-thumbnail {
       max-width: none

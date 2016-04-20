@@ -5,197 +5,175 @@
  @if (Session::has('flash_notification.message'))
      <div class="alert alert-{{ Session::get('flash_notification.level') }}">
          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-
          {{ Session::get('flash_notification.message') }}
      </div>
  @endif
  @stop
 <style>
-  .pane-inner{
-    margin-top:5px;
+  .media {
+      margin-top: 15px
   }
-  .tag-input {
-    display: block;
-    width: 100%;
-    height: 48px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  .media:first-child {
+      margin-top: 0
   }
-  .tag-input .keywords{
-    font-style: normal;
+  .media,.media-body {
+      overflow: hidden;
+      zoom:1}
+  .media-body {
+      width: 10000px
   }
-  .tag-input span{
-    text-align: center;
-    border-radius: 4px;
-    color:#fff;
-    background-color: #337ab7;
-    padding: 5px 15px 5px 10px;
-    margin-right:5px;
-    cursor: pointer;
-    position: relative;
+  .media-object {
+      display: block
   }
-  .tag-input span:hover{
-    color: #fff;
-    background-color: #286090;
+  .media-object.img-thumbnail {
+      max-width: none
   }
-  .tag-input span::after{
-    content: '\00d7';
-    position: absolute;
-    top: 2px;
-    right: 5px;
+  .media-right,.media>.pull-right {
+      padding-left: 10px
   }
-
-  .tag-input input{
-    border:none;
-    height: 34px;
-    padding: 2px 3px;
+  .media-left,.media>.pull-left {
+      padding-right: 10px
   }
-  .tag-input input:hover,
-  .tag-input input:active,
-  .tag-input input:focus {
-    border:none;
-    height: 34px;
-    padding: 2px 3px;
-    outline: none;
-  }  
+  .media-body,.media-left,.media-right {
+      display: table-cell;
+      vertical-align: top
+  }
+  .media-middle {
+      vertical-align: middle
+  }
+  .media-bottom {
+      vertical-align: bottom
+  }
+  .media-heading {
+      margin-top: 0;
+      margin-bottom: 5px
+  }
+  .media-list {
+      padding-left: 0;
+      list-style: none
+  }
 </style>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <a class="btn btn-primary" href="{{ route('admin.wechat-reply.subscribeCreate') }}">被添加自动回复</a>
-            <a class="btn btn-primary" href="javascript:;">消息自动回复</a>
-            <a class="btn btn-primary" href="{{ route('admin.wechat-reply.rule') }}">关键词自动回复</a>
-        </div>
-    </div>
-</div>
-<!-- Removing search and results count filter -->
-<div class="panel panel-default">
+<div id="app" class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">规则列表</h3>
-    <div class="panel-options">
-      <button class="btn btn-secondary" data-toggle="modal" data-target="#ruleModal">添加规则</button>
-    </div>
+    <h3 class="panel-title">添加规则</h3>
   </div>
   <div class="panel-body">
-    <table class="table table-bordered table-striped" id="example-2">
-        <thead>
-          <tr>
-            <th>规则名称</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        
-        <tbody class="middle-align">
-
-            <tr>
-                <td>默认规则名</td>
-                <td>
-                    <button 
-                      data-ruleid="1"
-                      data-toggle="modal" 
-                      data-target="#ruleModal"
-                      data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
-                      class="btn btn-secondary btn-sm btn-icon icon-left">
-                      修改
-                    </button>
-                    <button class="btn btn-danger btn-sm btn-icon icon-left">
-                      删除
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>默认规则名</td>
-                <td>
-                    <button
-                            data-ruleid="1"
-                            data-toggle="modal"
-                            data-target="#ruleModal"
-                            data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
-                            class="btn btn-secondary btn-sm btn-icon icon-left">
-                        修改
-                    </button>
-                    <button class="btn btn-danger btn-sm btn-icon icon-left">
-                        删除
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>默认规则名</td>
-                <td>
-                    <button
-                            data-ruleid="1"
-                            data-toggle="modal"
-                            data-target="#ruleModal"
-                            data-rule='{"name":"规则名称","keywords":["关键词列表","ab","cd"],"text":"文字信息", "reply_all":true, "richText": "<p><strong>图文消息</strong></p>"}'
-                            class="btn btn-secondary btn-sm btn-icon icon-left">
-                        修改
-                    </button>
-                    <button class="btn btn-danger btn-sm btn-icon icon-left">
-                        删除
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-  </div>
-</div>
-@section('other')
-  <!-- 添加规则模版 -->
-  <div class="dialog-rule-edit modal fade" id="ruleModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">关键词规则</h4>
+    <div class="form-group">
+      <label class=" control-label" for="name">规则名称:</label>
+      <div class="">
+          <input type="text" class="form-control" name="name" id="name" v-model="rule_name">
+      </div>
+    </div>
+    <div class="form-group-separator"></div>
+    <div class="form-group">
+      <label class=" control-label" for="name">关键字：</label>
+      <div class="media" v-for="key in keywords">
+        <div class="media-body">
+          <input class="form-control" type="text" v-model="key.keyword">            
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">规则名称：</label>
-              <input type="text" class="form-control" name="ruleName">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">关键词列表：</label>
-              <div class="tag-input form-control">
-                <i class="keywords"></i>
-                <input type="text">
-              </div>
-            </div> 
-            <div class="form-group">
-              <label>文字消息：</label>
-              <textarea class="text form-control" placeholder="请输入需要回复的文字"></textarea>
-            </div>
-            <div class="form-group">
-              <label>图文消息：</label>
-              <script id="container" name="content" type="text/plain"></script>
-            </div>
-            <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="reply_all"> 回复全部
-                </label>
-            </div>            
-          </form>        
+        <div class="media-right">
+          <label style="width:100px;">
+            <input 
+              type="checkbox" 
+              v-model="key.match_type"
+              v-bind:true-value="1"
+              v-bind:false-value="2">
+            全匹配
+          </label>            
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          <button id="ruleSave" type="button" class="btn btn-primary">保存</button>
+      </div>
+      <div class="media">
+        <div class="media-body">
+          <button class="btn btn-primary" @click="addKeyword">添加关键字</button>
         </div>
       </div>
     </div>
+    <div class="form-group-separator"></div>
+    <div class="form-group">
+      <label class="control-label" for="name">回复信息:</label>
+      <div>
+        <button class="btn btn-primary" @click="showAddTextDialog">添加文字消息</button>
+        <button class="btn btn-primary" @click="showaddNewsDialog">添加图文消息</button>
+      </div>
+      <template v-for="reply in replies">
+        <div v-if="reply.message_type == 'text'" class="media">
+          <div class="media-body">
+            <input class="form-control" type="text" v-model="reply.content">
+          </div>
+          <div class="media-right">
+            <button @click="delReply($index)">del</button>
+          </div>
+        </div>
+        <div v-if="reply.message_type == 'news'" class="media">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object" :src="reply.pic_url">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{reply.title}}</h4>
+          </div>
+          <div class="media-right">
+            <button @click="delReply($index)">del</button>
+          </div>
+        </div>       
+      </template>        
+    </div>
+    <div class="form-group-separator"></div> 
+    <button class="btn btn-primary" @click="submitData">提交</button>           
   </div>
+</div>
+@section('other')
+<!-- 添加回复文字 -->
+<div id="dialogText" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加回复文字</h4>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" @click="addText">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 选择素材 -->
+<div id="dialogNews" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">选择素材</h4>
+      </div>
+      <div class="modal-body">
+        <div class="media" v-for="item in news">
+          <div class="media-left">
+            <input type="checkbox" v-model="item.checked">
+          </div>          
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object" :src="item.pic_url">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{item.title}}</h4>
+          </div>                             
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" @click="addNews">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
 @stop
 
 
@@ -204,11 +182,5 @@
     {!! Html::style('style/assets/js/datatables/dataTables.bootstrap.css') !!}
 @stop
 @section('script')
-    {!! Html::script('style/assets/js/ueditor/ueditor.config.js') !!}
-    {!! Html::script('style/assets/js/ueditor/ueditor.all.js') !!}
-    {!! Html::script('style/assets/js/datatables/js/jquery.dataTables.min.js') !!}
-    {!! Html::script('style/assets/js/datatables/dataTables.bootstrap.js') !!}
-    {!! Html::script('style/assets/js/datatables/yadcf/jquery.dataTables.yadcf.js') !!}
-    {!! Html::script('style/assets/js/datatables/tabletools/dataTables.tableTools.min.js') !!}
-    {!! Html::script('style/assets/js/wechat-rule.js') !!}
+    {!! Html::script('style/assets/js/vue.js') !!}
 @stop

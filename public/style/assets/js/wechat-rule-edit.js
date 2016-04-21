@@ -69,8 +69,9 @@ var app = new Vue({
     submitData: function() {
       var self = this;
       var data = {};
+      data.rule_id = self.id;
       data.rule_name = self.rule_name;
-      data.wechat_id = "1";
+      data.wechat_id = self.wechat_id;
       data.keywords = self.keywords;
       data.replies = self.replies.map(function(item) {
         var obj = {};

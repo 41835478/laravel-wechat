@@ -46,8 +46,8 @@
          * footer
          * */
 
-        "footer_copy" => "2015",
-        "footer_theme" => "慕庄",
+        "footer_copy" => "2016",
+        "footer_theme" => "ttge.com",
         "footer_theme_by" => "theme by",
         "footer_theme_author" => "Mr .lv",
 

@@ -36,7 +36,7 @@ class CategoryRepository{
     }
 
     public function getCategoryByFid($fid=0){
-        return Menu::where('fid','=',$fid)->get();
+        return Menu::where('fid','=',$fid)->where('status',1)->orderBy('sort')->get();
     }
 
     public function getFidByCurrentName($name){

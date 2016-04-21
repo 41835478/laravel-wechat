@@ -15,9 +15,9 @@
                     {!! Html::image('style/assets/images/logo@2x.png',null,['width'=>'80']) !!}
                 </a>
                 
-                <a href="##" class="logo-collapsed">
-                    {!! Html::image('style/assets/images/user-2.png',null,['width'=>'40']) !!}
-                </a>
+                {{--<a href="##" class="logo-collapsed">--}}
+                    {{--{!! Html::image('style/assets/images/user-2.png',null,['width'=>'40']) !!}--}}
+                {{--</a>--}}
             </div>
             
             <!-- This will toggle the mobile menu and will be visible only on mobile devices -->

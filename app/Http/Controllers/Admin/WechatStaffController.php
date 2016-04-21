@@ -54,7 +54,8 @@ class WechatStaffController extends WechatBaseController
         //
         $data = $request->all();
         //dd($data);
-        $result = $this->staff->create($data['kf_account'],$data['nickname'],$data['password']);
+        $email = $data['kf_account']."@".$this->wechat->original_id;
+        $result = $this->staff->create($email,$data['nickname'],$data['password']);
         //dd($result);
         if($result->errcode==0){
             flash()->success('添加客服成功');
@@ -109,7 +110,8 @@ class WechatStaffController extends WechatBaseController
         $nickname   = $request->input('nickname');
         $password   = $request->input('password');
         //dd($request->all());
-        $result = $this->staff->update($kf_account, $nickname, $password);
+        $email = $kf_account."@".$this->wechat->original_id;
+        $result = $this->staff->update($email, $nickname, $password);
         if($result->errcode==0){
             flash()->success('添加客服成功');
         }else{

@@ -95,12 +95,10 @@ class WechatController extends WechatBaseController{
          * 关注事件回复
          * */
 //        $message = (object)[
-//            'Content'=>'测试',
+//            'Content'=>'123123123',
 //            'ToUserName'=>'gh_68f0112f08be',
 //            'MsgType'   => 'text'
 //        ];
-        //$message=collect($arr);
-        //dd($arr->Content);
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
         $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();
@@ -111,61 +109,14 @@ class WechatController extends WechatBaseController{
         }else{
             $keyword = $message->Content;
         }
-        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
-            $query->where('wechat_id','=',$wechat->id);
-        }])->where('keyword','like',"$keyword")->first();
 
-        //查询对应回复   一对多
-        $replies = $keyword->keywordRule->replies;
-        //dd($replies);
-//        foreach ($replies as $key => $reply) {
-//            $contents[$key] = $reply->{$reply->reply_type};
-//            $contents[$key]['reply_type'] = $reply->reply_type;
-//        }
-        //
-        //dd($contents);
-        //取随机数
-        $num = mt_rand(0,count($replies)-1);
+        $rep = $this->getReplyByKeyword($keyword,$wechat);
 
-        $content = $replies[$num];
-
-        switch($content->message_type)
-        {
-            case 'text':
-                //查询text
-                $rep = WechatText::find($content->content_id);
-                if(empty($rep)){
-                    return '';
-                }
-                $text = new Text();
-                $text->content = $rep->body;
-
-                return $text;
-                break;
-            case 'image':
-            case 'voice':
-            case 'video':
-            case 'location':
-                //return Message::make($content['reply_type'])->content($content->content);
-                break;
-            default:
-                //return Message::make($content['reply_type'])->content($content->content);
-                break;
-            case 'news':
-                //查询内容
-                $news = WechatNews::find($content->content_id);
-                if(empty($news)){
-                    return '';
-                }
-                $res = new News([
-                    'title'         => $news->title,
-                    'image'         => url($news->pic_url),
-                    'description'   => $news->description,
-                    'url'           => $news->news_url
-                ]);
-
-                return $res;
-                break;
+        if(empty($rep)){
+            $keyword = '消息自动回复';
+            return $this->getReplyByKeyword($keyword,$wechat);
+        }else{
+            return $rep;
         }
     }
 
@@ -230,6 +181,74 @@ class WechatController extends WechatBaseController{
 
         return new Application($optioins);
 
+    }
+
+    /*
+     * 根据关键字获取回复
+     * */
+
+    public function getReplyByKeyword($kw,$wechat)
+    {
+        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
+            $query->where('wechat_id','=',$wechat->id);
+        }])->where('keyword','like',"$kw")->first();
+        if($keyword){
+
+            //查询对应回复   一对多
+            $replies = $keyword->keywordRule->replies;
+            if($replies){
+                //取随机数
+                $num = mt_rand(0,count($replies)-1);
+
+                $content = $replies[$num];
+
+                switch($content->message_type)
+                {
+                    case 'text':
+                        //查询text
+                        $rep = WechatText::find($content->content_id);
+                        if(empty($rep)){
+                            return '';
+                        }
+                        $text = new Text();
+                        $text->content = $rep->body;
+
+                        return $text;
+                        break;
+                    case 'image':
+                    case 'voice':
+                    case 'video':
+                    case 'location':
+                        //return Message::make($content['reply_type'])->content($content->content);
+                        break;
+                    default:
+                        //return Message::make($content['reply_type'])->content($content->content);
+                        break;
+                    case 'news':
+                        //查询内容
+                        $news = WechatNews::find($content->content_id);
+                        if(empty($news)){
+                            return '';
+                        }
+                        $res = new News([
+                            'title'         => $news->title,
+                            'image'         => url($news->pic_url),
+                            'description'   => $news->description,
+                            'url'           => $news->news_url
+                        ]);
+
+                        return $res;
+                        break;
+                }
+
+
+            }else{
+                return '';
+            }
+
+        }else{
+            return '';
+        }
     }
 
 

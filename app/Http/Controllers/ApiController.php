@@ -17,9 +17,7 @@ class ApiController extends Controller
     public function getKeywordRules()
     {
         $rules = KeywordRule::with('keywords','replies')->where('wechat_id',1)->paginate(10);
-        //dd($rules);
         foreach($rules as $rule){
-            //dd($rule);
             foreach($rule->replies as $k=>$reply){
                 if($reply->reply_type=='text'){
                     $whereIn = explode(',',$reply->content_id);
@@ -35,7 +33,6 @@ class ApiController extends Controller
             }
         }
 
-        //dd($rules);
         return response()->json($rules);
     }
 
@@ -58,7 +55,7 @@ class ApiController extends Controller
             'wechat_id'     => $wechat_id
         ]);
         //关键词列表
-        //dd($keywords);
+
         //$keywords = json_decode($keywords);
 //        $keywords = [
 //            [
@@ -157,22 +154,28 @@ class ApiController extends Controller
         $rule->save();
         //关键词列表
         $kws = [];
+        $keyword_ids = [];
         foreach($keywords as $key=>$keyword){
             $has = Keyword::where('keyword_rule_id',$rule->id)->where('keyword',$keyword['keyword'])->first();
+
             if(empty($has)){
                 $kws[] = new Keyword([
                     'keyword'        => $keyword['keyword'],
                     'match_type'     => $keyword['match_type']
                 ]);
+            }else{
+                $keyword_ids[] = $has->id;
             }
         }
-        //删除原有关键词
-        Keyword::where('keyword_rule_id',$rule->id)->delete();
+        if(!empty($kws)){
+            //删除不需要的关键词
+            Keyword::whereNotIn('id',$keyword_ids)->delete();
+        }
         //添加关键词
         $rule->keywords()->saveMany($kws);
-
         //添加回复
         $rps = [];
+        $reply_ids = [];
         foreach($replies as $key=>$reply){
             if($reply['message_type']=='text'){
                 $text = WechatText::firstOrCreate([
@@ -181,21 +184,24 @@ class ApiController extends Controller
                 $reply['content_id'] = $text->id;
             }
             $has = Reply::where('keyword_rule_id',$rule->id)
-                ->where('message_type',$reply['message_type'])
-                ->where('content_id',$reply['content_id'])
-                ->first();
+                            ->where('message_type',$reply['message_type'])
+                            ->where('content_id',$reply['content_id'])
+                            ->first();
 
             if(empty($has)){
                 $rps[] = new Reply([
                     'message_type'           => $reply['message_type'],
                     'content_id'             => $reply['content_id']
                 ]);
+            }else{
+                $reply_ids[] = $has->id;
             }
 
         }
-
-        //删除原有回复
-        Reply::where('keyword_rule_id',$rule->id)->delete();
+        if(!empty($rps)) {
+            //删除不需要的回复
+            Reply::whereNotIn('id', $reply_ids)->delete();
+        }
         $rule->replies()->saveMany($rps);
         if($rule->id){
             $rule = $this->_getRuleMedias($rule->id);

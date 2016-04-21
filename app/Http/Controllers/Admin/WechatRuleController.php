@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\KeywordRule;
 use App\Reply;
+use App\WechatNews;
+use App\WechatText;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -102,6 +104,15 @@ class WechatRuleController extends BaseController
     {
         //
         $rule = KeywordRule::with('keywords','replies')->find($id);
+        foreach($rule->replies as $key=>$reply){
+            if($reply->message_type=='text'){
+                $content = WechatText::find($reply->content_id);
+                $rule->replies[$key]->content = $content;
+            }elseif($reply->message_type=='news'){
+                $content = WechatNews::find($reply->content_id);
+                $rule->replies[$key]->content = $content;
+            }
+        }
         $rule_json = json_encode($rule,JSON_UNESCAPED_UNICODE);
         return view('admin.reply.edit-rule',compact('rule','rule_json'));
     }

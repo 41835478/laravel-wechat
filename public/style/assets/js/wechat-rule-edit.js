@@ -12,6 +12,17 @@ var app = new Vue({
   },
   created: function(){
     if(rule){
+      var tmpData = this.newsToAdd.map(function(item) {
+        if( item.message_type = "text"){
+          item.content = item.content.body;          
+        }
+        else if(item.message_type = "news"){
+          item.news_url = item.content.news_url;
+          item.pic_url = item.content.pic_url;
+          item.title = item.content.title;
+        }
+        return item;
+      })      
       this.$data = $.extend({}, this.$data, rule);
     }
   },
@@ -79,7 +90,7 @@ var app = new Vue({
         if (item.message_type == 'news') {
           obj.content_id = item.content_id;
         } else {
-          obj.content = item.content.body;
+          obj.content = item.content;
         }
         return obj;
       });

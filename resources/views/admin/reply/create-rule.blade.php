@@ -109,7 +109,7 @@
         <div v-if="reply.message_type == 'news'" class="media">
           <div class="media-left">
             <a href="#">
-              <img class="media-object" :src="reply.pic_url">
+              <img class="media-object" :src="reply.news_url + '/' + reply.pic_url">
             </a>
           </div>
           <div class="media-body">

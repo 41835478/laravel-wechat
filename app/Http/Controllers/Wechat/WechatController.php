@@ -94,11 +94,11 @@ class WechatController extends WechatBaseController{
          * 监听事件类型
          * 关注事件回复
          * */
-        $message = (object)[
-            'Content'=>'测试',
-            'ToUserName'=>'gh_68f0112f08be',
-            'MsgType'   => 'text'
-        ];
+//        $message = (object)[
+//            'Content'=>'测试',
+//            'ToUserName'=>'gh_68f0112f08be',
+//            'MsgType'   => 'text'
+//        ];
         //$message=collect($arr);
         //dd($arr->Content);
         //获取公众号信息

@@ -159,7 +159,7 @@ class WechatController extends WechatBaseController{
                 }
                 $res = new News([
                     'title'         => $news->title,
-                    'image'         => $news->pic_url,
+                    'image'         => url($news->pic_url),
                     'description'   => $news->description,
                     'url'           => $news->news_url
                 ]);

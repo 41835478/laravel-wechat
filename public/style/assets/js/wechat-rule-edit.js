@@ -13,10 +13,10 @@ var app = new Vue({
   created: function(){
     if(rule){
       rule.replies.map(function(item) {
-        if( item.message_type = "text"){
+        if( item.message_type == "text"){
           item.content = item.content.body;          
         }
-        else if(item.message_type = "news"){
+        else if(item.message_type == "news"){
           item.news_url = item.content.news_url;
           item.pic_url = item.content.pic_url;
           item.title = item.content.title;

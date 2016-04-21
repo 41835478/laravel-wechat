@@ -79,7 +79,7 @@ var app = new Vue({
         if (item.content_id) {
           obj.content_id = item.content_id;
         } else {
-          obj.content = item.content;
+          obj.content = item.content.body;
         }
         return obj;
       });

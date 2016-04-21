@@ -47,7 +47,9 @@
                       class="btn btn-secondary btn-sm btn-icon icon-left rule-edit">
                       修改
                     </button>
-                    <button class="btn btn-danger btn-sm btn-icon icon-left">
+                    <button 
+                      data-ruleid="{{ $item->id }}"
+                      class="rule-del btn btn-danger btn-sm btn-icon icon-left">
                       删除
                     </button>
                 </td>
@@ -70,6 +72,21 @@
             var url = $(this).data('go');
             location.href = url;
         });
+        // 删除规则
+        $('.rule-del').on('click', function(){
+          var self = this;
+          var rule_id = $(this).data('ruleid');
+          $.post('/api/delete-rule', { rule_id: rule_id}, function(data){
+            if(data.status == 200){
+              alert(data.msg);
+              $(self).closest('tr').remove();
+            }
+            else {
+              alert(data.msg || '删除失败！');
+            }
+          });          
+        })
+
     </script>
 @stop
 
@@ -83,5 +100,4 @@
     {!! Html::script('style/assets/js/datatables/dataTables.bootstrap.js') !!}
     {!! Html::script('style/assets/js/datatables/yadcf/jquery.dataTables.yadcf.js') !!}
     {!! Html::script('style/assets/js/datatables/tabletools/dataTables.tableTools.min.js') !!}
-    {!! Html::script('style/assets/js/wechat-rule.js') !!}
 @stop

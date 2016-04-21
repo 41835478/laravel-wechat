@@ -82,7 +82,7 @@
                     <input class="form-control" type="text" v-model="key.keyword">
                 </div>
                 <div class="media-right">
-                    <label style="width:100px;">
+          <label style="width: 70px;line-height: 32px;">
                         <input
                             type="checkbox"
                             v-model="key.match_type"
@@ -91,10 +91,15 @@
                         全匹配
                     </label>
                 </div>
-            </div>
+        <div class="media-right">
+          <button class="btn btn-white btn-xs" @click="delKeyword($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>          
+      </div>
             <div class="media">
                 <div class="media-body">
-                    <button class="btn btn-primary" @click="addKeyword">添加关键字</button>
+          <button class="btn btn-white btn-xs" @click="addKeyword">
+            <i class="fa fa-plus"></i> 添加关键字
+          </button>
                 </div>
             </div>
         </div>
@@ -102,8 +107,12 @@
         <div class="form-group">
             <label class="control-label" for="name">回复信息:</label>
             <div>
-                <button class="btn btn-primary" @click="showAddTextDialog">添加文字消息</button>
-                <button class="btn btn-primary" @click="showaddNewsDialog">添加图文消息</button>
+        <button class="btn btn-white btn-xs" @click="showAddTextDialog"> 
+          <i class="fa fa-file-text-o"></i> 添加文字消息
+        </button>
+        <button class="btn btn-white btn-xs" @click="showaddNewsDialog">
+          <i class="fa fa-photo"></i> 添加图文消息
+        </button>
             </div>
             <template v-for="reply in replies">
                 <div v-if="reply.message_type == 'text'" class="media">
@@ -111,7 +120,7 @@
                         <input class="form-control" type="text" v-model="reply.content">
                     </div>
                     <div class="media-right">
-                        <button class="btn btn-link" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <button class="btn btn-white btn-xs" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                 </div>
                 <div v-if="reply.message_type == 'news'" class="media">
@@ -124,7 +133,7 @@
                         <h4 class="media-heading">@{{reply.title}}</h4>
                     </div>
                     <div class="media-right">
-                        <button class="btn btn-link" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <button class="btn btn-white btn-xs" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </template>

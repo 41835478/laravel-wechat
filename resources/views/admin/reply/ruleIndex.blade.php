@@ -62,6 +62,21 @@
   </div>
 </div>
 @section('other')
+<div class="modal fade in" id="modalDel" data-backdrop="static" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">删除确认</h4>
+        </div>
+        <div class="modal-body">
+         你确定要删除这条规则吗？
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-del-rule btn btn-danger" data-dismiss="modal">确定</button>
+        </div>
+      </div>
+    </div>
+</div>
     <script>
         $('.rule-create').click(function(){
             var url = $(this).data('go');
@@ -73,20 +88,25 @@
             location.href = url;
         });
         // 删除规则
+        var toDelRuleId = null;
+        var toDelEle = null;
         $('.rule-del').on('click', function(){
           var self = this;
-          var rule_id = $(this).data('ruleid');
-          $.post('/api/delete-rule', { rule_id: rule_id}, function(data){
+          toDelRuleId = $(this).data('ruleid');
+          toDelEle = $(self).closest('tr'); 
+          $('#modalDel').modal('show', {backdrop: 'static'});
+        });
+        $('.btn-del-rule').on('click', function(){
+          $.post('/api/delete-rule', { rule_id: toDelRuleId}, function(data){
             if(data.status == 200){
+              toDelEle.remove();
               alert(data.msg);
-              $(self).closest('tr').remove();
             }
             else {
               alert(data.msg || '删除失败！');
             }
           });          
-        })
-
+        });
     </script>
 @stop
 

@@ -12,6 +12,7 @@ use App\WechatNews;
 use App\WechatText;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\Article;
+use EasyWeChat\Message\News;
 use EasyWeChat\Message\Text;
 use Guzzle\Common\Collection;
 use Illuminate\Http\Request;
@@ -93,10 +94,11 @@ class WechatController extends WechatBaseController{
          * 监听事件类型
          * 关注事件回复
          * */
-//        $message = (object)[
-//            'Content'=>'test',
-//            'ToUserName'=>'gh_68f0112f08be'
-//        ];
+        $message = (object)[
+            'Content'=>'测试',
+            'ToUserName'=>'gh_68f0112f08be',
+            'MsgType'   => 'text'
+        ];
         //$message=collect($arr);
         //dd($arr->Content);
         //获取公众号信息
@@ -127,11 +129,14 @@ class WechatController extends WechatBaseController{
 
         $content = $replies[$num];
 
-        switch($content['message_type'])
+        switch($content->message_type)
         {
             case 'text':
                 //查询text
-                $rep = WechatText::find($content['content_id']);
+                $rep = WechatText::find($content->content_id);
+                if(empty($rep)){
+                    return '';
+                }
                 $text = new Text();
                 $text->content = $rep->body;
 
@@ -148,7 +153,10 @@ class WechatController extends WechatBaseController{
                 break;
             case 'news':
                 //查询内容
-                $news = WechatNews::find($content->content);
+                $news = WechatNews::find($content->content_id);
+                if(empty($news)){
+                    return '';
+                }
                 $res = new News([
                     'title'         => $news->title,
                     'image'         => $news->pic_url,

@@ -25,7 +25,7 @@ class WechatReplyController extends BaseController
     public function index()
     {
         //查询回复规则
-        $replies = Reply::paginate();
+        $replies = Reply::paginate(10);
         return view('admin.reply.index',compact('replies'));
     }
 

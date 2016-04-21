@@ -24,7 +24,6 @@ class WechatRuleController extends BaseController
         //查询规则
         $rules = KeywordRule::paginate(10);
 
-
         return view('admin.reply.ruleIndex',compact('rules'));
     }
 
@@ -102,8 +101,9 @@ class WechatRuleController extends BaseController
     public function edit($id)
     {
         //
-        $reply = Reply::with('keywords','replies')->find($id);
-        return view('admin.reply.edit-rule',compact('reply'));
+        $rule = KeywordRule::with('keywords','replies')->find($id);
+        $rule_json = json_encode($rule,JSON_UNESCAPED_UNICODE);
+        return view('admin.reply.edit-rule',compact('rule','rule_json'));
     }
 
     /**

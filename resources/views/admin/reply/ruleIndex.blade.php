@@ -14,7 +14,7 @@
     <div class="col-sm-12">
         <div class="panel panel-default">
             <a class="btn btn-primary" href="{{ route('admin.wechat-reply.subscribeCreate') }}">被添加自动回复</a>
-            <a class="btn btn-primary" href="javascript:;">消息自动回复</a>
+            {{--<a class="btn btn-primary" href="javascript:;">消息自动回复</a>--}}
             <a class="btn btn-primary" href="{{ route('admin.wechat-reply.rule') }}">关键词自动回复</a>
         </div>
     </div>
@@ -24,7 +24,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">规则列表</h3>
     <div class="panel-options">
-      <button class="btn btn-secondary" data-toggle="modal" data-target="#ruleModal">添加规则</button>
+      <button class="btn btn-secondary rule-create" data-go="{{ route('admin.wechat-reply.rule-create') }}" data-toggle="modal" data-target="#ruleModal">添加规则</button>
     </div>
   </div>
   <div class="panel-body">
@@ -42,8 +42,9 @@
                 <td>{{ $item->rule_name }}</td>
                 <td>
                     <button 
-                      data-ruleid="{{ $item->id }}" 
-                      class="btn btn-secondary btn-sm btn-icon icon-left">
+                      data-ruleid="{{ $item->id }}"
+                      data-go = "{{ route('admin.wechat-reply.rule-edit',$item->id) }}"
+                      class="btn btn-secondary btn-sm btn-icon icon-left rule-edit">
                       修改
                     </button>
                     <button class="btn btn-danger btn-sm btn-icon icon-left">
@@ -59,6 +60,17 @@
   </div>
 </div>
 @section('other')
+    <script>
+        $('.rule-create').click(function(){
+            var url = $(this).data('go');
+            location.href = url;
+        });
+        //
+        $('.rule-edit').click(function(){
+            var url = $(this).data('go');
+            location.href = url;
+        });
+    </script>
 @stop
 
 

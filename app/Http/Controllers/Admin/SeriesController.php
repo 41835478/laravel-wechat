@@ -21,7 +21,7 @@ class SeriesController extends BaseController
 //            's_name'    => 'x5',
 //            's_status'  =>1
 //        ]);
-        $series = Series::orderBy('updated_at','desc')->paginate(20);
+        $series = Series::paginate(20);
         //dd($series);
         return view('admin.series.index',compact('series'));
     }
@@ -46,8 +46,8 @@ class SeriesController extends BaseController
     public function store(Request $request)
     {
         //
-        $data = $request->except('_token');
-
+        $data = $request->except('_token','_method');
+        $data['s_date'] = date('Y-m-d H:i:s',time());
         $res = Series::create($data);
         if($res){
             flash()->success('添加成功');
@@ -90,8 +90,10 @@ class SeriesController extends BaseController
      */
     public function update(Requests\SeriesUpdateRequest $request, $id)
     {
-        $data = $request->except('_token');
+        $data = $request->except('_token','_method');
         //
+        $data['s_date'] = date('Y-m-d H:i:s',time());
+        //dd($data);
         $res = Series::find($id)->update( $data );
         if($res){
             flash()->success('更新成功');

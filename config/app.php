@@ -152,6 +152,7 @@ return [
         App\Providers\ComposerServiceProvider::class,//视图组件
         Liaol\SocialiteCn\SocialiteCnServiceProvider::class,
         //Overtrue\LaravelWechat\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class, //debugbar
     ],
 
     /*
@@ -205,7 +206,7 @@ return [
         'Flash'     => Laracasts\Flash\Flash::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
         //'Wechat'    => Overtrue\LaravelWechat\Facade::class,
-
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

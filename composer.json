@@ -12,7 +12,8 @@
         "laracasts/flash": "~1.3",
         "liaol/socialite-cn": "~1.0",
         "overtrue/wechat": "~3.0",
-        "predis/predis": "~1.1@dev"
+        "predis/predis": "~1.1@dev",
+        "barryvdh/laravel-debugbar": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -13,14 +13,14 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
-            <a class="btn btn-primary" href="{{ route('admin.user.create') }}">新用户</a>
+            <a class="btn btn-primary" href="{{ route('admin.series.create') }}">添加车系</a>
         </div>
     </div>
 </div>
 <!-- Removing search and results count filter -->
 <div class="panel panel-default">
 				<div class="panel-heading">
-                    <h3 class="panel-title">会员列表</h3>
+                    <h3 class="panel-title">车系列表</h3>
                     
                     <div class="panel-options">
                         <a href="#" data-toggle="panel">
@@ -81,9 +81,9 @@
                                 <th class="no-sorting">
                                     <input type="checkbox" class="cbr">
                                 </th>
-                                <th>用户名</th>
-                                <th>EMAIL</th>
-                                <th>注册时间 / 最后登陆</th>
+                                <th>车系名称</th>
+                                <th>车系状态</th>
+                                <th>操作日期</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -93,11 +93,10 @@
                             <tr>
                                 <td>
                                     <input type="checkbox" class="cbr">
-                                        </td>
-                                <td>{{ $sery->s_id }}</td>
+                                </td>
                                 <td>{{ $sery->s_name }}</td>
-                                <td>{{ $sery->s_status }}</td>
-                                <td>{{ $sery->created_at }}<br/>{{ $sery->updated_at}}</td>
+                                <td>{{ $sery->s_state?'归档':'正常' }}</td>
+                                <td>{{ $sery->s_date }}</td>
                                 <td>
                                     <a href="{{route('admin.series.edit',$sery->s_id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
                                         编辑

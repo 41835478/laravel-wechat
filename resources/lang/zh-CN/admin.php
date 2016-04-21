@@ -44,7 +44,7 @@
 
         "main_manage_car_series" => "车系列表",
         "main_manage_car_model" => "车型列表",
-        "main_manage_kv" => "车型列表循播图",
+        "main_manage_loopimg" => "车型列表循播图",
         "main_manage_shop" => "4S店",
         "main_manage_station" => "维修站",
 

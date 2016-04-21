@@ -322,7 +322,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
 
     Route::resource('carmodel', 'CarModelController',['names'=>['index'=>'admin.carmodel']]);
 
-    Route::resource('kv', 'KvController',['names'=>['index'=>'admin.kv']]);
+    Route::resource('loopimg', 'LoopImgController',['names'=>['index'=>'admin.loopimg']]);
 
     Route::resource('shop', 'ShopController',['names'=>['index'=>'admin.shop']]);
     Route::resource('station', 'StationController',['names'=>['index'=>'admin.station']]);

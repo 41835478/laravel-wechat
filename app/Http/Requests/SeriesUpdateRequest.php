@@ -25,7 +25,7 @@ class SeriesUpdateRequest extends Request
     {
         return [
             's_name' => 'required',
-            's_status' => 'required',
+            's_state' => 'required',
         ];
     }
 }

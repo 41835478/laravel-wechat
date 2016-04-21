@@ -35,7 +35,7 @@
                         <label class="col-sm-2 control-label" for="kf_account" >客服账号</label>
                         
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{ $staff['kf_account'] }}" name="kf_account" id="kf_account" placeholder="@if($errors->first('kf_account')) {{$errors->first('kf_account')}} @else 格式:帐号前缀@公众号微信号 @endif" readonly="readonly">
+                            <input type="text" class="form-control" value="{{ $staff['kf_account'] }}" name="kf_account" id="kf_account" placeholder="@if($errors->first('kf_account')) {{$errors->first('kf_account')}} @else 客服账号 @endif" readonly="readonly">
                         </div>
                     </div>
                     
@@ -51,7 +51,7 @@
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('password')) has-error @endif">
+                    <div class="form-group @if($errors->first('password')) has-error @endif" style="display: none">
                         <label class="col-sm-2 control-label" for="password">密码</label>
 
                         <div class="col-sm-10">

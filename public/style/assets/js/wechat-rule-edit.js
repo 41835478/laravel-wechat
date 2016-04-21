@@ -12,7 +12,7 @@ var app = new Vue({
   },
   created: function(){
     if(rule){
-      this.data = $.extend({}, this.data, rule);
+      this.$data = $.extend({}, this.$data, rule);
     }
   },
   computed: {

@@ -84,10 +84,10 @@
                 <div class="media-right">
                     <label style="width:100px;">
                         <input
-                                type="checkbox"
-                                v-model="key.match_type"
-                                v-bind:true-value="1"
-                                v-bind:false-value="2">
+                            type="checkbox"
+                            v-model="key.match_type"
+                            v-bind:true-value="1"
+                            v-bind:false-value="2">
                         全匹配
                     </label>
                 </div>
@@ -108,7 +108,7 @@
             <template v-for="reply in replies">
                 <div v-if="reply.message_type == 'text'" class="media">
                     <div class="media-body">
-                        <input class="form-control" type="text" v-model="reply.content">
+                        <input class="form-control" type="text" v-model="reply.content.body">
                     </div>
                     <div class="media-right">
                         <button class="btn btn-link" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -117,11 +117,11 @@
                 <div v-if="reply.message_type == 'news'" class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object" :src="reply.pic_url">
+                            <img class="media-object" :src="reply.content.news_url + '/' + reply.content.pic_url">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading">@{{reply.title}}</h4>
+                        <h4 class="media-heading">@{{reply.content.title}}</h4>
                     </div>
                     <div class="media-right">
                         <button class="btn btn-link" @click="delReply($index)"><i class="fa fa-times" aria-hidden="true"></i></button>

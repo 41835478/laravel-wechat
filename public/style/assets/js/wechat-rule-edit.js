@@ -12,7 +12,7 @@ var app = new Vue({
   },
   created: function(){
     if(rule){
-      var tmpData = this.newsToAdd.map(function(item) {
+      var tmpData = rule.map(function(item) {
         if( item.message_type = "text"){
           item.content = item.content.body;          
         }

@@ -109,65 +109,13 @@ class WechatController extends WechatBaseController{
         }else{
             $keyword = $message->Content;
         }
-        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
-            $query->where('wechat_id','=',$wechat->id);
-        }])->where('keyword','like',"$keyword")->first();
-        if($keyword){
 
-            //查询对应回复   一对多
-            $replies = $keyword->keywordRule->replies;
-            if($replies){
-                //取随机数
-                $num = mt_rand(0,count($replies)-1);
-
-                $content = $replies[$num];
-
-                switch($content->message_type)
-                {
-                    case 'text':
-                        //查询text
-                        $rep = WechatText::find($content->content_id);
-                        if(empty($rep)){
-                            return '';
-                        }
-                        $text = new Text();
-                        $text->content = $rep->body;
-
-                        return $text;
-                        break;
-                    case 'image':
-                    case 'voice':
-                    case 'video':
-                    case 'location':
-                        //return Message::make($content['reply_type'])->content($content->content);
-                        break;
-                    default:
-                        //return Message::make($content['reply_type'])->content($content->content);
-                        break;
-                    case 'news':
-                        //查询内容
-                        $news = WechatNews::find($content->content_id);
-                        if(empty($news)){
-                            return '';
-                        }
-                        $res = new News([
-                            'title'         => $news->title,
-                            'image'         => url($news->pic_url),
-                            'description'   => $news->description,
-                            'url'           => $news->news_url
-                        ]);
-
-                        return $res;
-                        break;
-                }
-
-
-            }else{
-                return '';
-            }
-
+        $rep = $this->getReplyByKeyword($keyword);
+        if($rep){
+            return $rep;
         }else{
-            return '';
+            $keyword = '消息自动回复';
+            return $this->getReplyByKeyword($keyword);
         }
     }
 
@@ -232,6 +180,74 @@ class WechatController extends WechatBaseController{
 
         return new Application($optioins);
 
+    }
+
+    /*
+     * 根据关键字获取回复
+     * */
+
+    public function getReplyByKeyword($kw)
+    {
+        $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
+            $query->where('wechat_id','=',$wechat->id);
+        }])->where('keyword','like',"$kw")->first();
+        if($keyword){
+
+            //查询对应回复   一对多
+            $replies = $keyword->keywordRule->replies;
+            if($replies){
+                //取随机数
+                $num = mt_rand(0,count($replies)-1);
+
+                $content = $replies[$num];
+
+                switch($content->message_type)
+                {
+                    case 'text':
+                        //查询text
+                        $rep = WechatText::find($content->content_id);
+                        if(empty($rep)){
+                            return '';
+                        }
+                        $text = new Text();
+                        $text->content = $rep->body;
+
+                        return $text;
+                        break;
+                    case 'image':
+                    case 'voice':
+                    case 'video':
+                    case 'location':
+                        //return Message::make($content['reply_type'])->content($content->content);
+                        break;
+                    default:
+                        //return Message::make($content['reply_type'])->content($content->content);
+                        break;
+                    case 'news':
+                        //查询内容
+                        $news = WechatNews::find($content->content_id);
+                        if(empty($news)){
+                            return '';
+                        }
+                        $res = new News([
+                            'title'         => $news->title,
+                            'image'         => url($news->pic_url),
+                            'description'   => $news->description,
+                            'url'           => $news->news_url
+                        ]);
+
+                        return $res;
+                        break;
+                }
+
+
+            }else{
+                return '';
+            }
+
+        }else{
+            return '';
+        }
     }
 
 

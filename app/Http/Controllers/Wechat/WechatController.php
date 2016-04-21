@@ -94,11 +94,11 @@ class WechatController extends WechatBaseController{
          * 监听事件类型
          * 关注事件回复
          * */
-        $message = (object)[
-            'Content'=>'123123123',
-            'ToUserName'=>'gh_68f0112f08be',
-            'MsgType'   => 'text'
-        ];
+//        $message = (object)[
+//            'Content'=>'123123123',
+//            'ToUserName'=>'gh_68f0112f08be',
+//            'MsgType'   => 'text'
+//        ];
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
         $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();

@@ -40,6 +40,23 @@
         "setting_wechat_news" => "图文管理",
         "setting_wechat_activity" => "活动管理",
 
+        "main_manage" => "主要管理",
+
+        "main_manage_car_series" => "车系列表",
+        "main_manage_car_model" => "车型列表",
+        "main_manage_kv" => "车型列表循播图",
+        "main_manage_shop" => "4S店",
+        "main_manage_station" => "维修站",
+
+        //
+
+        "customer" => "客户信息",
+
+
+        "reservation_service" => "预约信息",
+
+        "reservation_service_orderupkeep" => "预约保养/维修",
+        "reservation_service_orderdrive" => "预约试驾",
 
 
         /*

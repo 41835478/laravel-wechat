@@ -299,8 +299,6 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     //群发
     Route::resource('wechat-send', 'WechatSendController',['names'=>['index'=>'admin.wechat-send']]);
 
-    //chexi
-    Route::resource('series', 'SeriesController',['names'=>['index'=>'admin.series']]);
 
     //客服
     Route::post('wechat-staff/upload',[
@@ -315,6 +313,23 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     ]);
     Route::resource('wechat-staff', 'WechatStaffController',['names'=>['index'=>'admin.wechat-staff']]);
     Route::resource('wechat-news', 'WechatNewsController',['names'=>['index'=>'admin.wechat-news']]);
+
+
+
+    //原有功能
+    //车系
+    Route::resource('series', 'SeriesController',['names'=>['index'=>'admin.series']]);
+
+    Route::resource('carmodel', 'CarModelController',['names'=>['index'=>'admin.carmodel']]);
+
+    Route::resource('kv', 'KvController',['names'=>['index'=>'admin.kv']]);
+
+    Route::resource('shop', 'ShopController',['names'=>['index'=>'admin.shop']]);
+    Route::resource('station', 'StationController',['names'=>['index'=>'admin.station']]);
+
+
+    Route::resource('orderupkeep', 'OrderUpKeepController',['names'=>['index'=>'admin.orderupkeep']]);
+    Route::resource('orderdrive', 'OrderDriveController',['names'=>['index'=>'admin.orderdrive']]);
 
 
 });

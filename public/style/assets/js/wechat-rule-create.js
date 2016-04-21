@@ -26,6 +26,9 @@ var app = new Vue({
     showAddTextDialog: function() {
       $('#dialogText').modal('show');
     },
+    delKeyword: function(index) {
+      this.keywords.splice(index, 1);
+    },    
     delReply: function(index) {
       this.replies.splice(index, 1);
     },

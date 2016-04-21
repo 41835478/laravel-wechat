@@ -55,7 +55,7 @@ class ApiController extends Controller
             'wechat_id'     => $wechat_id
         ]);
         //关键词列表
-        //dd($keywords);
+
         //$keywords = json_decode($keywords);
 //        $keywords = [
 //            [

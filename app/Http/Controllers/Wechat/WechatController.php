@@ -94,11 +94,11 @@ class WechatController extends WechatBaseController{
          * 监听事件类型
          * 关注事件回复
          * */
-//        $message = (object)[
-//            'Content'=>'没了',
-//            'ToUserName'=>'gh_68f0112f08be',
-//            'MsgType'   => 'text'
-//        ];
+        $message = (object)[
+            'Content'=>'123123123',
+            'ToUserName'=>'gh_68f0112f08be',
+            'MsgType'   => 'text'
+        ];
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
         $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();
@@ -110,12 +110,13 @@ class WechatController extends WechatBaseController{
             $keyword = $message->Content;
         }
 
-        $rep = $this->getReplyByKeyword($keyword);
-        if($rep){
-            return $rep;
-        }else{
+        $rep = $this->getReplyByKeyword($keyword,$wechat);
+
+        if(empty($rep)){
             $keyword = '消息自动回复';
-            return $this->getReplyByKeyword($keyword);
+            return $this->getReplyByKeyword($keyword,$wechat);
+        }else{
+            return $rep;
         }
     }
 
@@ -186,7 +187,7 @@ class WechatController extends WechatBaseController{
      * 根据关键字获取回复
      * */
 
-    public function getReplyByKeyword($kw)
+    public function getReplyByKeyword($kw,$wechat)
     {
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
             $query->where('wechat_id','=',$wechat->id);

@@ -76,7 +76,7 @@ var app = new Vue({
       data.replies = self.replies.map(function(item) {
         var obj = {};
         obj.message_type = item.message_type;
-        if (item.content_id) {
+        if (item.message_type == 'news') {
           obj.content_id = item.content_id;
         } else {
           obj.content = item.content.body;

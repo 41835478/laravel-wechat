@@ -12,7 +12,7 @@ var app = new Vue({
   },
   created: function(){
     if(rule){
-      var tmpData = rule.map(function(item) {
+      var tmpData = rule.replies.map(function(item) {
         if( item.message_type = "text"){
           item.content = item.content.body;          
         }
@@ -23,7 +23,7 @@ var app = new Vue({
         }
         return item;
       })      
-      this.$data = $.extend({}, this.$data, rule);
+      this.$data = $.extend({}, this.$data, tmpData);
     }
   },
   computed: {

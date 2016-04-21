@@ -65,7 +65,7 @@
 </style>
 <div id="app" class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">添加规则</h3>
+        <h3 class="panel-title">修改规则</h3>
     </div>
     <div class="panel-body">
         <div class="form-group">
@@ -196,5 +196,5 @@
         var rule = {!! $rule_json !!};
     </script>
     {!! Html::script('style/assets/js/vue.js') !!}
-    {!! Html::script('style/assets/js/wechat-rule-create.js') !!}
+    {!! Html::script('style/assets/js/wechat-rule-edit.js') !!}
 @stop

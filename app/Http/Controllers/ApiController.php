@@ -166,12 +166,17 @@ class ApiController extends Controller
                 ]);
             }
         }
-        //删除原有关键词
-        Keyword::where('keyword_rule_id',$rule->id)->delete();
-        //添加关键词
-        $rule->keywords()->saveMany($kws);
 
+        if(!empty($kws)){
+            //删除原有关键词
+            Keyword::where('keyword_rule_id',$rule->id)->delete();
+        }
+        //添加关键词
+
+        //$rule->keywords()->saveMany($kws);
+        //dd($kws);
         //添加回复
+        //dd($replies);
         $rps = [];
         foreach($replies as $key=>$reply){
             if($reply['message_type']=='text'){
@@ -181,9 +186,9 @@ class ApiController extends Controller
                 $reply['content_id'] = $text->id;
             }
             $has = Reply::where('keyword_rule_id',$rule->id)
-                ->where('message_type',$reply['message_type'])
-                ->where('content_id',$reply['content_id'])
-                ->first();
+                            ->where('message_type',$reply['message_type'])
+                            ->where('content_id',$reply['content_id'])
+                            ->first();
 
             if(empty($has)){
                 $rps[] = new Reply([
@@ -193,9 +198,10 @@ class ApiController extends Controller
             }
 
         }
-
-        //删除原有回复
-        Reply::where('keyword_rule_id',$rule->id)->delete();
+        if(!empty($rps)) {
+            //删除原有回复
+            Reply::where('keyword_rule_id', $rule->id)->delete();
+        }
         $rule->replies()->saveMany($rps);
         if($rule->id){
             $rule = $this->_getRuleMedias($rule->id);

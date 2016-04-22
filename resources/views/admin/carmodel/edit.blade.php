@@ -31,18 +31,18 @@
                 
                 {!! Form::open(['route'=>['admin.carmodel.update',$carmodel->id],'role'=>'form','class'=>'form-horizontal','method'=>'patch']) !!}
 
-                <div class="form-group @if($errors->first('node_parent_id')) has-error @endif">
-                    <label class="col-sm-2 control-label" for="node_id">所属节点</label>
+                    <div class="form-group @if($errors->first('node_parent_id')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="node_id">车系名称</label>
 
-                    <div class="col-sm-10">
-                        <select class="form-control" name="s_id">
-                            <option value="0">请选择</option>
-                            @foreach($series as $sery)
-                                <option value="{{ $sery->s_id }}"  @if($carmodel->s_id== $sery->s_id) selected="selected" @endif>{{ $sery->s_name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="s_id">
+                                <option value="0">请选择</option>
+                                @foreach($series as $sery)
+                                    <option value="{{ $sery->s_id }}"  @if($carmodel->s_id== $sery->s_id) selected="selected" @endif>{{ $sery->s_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
 
                     <div class="form-group-separator"></div>
 

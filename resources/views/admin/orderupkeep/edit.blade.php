@@ -16,7 +16,7 @@
         
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">编辑车系</h3>
+                <h3 class="panel-title">编辑预约信息</h3>
                 <div class="panel-options">
                     <a href="#" data-toggle="panel">
                         <span class="collapse-icon">&ndash;</span>
@@ -29,38 +29,73 @@
             </div>
             <div class="panel-body">
                 
-                {!! Form::open(['route'=>['admin.series.update',$sery->s_id],'role'=>'form','class'=>'form-horizontal','method'=>'patch']) !!}
+                {!! Form::open(['route'=>['admin.orderupkeep.update',$order->ou_id],'role'=>'form','class'=>'form-horizontal','method'=>'patch']) !!}
 
-                    <div class="form-group @if($errors->first('s_name')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="s_name" >车系</label>
+                    <div class="form-group @if($errors->first('ou_name')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="ou_name" >客户姓名</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="s_name" id="s_name" value="{{$sery->s_name}}" placeholder="@if($errors->first('s_name')) {{$errors->first('s_name')}} @else 用户名 @endif">
+                            <input type="text" class="form-control" name="ou_name" id="ou_name" value="{{$order->ou_name}}" placeholder="@if($errors->first('ou_name')) {{$errors->first('ou_name')}} @else 客户姓名 @endif">
                         </div>
                     </div>
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('sex')) has-error @endif">
-                        <label class="col-sm-2 control-label">状态</label>
+                    <div class="form-group @if($errors->first('ou_tel')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="ou_tel" >客户电话</label>
 
                         <div class="col-sm-10">
-
-                            <p>
-                            <label class="radio-inline">
-                                <input type="radio" name="s_state" value="0" @if($sery->s_state==0) checked @endif>
-                                    正常
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="s_state" value="1" @if($sery->s_state==1) checked @endif>
-                                    归档
-                            </label>
-                            @if($errors->first('s_status')) {{$errors->first('s_status')}} @endif
-                            </p>
-
+                            <input type="text" class="form-control" name="ou_tel" id="ou_tel" value="{{$order->ou_tel}}" placeholder="@if($errors->first('ou_tel')) {{$errors->first('ou_tel')}} @else 客户电话 @endif">
                         </div>
                     </div>
+
                     <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('ou_carno')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="ou_carno" >车牌号</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ou_carno" id="ou_carno" value="{{$order->ou_carno}}" placeholder="@if($errors->first('ou_carno')) {{$errors->first('ou_carno')}} @else 车牌号 @endif">
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('ou_date')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="ou_date" >预约时间</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ou_date" id="ou_date" value="{{$order->ou_date}}" placeholder="@if($errors->first('ou_date')) {{$errors->first('ou_date')}} @else 预约时间 @endif">
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('ou_st_id')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="ou_st_id">专营店名称</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" name="ou_st_id">
+                                <option value="0">请选择</option>
+                                @foreach($stations as $station)
+                                    <option value="{{ $station->id }}"  @if($station->id== $order->ou_st_id) selected="selected" @endif>{{ $station->stationname }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('ou_km')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="ou_km" >保养公里数</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="{{ $order->ou_km }}" name="ou_km" id="ou_km" placeholder="@if($errors->first('ou_km')) {{$errors->first('ou_km')}} @else 保养公里数 @endif">公里(Km)
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
 

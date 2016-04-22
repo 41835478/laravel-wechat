@@ -13,10 +13,10 @@
 
 <div class="row">
     <div class="col-sm-12">
-        
+
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">编辑车系</h3>
+                <h3 class="panel-title">编辑预约信息</h3>
                 <div class="panel-options">
                     <a href="#" data-toggle="panel">
                         <span class="collapse-icon">&ndash;</span>
@@ -28,39 +28,86 @@
                 </div>
             </div>
             <div class="panel-body">
-                
-                {!! Form::open(['route'=>['admin.series.update',$sery->s_id],'role'=>'form','class'=>'form-horizontal','method'=>'patch']) !!}
 
-                    <div class="form-group @if($errors->first('s_name')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="s_name" >车系</label>
+                {!! Form::open(['route'=>['admin.orderdrive.update',$order->od_id],'role'=>'form','class'=>'form-horizontal','method'=>'patch']) !!}
+
+                    <div class="form-group @if($errors->first('od_name')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="od_name" >客户姓名</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="s_name" id="s_name" value="{{$sery->s_name}}" placeholder="@if($errors->first('s_name')) {{$errors->first('s_name')}} @else 用户名 @endif">
+                            <input type="text" class="form-control" name="od_name" id="od_name" value="{{$order->od_name}}" placeholder="@if($errors->first('od_name')) {{$errors->first('od_name')}} @else 客户姓名 @endif">
                         </div>
                     </div>
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('sex')) has-error @endif">
-                        <label class="col-sm-2 control-label">状态</label>
+                    <div class="form-group @if($errors->first('od_tel')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="od_tel" >客户电话</label>
 
                         <div class="col-sm-10">
-
-                            <p>
-                            <label class="radio-inline">
-                                <input type="radio" name="s_state" value="0" @if($sery->s_state==0) checked @endif>
-                                    正常
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="s_state" value="1" @if($sery->s_state==1) checked @endif>
-                                    归档
-                            </label>
-                            @if($errors->first('s_status')) {{$errors->first('s_status')}} @endif
-                            </p>
-
+                            <input type="text" class="form-control" name="od_tel" id="ou_tel" value="{{$order->od_tel}}" placeholder="@if($errors->first('od_tel')) {{$errors->first('od_tel')}} @else 客户电话 @endif">
                         </div>
                     </div>
+
                     <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('od_st_id')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="od_st_id">专营店名称</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" name="od_st_id">
+                                <option value="0">请选择</option>
+                                @foreach($shops as $shop)
+                                    <option value="{{ $shop->id }}"  @if($shop->id== $order->od_st_id) selected="selected" @endif>{{ $shop->shopname }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('od_s_id')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="od_s_id">车系名</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" name="od_s_id">
+                                <option value="0">请选择</option>
+                                @foreach($series as $sery)
+                                    <option value="{{ $sery->s_id }}"  @if($sery->s_id== $order->od_s_id) selected="selected" @endif>{{ $sery->s_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('od_ct_id')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="od_ct_id">车型名</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" name="od_ct_id">
+                                <option value="0">请选择</option>
+                                @foreach($carmodels as $carmodel)
+                                    <option value="{{ $carmodel->id }}"  @if($carmodel->id== $order->od_ct_id) selected="selected" @endif>{{ $carmodel->models }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group">
+                        {!! Form::label('od_msg', '问题留言',['class'=>'col-sm-2 control-label']) !!}
+                        <div class="col-sm-10">
+                            {!! Form::textarea('od_msg',$order->od_msg,[
+                                'class'=>'form-control',
+                                'placeholder'=>'问题留言'
+                            ]) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
 
@@ -72,10 +119,10 @@
                     </div>
 
                 {!! Form::close()!!}
-                
+
             </div>
         </div>
-        
+
     </div>
 </div>
 @stop

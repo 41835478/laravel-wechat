@@ -21,7 +21,7 @@
 <div class="panel panel-default">
 				<div class="panel-heading">
                     <h3 class="panel-title">维修站列表</h3>
-                    
+
                     <div class="panel-options">
                         <a href="#" data-toggle="panel">
                             <span class="collapse-icon">&ndash;</span>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    
+
                     <script type="text/javascript">
                         jQuery(document).ready(function($)
                            {
@@ -49,22 +49,22 @@
                                          null
                                          ],
                              });
-                           
+
                            // Replace checkboxes when they appear
                            var $state = $("#example-2 thead input[type='checkbox']");
-                           
+
                            $("#example-2").on('draw.dt', function()
                                               {
                                               cbr_replace();
-                                              
+
                                               $state.trigger('change');
                                               });
-                           
+
                            // Script to select all checkboxes
                            $state.on('change', function(ev)
                                      {
                                      var $chcks = $("#example-2 tbody input[type='checkbox']");
-                                     
+
                                      if($state.is(':checked'))
                                      {
                                      $chcks.prop('checked', true).trigger('change');
@@ -76,7 +76,7 @@
                                      });
                            });
                         </script>
-                    
+
                     <table class="table table-bordered table-striped" id="example-2">
                         <thead>
                             <tr>
@@ -86,12 +86,12 @@
                                 <th>维修站名称</th>
                                 <th>维修站地址</th>
                                 <th>紧急救缓</th>
-                                <th>销售热线</th>
+                                <th>备注</th>
                                 <th>维修站状态</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
-                        
+
                         <tbody class="middle-align">
                             @foreach($shops as $item)
                             <tr>
@@ -114,7 +114,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                            
+
                         </tbody>
                     </table>
                     {!!$shops->render()!!}

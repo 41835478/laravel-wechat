@@ -16,8 +16,9 @@ class OrderUpKeep extends Model
         return $this->belongsTo('App\OldUser','ou_us_id','us_id');
     }
 
-//    public function user()
-//    {
-//        return $this->belongsTo('App\Series','ou_us_id','us_id');
-//    }
+    public function station()
+    {
+        return $this->hasOne('App\Station','id','ou_st_id');
+    }
+
 }

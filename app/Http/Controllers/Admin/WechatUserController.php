@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\OldUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,6 +18,8 @@ class WechatUserController extends Controller
     public function index()
     {
         //
+        $users = OldUser::paginate(20);
+        return view('admin.olduser.index',compact('users'));
     }
 
     /**
@@ -60,6 +63,8 @@ class WechatUserController extends Controller
     public function edit($id)
     {
         //
+        $user = OldUser::find($id);
+        return view('admin.olduser.edit',compact('user'));
     }
 
     /**
@@ -72,6 +77,16 @@ class WechatUserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data = $request->except('_token','_method');
+        //
+        //dd($data);
+        $res = OldUser::where('us_id',$id)->update( $data );
+        if($res){
+            flash()->success('更新成功');
+        }else{
+            flash()->error('更新失败');
+        }
+        return redirect()->back();
     }
 
     /**
@@ -83,5 +98,21 @@ class WechatUserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /*
+* 归档
+* */
+    public function archive($id)
+    {
+        //dd($data);
+        $data['us_state'] = 1;
+        $res = OldUser::where('us_id',$id)->update( $data );
+        if($res){
+            flash()->success('已归档');
+        }else{
+            flash()->error('归档失败');
+        }
+        return redirect()->back();
     }
 }

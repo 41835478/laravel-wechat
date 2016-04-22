@@ -99,7 +99,7 @@
                                     <input type="checkbox" class="cbr">
                                 </td>
                                 <td>{{ $item->shopname }}</td>
-                                <td>{{ $item->address }}</td>
+                                <td>{{ $item->adress }}</td>
                                 <td>{{ $item->tel1 }}</td>
                                 <td>{{ $item->tel2 }}</td>
                                 <td>{{ $item->state?'归档':'正常' }}</td>

@@ -83,11 +83,12 @@
                                 <th>客户姓名</th>
                                 <th>客户性别</th>
                                 <th>客户年龄</th>
-                                <th>客户电话</th>
-                                <th>客户积分</th>
-                                <th>车系名</th>
-                                <th>车型名</th>
                                 <th>专营店名</th>
+                                <th>专营店地址</th>
+                                <th>预约类型</th>
+                                <th>客户所在地</th>
+                                <th>积分</th>
+                                <th>预约时间</th>
                                 <th>预约状态</th>
                                 <th>操作</th>
                             </tr>
@@ -99,23 +100,29 @@
                                 <td>
                                     <input type="checkbox" class="cbr">
                                 </td>
-                                <td>{{ $item->user->us_nick }}</td>
-                                <td>{{ $item->user->gender }}</td>
+                                <td>{{ $item->ou_name }}</td>
+                                <td>{{ $item->user->us_gender?'女':'男' }}</td>
                                 <td>{{ $item->user->us_age }}</td>
-                                <td>{{ $item->ou_tel }}</td>
+                                <td>@if($item->station){{ $item->station->stationname }} @endif</td>
+                                <td>@if($item->station) {{ $item->station->address }} @endif</td>
+                                <td>{{ $item->ou_type }}</td>
+                                <td>{{ $item->user->us_address }}</td>
                                 <td>{{ $item->user->us_integral }}</td>
-                                <td>{{ $item->st_tel }}</td>
-                                <td>{{ $item->st_hottel }}</td>
-                                <td>{{ $item->st_name }}</td>
-                                <td>{{ $item->ou_state?'归档':'预约中' }}</td>
+                                <td>{{ $item->ou_date }}</td>
+                                <td>{{ $item->ou_state?'已归档':'预约中' }}</td>
                                 <td>
-                                    <a href="{{route('admin.shop.edit',$item->st_id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
-                                        编辑
+                                    <a href="{{route('admin.orderupkeep.edit',$item->ou_id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+                                        修改
                                     </a>
-
-                                    {!! Form::open(['route'=>['admin.shop.destroy',$item->st_id],'role'=>'form','class'=>'form-horizontal','method'=>'delete','style'=>'display:inline']) !!}
-                                    <button class="btn btn-danger btn-sm btn-icon icon-left">删除</button>
-                                    {!! Form::close() !!}
+                                    <a href="{{route('admin.orderupkeep.show',$item->ou_id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+                                        详细
+                                    </a>
+                                    <a href="{{route('admin.orderupkeep.archive',$item->ou_id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+                                        预约归档
+                                    </a>
+                                    {{--{!! Form::open(['route'=>['admin.shop.destroy',$item->ou_id],'role'=>'form','class'=>'form-horizontal','method'=>'delete','style'=>'display:inline']) !!}--}}
+                                    {{--<button class="btn btn-danger btn-sm btn-icon icon-left">删除</button>--}}
+                                    {{--{!! Form::close() !!}--}}
                                 </td>
                             </tr>
                             @endforeach

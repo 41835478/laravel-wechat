@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\OrderUpKeep;
+use App\Station;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,7 +18,7 @@ class OrderUpKeepController extends Controller
      */
     public function index()
     {
-        $orders = OrderUpKeep::with('user')->paginate(20);
+        $orders = OrderUpKeep::with('user','station')->orderBy('ou_date','desc')->paginate(20);
         return view('admin.orderupkeep.index',compact('orders'));
     }
 
@@ -58,6 +59,8 @@ class OrderUpKeepController extends Controller
     public function show($id)
     {
         //
+        $order = OrderUpKeep::with('station')->find($id);
+        return view('admin.orderupkeep.show',compact('order'));
     }
 
     /**
@@ -68,8 +71,9 @@ class OrderUpKeepController extends Controller
      */
     public function edit($id)
     {
-        $shop = OrderUpKeep::find($id);
-        return view('admin.orderupkeep.edit',compact('shop'));
+        $order = OrderUpKeep::find($id);
+        $stations = Station::all();
+        return view('admin.orderupkeep.edit',compact('order','stations'));
     }
 
     /**
@@ -106,6 +110,21 @@ class OrderUpKeepController extends Controller
             flash()->success('更新成功');
         }else{
             flash()->error('更新失败');
+        }
+        return redirect()->back();
+    }
+    /*
+     * 归档
+     * */
+    public function archive($id)
+    {
+        //dd($data);
+        $data['ou_state'] = 1;
+        $res = OrderUpKeep::where('ou_id',$id)->update( $data );
+        if($res){
+            flash()->success('已归档');
+        }else{
+            flash()->error('归档失败');
         }
         return redirect()->back();
     }

@@ -233,6 +233,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
         'as'=>'admin.wechat','uses'=>'WechatController@index'
     ]);
     //微信用户
+    //归档
+    Route::get('wechat-user/{id}/archive',[
+        'as'=>'admin.wechat-user.archive','uses'=>'WechatUserController@archive'
+    ]);
     Route::resource('wechat-user', 'WechatUserController',['names'=>['index'=>'admin.wechat-user']]);
 
     //公众号
@@ -327,8 +331,14 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::resource('shop', 'ShopController',['names'=>['index'=>'admin.shop']]);
     Route::resource('station', 'StationController',['names'=>['index'=>'admin.station']]);
 
-
+    //预约归档
+    Route::get('orderupkeep/{id}/archive',[
+        'as'=>'admin.orderupkeep.archive','uses'=>'OrderUpKeepController@archive'
+    ]);
     Route::resource('orderupkeep', 'OrderUpKeepController',['names'=>['index'=>'admin.orderupkeep']]);
+    Route::get('orderdrive/{id}/archive',[
+        'as'=>'admin.orderdrive.archive','uses'=>'OrderDriveController@archive'
+    ]);
     Route::resource('orderdrive', 'OrderDriveController',['names'=>['index'=>'admin.orderdrive']]);
 
 

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CarModel;
 use App\OrderDrive;
+use App\Series;
+use App\Shop;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,7 +20,7 @@ class OrderDriveController extends Controller
      */
     public function index()
     {
-        $orders = OrderDrive::paginate(20);
+        $orders = OrderDrive::with('user','shop','series','carmodel')->paginate(20);
         return view('admin.orderdrive.index',compact('orders'));
     }
 
@@ -57,7 +60,8 @@ class OrderDriveController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = OrderDrive::with('user','shop','series','carmodel')->find($id);
+        return view('admin.orderdrive.show',compact('order'));
     }
 
     /**
@@ -68,8 +72,11 @@ class OrderDriveController extends Controller
      */
     public function edit($id)
     {
-        $order = OrderDrive::find($id);
-        return view('admin.orderdrive.edit',compact('order'));
+        $order = OrderDrive::with('user','shop','series','carmodel')->find($id);
+        $shops = Shop::all();
+        $series = Series::all();
+        $carmodels = CarModel::all();
+        return view('admin.orderdrive.edit',compact('order','shops','series','carmodels'));
     }
 
     /**
@@ -106,6 +113,22 @@ class OrderDriveController extends Controller
             flash()->success('更新成功');
         }else{
             flash()->error('更新失败');
+        }
+        return redirect()->back();
+    }
+
+    /*
+ * 归档
+ * */
+    public function archive($id)
+    {
+        //dd($data);
+        $data['od_state'] = 1;
+        $res = OrderDrive::where('od_id',$id)->update( $data );
+        if($res){
+            flash()->success('已归档');
+        }else{
+            flash()->error('归档失败');
         }
         return redirect()->back();
     }

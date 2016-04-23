@@ -325,7 +325,7 @@ class API extends AbstractAPI
             'return_code' => $returnCode,
             'return_msg' => null,
             'result_code' => $resultCode,
-            'user_ip' => $_SERVER['SERVER_ADDR'],
+            'user_ip' => get_client_ip(),
             'time' => time(),
         ], $other);
 
@@ -383,6 +383,7 @@ class API extends AbstractAPI
         $params['mch_id'] = $this->merchant->merchant_id;
         $params['device_info'] = $this->merchant->device_info;
         $params['nonce_str'] = uniqid();
+        $params = array_filter($params);
         $params['sign'] = generate_sign($params, $this->merchant->key, 'md5');
 
         $options = array_merge([

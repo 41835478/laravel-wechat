@@ -17,7 +17,7 @@
 <div class="wrapper">
 	<div class="c_header">
     	<div class="c_header01">
-            {!! Html::image('wechat/images/photo.png') !!}
+            @include('home.user.avatar',['path'=>$user->us_portrait])
         </div>
         <div class="c_header02">
         	<p>adriana Lima<span>积分：<i>1000</i></span></p>

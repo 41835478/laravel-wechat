@@ -19,10 +19,10 @@
 <div class="wrapper point">
 	<div class="c_header">
     	<div class="c_header01">
-            {!! Html::image('wechat/images/photo.png') !!}
+            @include('home.user.avatar',['path'=>$user->us_portrait])
         </div>
         <div class="c_header02">
-        	<p>adriana Lima<span>积分：<i>1000</i></span></p>
+        	<p>{{ $user->us_nick }}<span>积分：<i>{{ $user->us_integral }}</i></span></p>
             <div class="c_btn">
             	<a href="javascript:;" class="sign">签到</a> | <a href="javascript:;" class="collect">收藏</a>
             </div>
@@ -34,7 +34,7 @@
             <a href="javasctipt:;" class="p_tab02"><i></i> 积分排行榜</a>
         </div>
         <div class="p_list">
-        	<div class="p_listyes">
+        	<div class="p_listyes"  @if($records=='') style="display: none;" @endif>
             	<div id="wrapper">
                     <div id="scroller">
                         <ul>
@@ -51,22 +51,20 @@
                     </div>
                 </div>
             </div>
-        	<div class="p_listno" style="display: none;"><img src="images/point.png"/></div>
+
+        	<div class="p_listno" @if(!empty($records)) style="display: none;" @endif>
+                {!! Html::image('wechat/images/point.png') !!}
+            </div>
+
         </div>
-        <div class="p_list" style="display: none;">
+        <div class="p_list" >
         	<div class="p_listyes">
             	<div id="wrapper2">
                     <div id="scroller2">
                         <ul>
-                            <li><p><span>积分：<i>1000</i></span>adriana Lima</p></li>
-                            <li><p><span>积分：<i>1000</i></span>小马</p></li>
-                            <li><p><span>积分：<i>1000</i></span>一往情深</p></li>
-                            <li><p><span>积分：<i>1000</i></span>adriana Lima</p></li>
-                            <li><p><span>积分：<i>1000</i></span>一往情深</p></li>
-                            <li><p><span>积分：<i>1000</i></span>adriana Lima</p></li>
-                            <li><p><span>积分：<i>1000</i></span>adriana Lima</p></li>
-                            <li><p><span>积分：<i>1000</i></span>一往情深</p></li>
-                            <li><p><span>积分：<i>1000</i></span>adriana Lima</p></li>
+                            @foreach($ranking as $rank)
+                            <li><p><span>积分：<i>{{ $rank->us_integral }}</i></span>{{ $rank->us_nick }}</p></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

@@ -13,7 +13,6 @@ use App\OldUser;
 
 class UserController extends BaseController
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -22,63 +21,81 @@ class UserController extends BaseController
     //个人中心首页
     public function user()
     {
-        print_r($this->user['original']);
         //查询用户信息
-        echo $this->user->openid;
-        $user = OldUser::where('us_weixinid',$this->user->openid)->first();
+        //$user = OldUser::where('us_weixinid',$this->user['id'])->first();
+        $user = OldUser::where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
         return view('home.user.index',compact('user'));
     }
 
     //车辆绑定
     public function carBind()
     {
-        return view('home.user.carbind');
+        $user = OldUser::where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        return view('home.user.carbind',compact('user'));
     }
 
     //个人信息
     public function userInfo()
     {
-        return view('home.user.myinfo');
+        $user = OldUser::where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        return view('home.user.myinfo',compact('user'));
     }
 
     //违章查询
     public function queryViolation()
     {
-        return view('home.user.illegal');
+        $user = OldUser::where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        return view('home.user.illegal',compact('user'));
     }
 
     //我的收藏
     public function userCollection()
     {
-        return view('home.user.collection');
+        $user = OldUser::with('collects')->where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        return view('home.user.collection',compact('user'));
     }
 
     //积分查询
     public function queryScore()
     {
-        return view('home.user.point');
+        $user = OldUser::where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        $ranking = OldUser::orderBy('us_integral','DESC')->take(10)->get();
+        $records = '';//暂无
+        return view('home.user.point',compact('user','ranking','records'));
     }
 
     //预约
-    public function appointment()
-    {
-        return view('home.user.appoint');
-    }
+//    public function appointment()
+//    {
+//        $user = OldUser::where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+//        return view('home.user.appoint',compact('user'));
+//    }
     //预约记录
     public function appointRecord()
     {
-        return view('home.user.order');
+        $user = OldUser::with('appoints.shop')->where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        return view('home.user.order',compact('user'));
     }
     //油耗计算器
     public function oil()
     {
-        return view('home.user.oilresult');
+        $user = OldUser::where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        return view('home.user.oilresult',compact('user'));
+    }
+
+    //油耗计算记录
+    public function oilResult()
+    {
+        $user = OldUser::with('oilRecords')->where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+        return view('home.user.oilresult',compact('user'));
     }
 
     //维修保养记录
     public function maintenance()
     {
-        return view('home.user.order');
+        $user = OldUser::with('orderUpKeep.station')->where('us_weixinid','o6ScNt5atrEd-YOYarxfHTymLGNI')->first();
+
+        return view('home.user.orderupkeep',compact('user'));
     }
 
 }

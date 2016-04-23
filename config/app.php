@@ -153,6 +153,7 @@ return [
         Liaol\SocialiteCn\SocialiteCnServiceProvider::class,
         //Overtrue\LaravelWechat\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class, //debugbar
+        Mews\Captcha\CaptchaServiceProvider::class, //验证码
     ],
 
     /*
@@ -200,6 +201,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        //
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Html'      => Illuminate\Html\HtmlFacade::class,
         'Form'      => Illuminate\Html\FormFacade::class,
@@ -207,6 +209,7 @@ return [
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
         //'Wechat'    => Overtrue\LaravelWechat\Facade::class,
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
+        'Captcha'   => Mews\Captcha\Facades\Captcha::class,  //验证码
     ],
 
 ];

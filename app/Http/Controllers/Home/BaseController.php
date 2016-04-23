@@ -19,9 +19,9 @@ class BaseController extends Controller
 
     public function __construct()
     {
-        $this->middleware('wechat');
-
-        $this->wechat_id = session()->get('wechat_id');
-        $this->user = session()->get('wechat_user');
+//        $this->middleware('wechat');
+//
+//        $this->wechat_id = session()->get('wechat_id');
+//        $this->user = session()->get('wechat_user');
     }
 } 

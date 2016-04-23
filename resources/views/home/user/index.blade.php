@@ -16,11 +16,11 @@
 
 <div class="wrapper">
 	<div class="g_header n_header">
-        {!! Html::image('wechat/images/photo.png') !!}
-    	<div class="n_name"></div>
+        @include('home.user.avatar',['path'=>$user->us_portrait])
+    	<div class="n_name">{{ $user->us_nick }}</div>
     </div>
     <div class="n_top">
-    	<div class="n_topleft">积分：<span>1000</span></div>
+    	<div class="n_topleft">积分：<span>{{ $user->us_integral }}</span></div>
         <div class="n_topright"><a href="javascript:;"></a></div>
     </div>
     <ul class="n_list">

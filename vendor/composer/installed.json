@@ -1070,59 +1070,6 @@
         "description": "implementation of xdg base directory specification for php"
     },
     {
-        "name": "nikic/php-parser",
-        "version": "v2.0.1",
-        "version_normalized": "2.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/nikic/PHP-Parser.git",
-            "reference": "ce5be709d59b32dd8a88c80259028759991a4206"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ce5be709d59b32dd8a88c80259028759991a4206",
-            "reference": "ce5be709d59b32dd8a88c80259028759991a4206",
-            "shasum": ""
-        },
-        "require": {
-            "ext-tokenizer": "*",
-            "php": ">=5.4"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2016-02-28 19:48:28",
-        "bin": [
-            "bin/php-parse"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "PhpParser\\": "lib/PhpParser"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Nikita Popov"
-            }
-        ],
-        "description": "A PHP parser written in PHP",
-        "keywords": [
-            "parser",
-            "php"
-        ]
-    },
-    {
         "name": "psy/psysh",
         "version": "v0.7.2",
         "version_normalized": "0.7.2.0",
@@ -1339,91 +1286,6 @@
         "keywords": [
             "cron",
             "schedule"
-        ]
-    },
-    {
-        "name": "league/flysystem",
-        "version": "1.0.20",
-        "version_normalized": "1.0.20.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "e87a786e3ae12a25cf78a71bb07b4b384bfaa83a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e87a786e3ae12a25cf78a71bb07b4b384bfaa83a",
-            "reference": "e87a786e3ae12a25cf78a71bb07b4b384bfaa83a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0"
-        },
-        "conflict": {
-            "league/flysystem-sftp": "<1.0.6"
-        },
-        "require-dev": {
-            "ext-fileinfo": "*",
-            "mockery/mockery": "~0.9",
-            "phpspec/phpspec": "^2.2",
-            "phpunit/phpunit": "~4.8 || ~5.0"
-        },
-        "suggest": {
-            "ext-fileinfo": "Required for MimeType",
-            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
-            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
-            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
-            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
-            "league/flysystem-copy": "Allows you to use Copy.com storage",
-            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
-            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
-            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
-            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
-            "league/flysystem-webdav": "Allows you to use WebDAV storage",
-            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
-        },
-        "time": "2016-03-14 21:54:11",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "League\\Flysystem\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frank de Jonge",
-                "email": "info@frenky.net"
-            }
-        ],
-        "description": "Filesystem abstraction: Many filesystems, one API.",
-        "keywords": [
-            "Cloud Files",
-            "WebDAV",
-            "abstraction",
-            "aws",
-            "cloud",
-            "copy.com",
-            "dropbox",
-            "file systems",
-            "files",
-            "filesystem",
-            "filesystems",
-            "ftp",
-            "rackspace",
-            "remote",
-            "s3",
-            "sftp",
-            "storage"
         ]
     },
     {
@@ -4143,65 +4005,6 @@
         ]
     },
     {
-        "name": "overtrue/wechat",
-        "version": "3.0.11",
-        "version_normalized": "3.0.11.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/overtrue/wechat.git",
-            "reference": "ce90da394ef72b3d750f6e2a8046b60af78a59dc"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/overtrue/wechat/zipball/ce90da394ef72b3d750f6e2a8046b60af78a59dc",
-            "reference": "ce90da394ef72b3d750f6e2a8046b60af78a59dc",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/cache": "~1.4",
-            "ext-openssl": "*",
-            "guzzlehttp/guzzle": "~6.1",
-            "monolog/monolog": "^1.17",
-            "overtrue/socialite": ">=1.0.7",
-            "php": ">=5.5.0",
-            "pimple/pimple": "~3.0",
-            "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0",
-            "symfony/psr-http-message-bridge": "0.2"
-        },
-        "require-dev": {
-            "mockery/mockery": "^1.0@dev",
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2016-04-16 05:00:42",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "EasyWeChat\\": "src/"
-            },
-            "files": [
-                "src/Payment/helpers.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "overtrue",
-                "email": "anzhengchao@gmail.com"
-            }
-        ],
-        "description": "微信SDK",
-        "keywords": [
-            "sdk",
-            "wechat",
-            "weixin",
-            "weixin-sdk"
-        ]
-    },
-    {
         "name": "predis/predis",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -4375,6 +4178,326 @@
             "laravel",
             "profiler",
             "webprofiler"
+        ]
+    },
+    {
+        "name": "overtrue/wechat",
+        "version": "3.0.15",
+        "version_normalized": "3.0.15.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/overtrue/wechat.git",
+            "reference": "5b2a30f210afeb77a012462a79beeaa3e41ca4c3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/overtrue/wechat/zipball/5b2a30f210afeb77a012462a79beeaa3e41ca4c3",
+            "reference": "5b2a30f210afeb77a012462a79beeaa3e41ca4c3",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/cache": "~1.4",
+            "ext-openssl": "*",
+            "guzzlehttp/guzzle": "~6.1",
+            "monolog/monolog": "^1.17",
+            "overtrue/socialite": ">=1.0.7",
+            "php": ">=5.5.0",
+            "pimple/pimple": "~3.0",
+            "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0",
+            "symfony/psr-http-message-bridge": "0.2"
+        },
+        "require-dev": {
+            "mockery/mockery": "^1.0@dev",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2016-04-22 09:28:54",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "EasyWeChat\\": "src/"
+            },
+            "files": [
+                "src/Payment/helpers.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "overtrue",
+                "email": "anzhengchao@gmail.com"
+            }
+        ],
+        "description": "微信SDK",
+        "keywords": [
+            "sdk",
+            "wechat",
+            "weixin",
+            "weixin-sdk"
+        ]
+    },
+    {
+        "name": "league/flysystem",
+        "version": "1.0.21",
+        "version_normalized": "1.0.21.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/flysystem.git",
+            "reference": "35a83cf67d80d7040f306c77b0a84b9fbcc4fbfb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/35a83cf67d80d7040f306c77b0a84b9fbcc4fbfb",
+            "reference": "35a83cf67d80d7040f306c77b0a84b9fbcc4fbfb",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "conflict": {
+            "league/flysystem-sftp": "<1.0.6"
+        },
+        "require-dev": {
+            "ext-fileinfo": "*",
+            "mockery/mockery": "~0.9",
+            "phpspec/phpspec": "^2.2",
+            "phpunit/phpunit": "~4.8 || ~5.0"
+        },
+        "suggest": {
+            "ext-fileinfo": "Required for MimeType",
+            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+            "league/flysystem-copy": "Allows you to use Copy.com storage",
+            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+            "league/flysystem-webdav": "Allows you to use WebDAV storage",
+            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+        },
+        "time": "2016-04-22 10:56:25",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Flysystem\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frank de Jonge",
+                "email": "info@frenky.net"
+            }
+        ],
+        "description": "Filesystem abstraction: Many filesystems, one API.",
+        "keywords": [
+            "Cloud Files",
+            "WebDAV",
+            "abstraction",
+            "aws",
+            "cloud",
+            "copy.com",
+            "dropbox",
+            "file systems",
+            "files",
+            "filesystem",
+            "filesystems",
+            "ftp",
+            "rackspace",
+            "remote",
+            "s3",
+            "sftp",
+            "storage"
+        ]
+    },
+    {
+        "name": "nikic/php-parser",
+        "version": "v2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nikic/PHP-Parser.git",
+            "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
+            "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
+            "shasum": ""
+        },
+        "require": {
+            "ext-tokenizer": "*",
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2016-04-19 13:41:41",
+        "bin": [
+            "bin/php-parse"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PhpParser\\": "lib/PhpParser"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Nikita Popov"
+            }
+        ],
+        "description": "A PHP parser written in PHP",
+        "keywords": [
+            "parser",
+            "php"
+        ]
+    },
+    {
+        "name": "intervention/image",
+        "version": "2.3.6",
+        "version_normalized": "2.3.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Intervention/image.git",
+            "reference": "e368d262887dbb2fdfaf710880571ede51e9c0e6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Intervention/image/zipball/e368d262887dbb2fdfaf710880571ede51e9c0e6",
+            "reference": "e368d262887dbb2fdfaf710880571ede51e9c0e6",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "guzzlehttp/psr7": "~1.1",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.2",
+            "phpunit/phpunit": "3.*"
+        },
+        "suggest": {
+            "ext-gd": "to use GD library based image processing.",
+            "ext-imagick": "to use Imagick based image processing.",
+            "intervention/imagecache": "Caching extension for the Intervention Image library"
+        },
+        "time": "2016-02-26 18:18:19",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Intervention\\Image\\": "src/Intervention/Image"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oliver Vogel",
+                "email": "oliver@olivervogel.net",
+                "homepage": "http://olivervogel.net/"
+            }
+        ],
+        "description": "Image handling and manipulation library with support for Laravel integration",
+        "homepage": "http://image.intervention.io/",
+        "keywords": [
+            "gd",
+            "image",
+            "imagick",
+            "laravel",
+            "thumbnail",
+            "watermark"
+        ]
+    },
+    {
+        "name": "mews/captcha",
+        "version": "2.1.2",
+        "version_normalized": "2.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mewebstudio/captcha.git",
+            "reference": "15d3ddc92c99d4e2cc5aa68afa701c73ad52d75b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mewebstudio/captcha/zipball/15d3ddc92c99d4e2cc5aa68afa701c73ad52d75b",
+            "reference": "15d3ddc92c99d4e2cc5aa68afa701c73ad52d75b",
+            "shasum": ""
+        },
+        "require": {
+            "ext-gd": "*",
+            "illuminate/config": "~5.0",
+            "illuminate/filesystem": "~5.0",
+            "illuminate/hashing": "~5.0",
+            "illuminate/support": "~5.0",
+            "intervention/image": "~2.2",
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.9.*",
+            "phpunit/phpunit": "~4.1"
+        },
+        "time": "2016-03-15 12:59:02",
+        "type": "package",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Mews\\Captcha\\": "src/"
+            },
+            "files": [
+                "src/helpers.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Muharrem ERİN",
+                "email": "me@mewebstudio.com",
+                "homepage": "https://github.com/mewebstudio",
+                "role": "Developer"
+            }
+        ],
+        "description": "Laravel 5 Captcha Package",
+        "homepage": "https://github.com/mewebstudio/captcha",
+        "keywords": [
+            "captcha",
+            "laravel5 Captcha",
+            "laravel5 Security"
         ]
     }
 ]

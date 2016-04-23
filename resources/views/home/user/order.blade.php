@@ -18,10 +18,10 @@
 <div class="wrapper">
 	<div class="c_header">
     	<div class="c_header01">
-            {!! Html::image('wechat/images/photo.png') !!}
+            @include('home.user.avatar',['path'=>$user->us_portrait])
         </div>
         <div class="c_header02">
-        	<p>adriana Lima<span>积分：<i>1000</i></span></p>
+        	<p>{{ $user->us_nick }}<span>积分：<i>{{ $user->us_integral }}</i></span></p>
             <div class="c_btn">
             	<a href="javascript:;" class="sign">签到</a> | <a href="javascript:;" class="collect">收藏</a>
             </div>
@@ -30,27 +30,16 @@
     
     <div class="h_result r_result">
     	<ul>
+            @foreach($user->appoints as $appoint)
         	<li>
-                <h2><span><i></i> 22:56</span><i></i> 2016-04-16</h2>
-                <p>类型：保养</p>
-				<p>4s店：北京达畅陆风汽车经销有限公司</p>
-				<p>姓名：adriana Lima</p>
-				<p>电话：13265656547</p>
+                <h2><span><i></i> {{ date('H:i',strtotime($appoint->od_date)) }}</span><i></i> {{ date('Y-m-d',strtotime($appoint->od_date)) }}</h2>
+                <p>类型：试驾</p>
+				<p>4s店：@if($appoint->shop){{ $appoint->shop->shopname }} @endif</p>
+				<p>姓名：{{ $appoint->od_name }}</p>
+				<p>电话：{{ $appoint->od_tel }}</p>
             </li>
-            <li>
-                <h2><span><i></i> 22:56</span><i></i> 2016-04-16</h2>
-                <p>类型：保养</p>
-				<p>4s店：北京达畅陆风汽车经销有限公司</p>
-				<p>姓名：adriana Lima</p>
-				<p>电话：13265656547</p>
-            </li>
-            <li>
-                <h2><span><i></i> 22:56</span><i></i> 2016-04-16</h2>
-                <p>类型：保养</p>
-				<p>4s店：北京达畅陆风汽车经销有限公司</p>
-				<p>姓名：adriana Lima</p>
-				<p>电话：13265656547</p>
-            </li>
+            @endforeach
+
         </ul>
     </div>
     @include('home.user.back')

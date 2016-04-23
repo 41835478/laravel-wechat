@@ -20,6 +20,7 @@ return array(
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePostsTable' => $baseDir . '/database/migrations/2015_03_30_161441_create_posts_table.php',
     'CreateRepliesTable' => $baseDir . '/database/migrations/2015_07_22_165319_create_replies_table.php',
+    'CreateReplyTextsTable' => $baseDir . '/database/migrations/2015_07_22_164727_create_reply_texts_table.php',
     'CreateSeriesTable' => $baseDir . '/database/migrations/2016_04_18_013444_create_series_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'CreateWechatMediasTable' => $baseDir . '/database/migrations/2016_04_18_070718_create_wechat_medias_table.php',

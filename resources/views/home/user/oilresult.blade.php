@@ -18,12 +18,12 @@
 <div class="wrapper">
 	<div class="c_header">
     	<div class="c_header01">
-            {!! Html::image('wechat/images/photo.png') !!}
+            @include('home.user.avatar',['path'=>$user->us_portrait])
         </div>
         <div class="c_header02">
-        	<p>adriana Lima<span>积分：<i>1000</i></span></p>
+            <p>{{ $user->us_nick }}<span>积分：<i>{{ $user->us_integral }}</i></span></p>
             <div class="c_btn">
-            	<a href="javascript:;" class="sign">签到</a> | <a href="javascript:;" class="collect">收藏</a>
+                <a href="javascript:;" class="sign">签到</a> | <a href="javascript:;" class="collect">收藏</a>
             </div>
         </div>
     </div>

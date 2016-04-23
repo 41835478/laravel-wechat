@@ -15,6 +15,39 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+//前端API
+Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
+
+    Route::post('makeSign',[
+        'as'=>'api.makeSign','uses'=>'ApiController@makeSign'
+    ]);
+
+    Route::any('makeSign',[
+        'as'=>'api.makeSign','uses'=>'ApiController@makeSign'
+    ]);
+
+    Route::post('makeCollect',[
+        'as'=>'api.makeCollect','uses'=>'ApiController@makeCollect'
+    ]);
+
+    Route::post('userStore',[
+        'as'=>'api.userStore','uses'=>'ApiController@userStore'
+    ]);
+
+    Route::post('makeCarBind',[
+        'as'=>'api.makeCarBind','uses'=>'ApiController@makeCarBind'
+    ]);
+
+    Route::post('getViolation',[
+        'as'=>'api.getViolation','uses'=>'ApiController@getViolation'
+    ]);
+
+    Route::post('getOilRecord',[
+        'as'=>'api.getOilRecord','uses'=>'ApiController@getOilRecord'
+    ]);
+
+});
 //前端页面
 Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
 

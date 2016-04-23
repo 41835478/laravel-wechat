@@ -284,28 +284,23 @@ class WechatController extends WechatBaseController{
         //var_dump($request->session()->all());
         //$request->session()->flush();
         //保存用户信息
+        $original = $user->getOriginal();
+        $openid = $user->getId();
+        $userInfo = [
+            'us_nick'  => $original['nickname'],
+            'us_gender'  => $original['sex'],
+            'city'  => $original['city'],
+            'province'  => $original['province'],
+            'us_portrait'  => $original['headimgurl'],
+            'us_date'  => date('Y-m-d H:i:s',time()),
+        ];
         $u = OldUser::where('us_weixinid',$user->openid)->first();
         if($u){
-            OldUser::where('us_weixinid',$user->openid)->update([
-                'us_nick'  => $user->nickname,
-                'us_gender'  => $user->sex,
-                'city'  => $user->city,
-                'province'  => $user->province,
-                'us_portrait'  => $user->headimgurl,
-                'us_date'  => date('Y-m-d H:i:s',time()),
-            ]);
+            OldUser::where('us_weixinid',$user->openid)->update($userInfo);
         }else{
-            OldUser::create([
-                'us_weixinid'   => $user->openid,
-                'us_nick'  => $user->nickname,
-                'us_gender'  => $user->sex,
-                'city'  => $user->city,
-                'province'  => $user->province,
-                'us_portrait'  => $user->headimgurl,
-                'us_date'  => date('Y-m-d H:i:s',time()),
-            ]);
+            $userInfo = array_merge(['us_weixinid'=>$openid],$userInfo);
+            OldUser::create($userInfo);
         }
-        dd($user->openid);
         //跳转到业务页
         // todo
         return redirect($request->session()->get('target_url'));

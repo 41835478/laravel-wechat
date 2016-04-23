@@ -22,10 +22,9 @@ class UserController extends BaseController
     //个人中心首页
     public function user()
     {
-        var_dump($this->wechat_id);
-        var_dump($this->user);
+        print_r($this->user);
         //查询用户信息
-        echo $this->user->openid;
+        //echo $this->user->openid;
         $user = OldUser::where('us_weixinid',$this->user->openid)->first();
         return view('home.user.index',compact('user'));
     }

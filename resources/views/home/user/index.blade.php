@@ -17,7 +17,7 @@
 <div class="wrapper">
 	<div class="g_header n_header">
         {!! Html::image('wechat/images/photo.png') !!}
-    	<div class="n_name">{{ $user-> }}</div>
+    	<div class="n_name"></div>
     </div>
     <div class="n_top">
     	<div class="n_topleft">积分：<span>1000</span></div>

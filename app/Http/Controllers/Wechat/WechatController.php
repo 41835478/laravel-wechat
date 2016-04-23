@@ -305,6 +305,7 @@ class WechatController extends WechatBaseController{
                 'us_date'  => date('Y-m-d H:i:s',time()),
             ]);
         }
+        dd($user->openid);
         //跳转到业务页
         // todo
         return redirect($request->session()->get('target_url'));

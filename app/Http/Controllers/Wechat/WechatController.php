@@ -294,9 +294,9 @@ class WechatController extends WechatBaseController{
             'us_portrait'  => $original['headimgurl'],
             'us_date'  => date('Y-m-d H:i:s',time()),
         ];
-        $u = OldUser::where('us_weixinid',$user->openid)->first();
+        $u = OldUser::where('us_weixinid',$openid)->first();
         if($u){
-            OldUser::where('us_weixinid',$user->openid)->update($userInfo);
+            OldUser::where('us_weixinid',$openid)->update($userInfo);
         }else{
             $userInfo = array_merge(['us_weixinid'=>$openid],$userInfo);
             OldUser::create($userInfo);

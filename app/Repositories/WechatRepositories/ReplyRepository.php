@@ -18,7 +18,7 @@ class ReplyRepository {
         $reply = Reply::firstOrCreate([
             'wechat_id'     => $wechatId,
             'message_type'  => 'event',
-            'reply_type'    => 'text',
+            'reply_type'    => $data['reply_type'],
         ]);
 
         if($reply){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Reply;
+use App\ReplyText;
 use App\Repositories\WechatRepositories\ReplyRepository;
 use App\Wechat;
 use Illuminate\Http\Request;
@@ -100,7 +101,7 @@ class WechatReplyController extends BaseController
     {
         $wechat = Wechat::where('user_id',$this->user->id)->firstOrFail();
         //查询自动回复
-        $reply = Reply::with('text')->where('wechat_id',$wechat->id)->first();
+        $reply = ReplyText::where('wechat_id',$wechat->id)->first();
         if($reply){
             return view('admin.reply.subscribeEdit',compact('wechat','reply'));
         }else{
@@ -111,7 +112,7 @@ class WechatReplyController extends BaseController
     public function subscribeStore(Request $request)
     {
         $data = $request->except('_token');
-        $result = $this->reply->create($data,$data['wechat_id']);
+        $result = ReplyText::firstOrCreate($data);
         if($result) {
             flash()->success('发布成功');
         }else{
@@ -123,7 +124,8 @@ class WechatReplyController extends BaseController
     public function subscribeUpdate(Request $request)
     {
         $data = $request->except('_token');
-        $result = $this->reply->update($data,$data['reply_id']);
+        $id = $request->input('id');
+        $result = ReplyText::find($id)->update($data,$id);
         if($result) {
             flash()->success('发布成功');
         }else{

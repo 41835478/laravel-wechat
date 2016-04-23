@@ -7,6 +7,7 @@
  */
 use App\Keyword;
 use App\Reply;
+use App\ReplyText;
 use App\Wechat;
 use App\WechatNews;
 use App\WechatText;
@@ -44,10 +45,10 @@ class WechatController extends WechatBaseController{
                     case 'subscribe':
                         //查询当前公众号关注事件自动回复
                         //todo
-                        $reply = Reply::with('text')->where(['wechat_id'=>$wechatId])->first();
+                        $reply = ReplyText::where(['wechat_id'=>$wechatId])->first();
 
                         $text = new Text();
-                        $text->content = $reply->text->content;
+                        $text->content = $reply->content;
 
                         return $text;
 

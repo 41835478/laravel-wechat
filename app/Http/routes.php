@@ -11,38 +11,24 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
 //前端页面
-Route::group(['namespace' => 'Home'],function(){
-    Route::Controller('user','UserController');
-    Route::post('follow',[
-        'as'=>'follow','uses'=>'FollowController@store'
-    ]);
-    Route::post('unfollow',[
-        'as'=>'unfollow','uses'=>'FollowController@destroy'
-    ]);
+Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
 
-    Route::get('search',[
-        'as'=>'search','uses'=>'SearchController@index'
-    ]);
-    Route::get('search/result',[
-        'as'=>'search.search','uses'=>'SearchController@search'
-    ]);
+    Route::get('/','UserController@user');
+    Route::get('carBind','UserController@carBind');
+    Route::get('userInfo','UserController@userInfo');
+    Route::get('queryViolation','UserController@queryViolation');
+    Route::get('userCollection','UserController@userCollection');
+    Route::get('queryScore','UserController@queryScore');
+    Route::get('appointment','UserController@appointment');
+    Route::get('appointRecord','UserController@appointRecord');
+    Route::get('oil','UserController@oil');
+    Route::get('maintenance','UserController@maintenance');
 
-    Route::get('activity/{id}',[
-        'as'=>'activity.action','uses'=>'EventController@activity'
-    ]);
-
-    Route::post('activity/action',[
-        'as'=>'activity.start','uses'=>'EventController@start'
-    ]);
 });
 
 Route::get('posts','Home\PostController@all');
@@ -341,13 +327,11 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     ]);
     Route::resource('orderdrive', 'OrderDriveController',['names'=>['index'=>'admin.orderdrive']]);
 
-
 });
 
 
 //接口
 Route::Controller('api', 'ApiController');
-
 
 /*文件上传*/
 Route::post('upload',[
@@ -356,10 +340,3 @@ Route::post('upload',[
 Route::post('uploadfile',[
     'as'=>'uploadfile','uses'=>'UploadController@upload'
 ]);
-
-
-//Route::get('search/{keyword}','SearchController@search');
-
-Route::get('angular',function(){
-    return view('admin.test.index');
-});

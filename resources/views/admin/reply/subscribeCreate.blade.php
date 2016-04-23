@@ -22,7 +22,6 @@
      <div class="col-sm-12">
          <div class="panel panel-default">
              <a class="btn btn-primary" href="{{ route('admin.wechat-reply.subscribeCreate') }}">被添加自动回复</a>
-             <a class="btn btn-primary" href="javascript:;">消息自动回复</a>
              <a class="btn btn-primary" href="{{ route('admin.wechat-reply.rule') }}">关键词自动回复</a>
          </div>
      </div>
@@ -47,7 +46,6 @@
 
                 {!! Form::open(['route'=>'admin.wechat-reply.subscribeStore','role'=>'form','class'=>'form-horizontal',]) !!}
                     {!! Form::hidden('wechat_id',$wechat->id) !!}
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="app_id">回复内容</label>
                         <div class="col-sm-10">

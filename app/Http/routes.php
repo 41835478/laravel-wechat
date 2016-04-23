@@ -52,7 +52,11 @@ Route::group(['namespace' => 'Wechat'],function(){
     Route::get('wechat/{wechatId}/callback',[
         'as'=>'wechat.callback','uses'=>'WechatController@webCallBack'
     ]);
-
+    //退出
+    Route::get('wechat/logout',[
+        'as'=>'wechat.logout','uses'=>'WechatController@logout'
+    ]);
+    //
     //第三方授权
     Route::get('wechat/{wechatId}/thirdAuth',[
         'as'=>'wechat.thirdAuth','uses'=>'WechatController@thirdPartyAuthorization'

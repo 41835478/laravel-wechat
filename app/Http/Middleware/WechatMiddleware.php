@@ -17,15 +17,14 @@ class WechatMiddleware
     public function handle($request, Closure $next)
     {
         //
-        if($request->session()->get('wechat_id', '0')==$request->input('wechatId') && $request->session()->get('wechat_user', '')!=''){
+        if($request->session()->get('wechat_id', '0')==1 && $request->session()->get('wechat_user', '')!=''){
             //跳转到业务页
             return $next($request);
 
         }else{
             $request->session()->put('target_url',$request->url());
-            return redirect()->route('wechat.auth');
+            return redirect()->route('wechat.auth',1);
         }
-
 
     }
 }

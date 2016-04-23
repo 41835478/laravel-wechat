@@ -303,4 +303,14 @@ class WechatController extends WechatBaseController{
         $response = $auth->scopes(['snsapi_userinfo'])->redirect();
         return $response;
     }
+
+    /*
+     * 清除微信session
+     * */
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return '退出成功';
+    }
 }

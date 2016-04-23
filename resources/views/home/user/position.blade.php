@@ -9,15 +9,14 @@
 <meta name="Keywords" content="陆风" />
 <meta name="description" content="陆风" />
 <title>4s店查询</title>
-<link rel="stylesheet" href="css/style.css" />
-<script src="js/jquery-2.1.0.min.js"></script>
+    @include('home.user.common')
 </head>
 
 <body>
 
 <div class="wrapper">
 	<div class="s_top">
-    	<img src="images/logo.png"/><p>4s店查询</p>
+        {!! Html::image('wechat/images/logo.png') !!}<p>4s店查询</p>
     </div>
     <div class="s_position">
     	<a class="s_btn">重新定位</a>

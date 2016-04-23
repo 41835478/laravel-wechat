@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Home;
 
 class UserController extends BaseController
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -19,6 +20,8 @@ class UserController extends BaseController
     //个人中心首页
     public function user()
     {
+        var_dump($this->wechat_id);
+        var_dump($this->user);
         return view('home.user.index');
     }
 

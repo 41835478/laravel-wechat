@@ -9,8 +9,7 @@
 <meta name="Keywords" content="陆风" />
 <meta name="description" content="陆风" />
 <title>违章查询</title>
-<link rel="stylesheet" href="css/style.css" />
-<script src="js/jquery-2.1.0.min.js"></script>
+    @include('home.user.common')
 </head>
 
 <body>
@@ -18,7 +17,7 @@
 <div class="wrapper">
 	<div class="c_header">
     	<div class="c_header01">
-        	<img src="images/photo.png"/>
+            {!! Html::image('wechat/images/photo.png') !!}
         </div>
         <div class="c_header02">
         	<p>adriana Lima<span>积分：<i>1000</i></span></p>
@@ -39,7 +38,7 @@
         
         <input type="button" class="txt05 c_carbind" name="" value="违章查询"/>
     </form>
-    <a href="index.html" class="txt06">返回首页</a>
+    @include('home.user.back')
     
 </div>
 

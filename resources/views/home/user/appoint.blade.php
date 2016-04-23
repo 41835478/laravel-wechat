@@ -9,16 +9,16 @@
 <meta name="Keywords" content="陆风" />
 <meta name="description" content="陆风" />
 <title>预约</title>
-<link rel="stylesheet" href="css/style.css" />
-<script src="js/jquery-2.1.0.min.js"></script>
-<script src="js/index.js"></script>
+@include('home.user.common')
+{!! Html::script('wechat/js/index.js') !!}
 </head>
 
 <body>
 
 <div class="wrapper">
 	<div class="s_top">
-    	<img src="images/logo.png"/><p>预约</p>
+        {!! Html::image('wechat/images/logo.png') !!}
+    	<p>预约</p>
     </div>
     <div class="a_tab">
     	<div class="a_tabtop">

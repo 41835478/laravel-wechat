@@ -10,10 +10,18 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 
-class BaseController extends Controller{
+class BaseController extends Controller
+{
+
+    public $wechat_id;
+
+    public $user;
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('wechat');
+
+        $this->wehcat_id = session()->get('wechat_id');
+        $this->user = session()->get('wechat_user');
     }
 } 

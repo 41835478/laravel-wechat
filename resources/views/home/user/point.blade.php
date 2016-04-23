@@ -9,10 +9,9 @@
 <meta name="Keywords" content="陆风" />
 <meta name="description" content="陆风" />
 <title>积分查询</title>
-<link rel="stylesheet" href="css/style.css" />
-<script src="js/jquery-2.1.0.min.js"></script>
-<script src="js/iscroll.js"></script>
-<script src="js/index.js"></script>
+    @include('home.user.common')
+    {!! Html::script('wechat/js/iscroll.js') !!}
+    {!! Html::script('wechat/js/index.js') !!}
 </head>
 
 <body>
@@ -20,7 +19,7 @@
 <div class="wrapper point">
 	<div class="c_header">
     	<div class="c_header01">
-        	<img src="images/photo.png"/>
+            {!! Html::image('wechat/images/photo.png') !!}
         </div>
         <div class="c_header02">
         	<p>adriana Lima<span>积分：<i>1000</i></span></p>
@@ -74,8 +73,8 @@
             </div>
         </div>
     </div>
-    
-    <a href="index.html" class="txt06 c_return">返回首页</a>
+
+    @include('home.user.back')
     
 </div>
 

@@ -21,7 +21,7 @@ class BaseController extends Controller
     {
         $this->middleware('wechat');
 
-        $this->wehcat_id = session()->get('wechat_id');
+        $this->wechat_id = session()->get('wechat_id');
         $this->user = session()->get('wechat_user');
     }
 } 

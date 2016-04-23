@@ -9,6 +9,8 @@
 namespace App\Http\Controllers\Home;
 
 
+use App\OldUser;
+
 class UserController extends BaseController
 {
 
@@ -22,7 +24,9 @@ class UserController extends BaseController
     {
         var_dump($this->wechat_id);
         var_dump($this->user);
-        return view('home.user.index');
+        //查询用户信息
+        $user = OldUser::where('us_weixinid',$this->user->openid)->first();
+        return view('home.user.index',compact('user'));
     }
 
     //车辆绑定

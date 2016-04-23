@@ -6,6 +6,7 @@
  * Time: 2:53 PM
  */
 use App\Keyword;
+use App\OldUser;
 use App\Reply;
 use App\ReplyText;
 use App\Wechat;
@@ -282,6 +283,28 @@ class WechatController extends WechatBaseController{
 
         //var_dump($request->session()->all());
         //$request->session()->flush();
+        //保存用户信息
+        $u = OldUser::where('us_weixinid',$user->openid)->first();
+        if($u){
+            OldUser::where('us_weixinid',$user->openid)->update([
+                'us_nick'  => $user->nickname,
+                'us_gender'  => $user->sex,
+                'city'  => $user->city,
+                'province'  => $user->province,
+                'us_portrait'  => $user->headimgurl,
+                'us_date'  => date('Y-m-d H:i:s',time()),
+            ]);
+        }else{
+            OldUser::create([
+                'us_weixinid'   => $user->openid,
+                'us_nick'  => $user->nickname,
+                'us_gender'  => $user->sex,
+                'city'  => $user->city,
+                'province'  => $user->province,
+                'us_portrait'  => $user->headimgurl,
+                'us_date'  => date('Y-m-d H:i:s',time()),
+            ]);
+        }
         //跳转到业务页
         // todo
         return redirect($request->session()->get('target_url'));

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Integral;
 use App\OldUser;
+use App\OrderUpKeep;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -240,4 +241,98 @@ class ApiController extends Controller
         //todo
     }
 
+
+    //预约试驾
+
+    public function appointTestDrive(Request $request)
+    {
+        $data = $request->only(['od_us_id','od_st_id','od_s_id','od_ct_id','od_name','od_tel','od_km','od_msg']);
+        $rules = [
+            'od_us_id'          => 'required',
+            'od_st_id'          => 'required',
+            'od_s_id'           => 'required',
+            'od_ct_id'          => 'required',
+            'od_name'           => 'required',
+            'od_tel'            => 'required',
+            'od_msg'            => 'required'
+        ];
+        $message = [
+            'ou_us_id.required'           => '请填写用户ID',
+            'ou_st_id.required'           => '请选择4S店',
+            'od_s_id.required'            => '请选择车系',
+            'od_ct_id.required'           => '请选择车型',
+            'od_name.required'            => '请填写您的姓名',
+            'od_tel.required'             => '请填写您的手机号',
+            'od_msg.required'             => '请填写留言信息',
+        ];
+
+        $validator = Validator::make($data,$rules,$message);
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+        }else{
+            $create = OrderUpKeep::create($data);
+            if($create){
+                $result = [
+                    'status'    => 200,
+                    'msg'       => '预约成功'
+                ];
+            }else{
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '网络错误'
+                ];
+            }
+        }
+        return response()->json($result);
+    }
+    //预约维修/保养
+
+
+    public function appointMaintenance(Request $request)
+    {
+        $data = $request->only(['ou_us_id','ou_st_id','ou_type','ou_carno','ou_name','ou_tel','ou_km','ou_msg']);
+        $rules = [
+            'ou_us_id'          => 'required',
+            'ou_st_id'          => 'required',
+            'ou_type'           => 'required',
+            'ou_carno'          => 'required',
+            'ou_name'           => 'required',
+            'ou_tel'            => 'required',
+            'ou_msg'            => 'required'
+        ];
+        $message = [
+            'ou_us_id.required'           => '请填写用户ID',
+            'ou_st_id.required'           => '请选择4s店',
+            'ou_type.required'            => '请选择预约类型',
+            'ou_carno.required'           => '请填写车架号',
+            'ou_name.required'            => '请填写您的姓名',
+            'ou_tel.required'             => '请填写您的手机号',
+            'ou_msg.required'             => '请填写留言信息',
+        ];
+
+        $validator = Validator::make($data,$rules,$message);
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+        }else{
+            $create = OrderUpKeep::create($data);
+            if($create){
+                $result = [
+                    'status'    => 200,
+                    'msg'       => '预约成功'
+                ];
+            }else{
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '网络错误'
+                ];
+            }
+        }
+        return response()->json($result);
+    }
 }

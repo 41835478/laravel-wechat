@@ -22,7 +22,7 @@
             @include('home.user.avatar',['path'=>$user->us_portrait])
         </div>
         <div class="c_header02">
-        	<p>adriana Lima<span>积分：<i>{{ $user->us_integral }}</i></span></p>
+        	<p>{{ $user->us_nick }}<span>积分：<i>{{ $user->us_integral }}</i></span></p>
             <div class="c_btn">
             	<a href="javascript:;" class="sign">签到</a> | <a href="{{ url('user/userCollection') }}" class="collect">收藏</a>
             </div>

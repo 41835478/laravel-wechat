@@ -12,6 +12,7 @@ use App\ReplyText;
 use App\Wechat;
 use App\WechatNews;
 use App\WechatText;
+use EasyWeChat\Core\AccessToken;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\Article;
 use EasyWeChat\Message\News;
@@ -181,7 +182,8 @@ class WechatController extends WechatBaseController{
             ],
         ];
 
-        return new Application($optioins);
+        $app = new Application($optioins);
+        return $app;
 
     }
 

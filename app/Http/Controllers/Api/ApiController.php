@@ -71,7 +71,29 @@ class ApiController extends Controller
 
         //验证
         //todo
-
+        //验证验证码
+        $rules = [
+            'c_us_id'  => 'required',
+            'c_img'    => 'required',
+            'c_title'   => 'required',
+            'c_content'  => 'required',
+            'c_url'    => 'required',
+        ];
+        $message = [
+            'us_carno.required'           => '用户ID错误',
+            'us_tel.required'             => '图片地址错误',
+            'c_title.required'            => '收藏标题错误',
+            'c_content.required'          => '收藏内容错误',
+            'c_url.required'              => '收藏链接错误',
+        ];
+        $validator = Validator::make($request->all(),$rules,$message);
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+            return response()->json($result);
+        }
         if($isSign){
             $result = [
                 'status'    => 201,
@@ -112,7 +134,28 @@ class ApiController extends Controller
 
         //验证
         //todo
-
+        $rules = [
+            'us_id'         => 'required',
+            'us_name'       => 'required',
+            'us_gender'     => 'required',
+            'us_tel'        => 'required',
+            'us_address'    => 'required',
+        ];
+        $message = [
+            'us_id.required'              => '用户ID错误',
+            'us_name.required'            => '请填写您的姓名',
+            'us_gender.required'          => '请选择您的性别',
+            'us_tel.required'             => '请填写手机号',
+            'us_address.required'         => '请填您的地址',
+        ];
+        $validator = Validator::make($request->all(),$rules,$message);
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+            return response()->json($result);
+        }
         $data = [
             "us_name"   => $us_name,
             "us_gender" => $us_gender,

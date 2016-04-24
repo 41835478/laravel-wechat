@@ -24,7 +24,7 @@
         <div class="c_header02">
         	<p>{{ $user->us_nick }}<span>积分：<i>{{ $user->us_integral }}</i></span></p>
             <div class="c_btn">
-            	<a href="javascript:;" class="sign">签到</a> | <a href="javascript:;" class="collect">收藏</a>
+            	<a href="javascript:;" class="sign">签到</a> | <a href="{{ url('user/userCollection') }}" class="collect">收藏</a>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
             </div>
 
         </div>
-        <div class="p_list" >
+        <div class="p_list" style="display: none;">
         	<div class="p_listyes">
             	<div id="wrapper2">
                     <div id="scroller2">

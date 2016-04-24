@@ -20,9 +20,9 @@
             @include('home.user.avatar',['path'=>$user->us_portrait])
         </div>
         <div class="c_header02">
-        	<p>adriana Lima<span>积分：<i>1000</i></span></p>
+        	<p>{{ $user->us_nick }}<span>积分：<i>{{ $user->us_integral }}</i></span></p>
             <div class="c_btn">
-            	<a href="javascript:;" class="sign">签到</a> | <a href="javascript:;" class="collect">收藏</a>
+            	<a href="javascript:;" class="sign">签到</a> | <a href="{{ url('user/userCollection') }}" class="collect">收藏</a>
             </div>
         </div>
     </div>
@@ -34,7 +34,6 @@
     	</div>
         <div class="c_code">
         	<div class="c_code01">{!!  captcha_img() !!}</div>
-            <input type="hidden" name="captcha" >
             <div class="c_code02">
             	<p>车辆绑定后违章查询</p>
                 <p class="c_code02p">可&nbsp;·&nbsp;快&nbsp;·&nbsp;捷&nbsp;·&nbsp;查&nbsp;·&nbsp;询</p>

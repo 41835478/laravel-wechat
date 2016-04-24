@@ -63,6 +63,8 @@ Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
     Route::get('maintenance','UserController@maintenance');
 
 });
+//4s店查询
+Route::get('shop','Home\ShopController@shop');
 
 Route::get('posts','Home\PostController@all');
 Route::get('posts/{nodeId?}', 'Home\PostController@postsList');

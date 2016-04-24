@@ -10,7 +10,8 @@
 <meta name="description" content="陆风" />
 <title>4s店查询</title>
     @include('home.user.common')
-    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>{{--腾讯地图API--}}
+    {{--<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>--}}{{--腾讯地图API--}}
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BNUjjtFI1Uis61ECHgO1jZvG"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         $(function(){
@@ -21,7 +22,7 @@
                     success: function (res) {
                         alert(JSON.stringify(res));
                         //地址解析
-                        codeLatLng(res.latitude,res.longitude);
+                        getAddress(res.latitude,res.longitude);
                     },
                     cancel: function (res) {
                         alert('用户拒绝授权获取地理位置');
@@ -32,7 +33,7 @@
                     wx.getLocation({
                         success: function (res) {
                             alert(JSON.stringify(res));
-                            codeLatLng(res.latitude,res.longitude);
+                            getAddress(res.latitude,res.longitude);
                         },
                         cancel: function (res) {
                             alert('用户拒绝授权获取地理位置');
@@ -43,26 +44,41 @@
         });
     </script>
     <script>
-        var geocoder = null;
-        //地址和经纬度之间进行转换服务
-        geocoder = new qq.maps.Geocoder();
-        function codeLatLng(lat,lng) {
-            //获取经纬度
+        function getAddress(lat,lng)
+        {
             var lat = parseFloat(lat);
             var lng = parseFloat(lng);
-            var latLng = new qq.maps.LatLng(lat, lng);
-            //对指定经纬度进行解析
-            geocoder.getAddress(latLng);
-            //设置服务请求成功的回调函数
-            geocoder.setComplete(function(result) {
-                alert(result.detail.address);
+            // 创建地理编码实例
+            var myGeo = new BMap.Geocoder();
+            // 根据坐标得到地址描述
+            myGeo.getLocation(new BMap.Point(lng, lat), function(result){
+                if (result){
+                    alert(result.address);
+                }
             });
-            //若服务请求失败，则运行以下函数
-            geocoder.setError(function() {
-                alert("出错了，请输入正确的经纬度！！！");
-            });
-
         }
+
+
+//        var geocoder = null;
+//        //地址和经纬度之间进行转换服务
+//        geocoder = new qq.maps.Geocoder();
+//        function codeLatLng(lat,lng) {
+//            //获取经纬度
+//            var lat = parseFloat(lat);
+//            var lng = parseFloat(lng);
+//            var latLng = new qq.maps.LatLng(lat, lng);
+//            //对指定经纬度进行解析
+//            geocoder.getAddress(latLng);
+//            //设置服务请求成功的回调函数
+//            geocoder.setComplete(function(result) {
+//                alert(result.detail.address);
+//            });
+//            //若服务请求失败，则运行以下函数
+//            geocoder.setError(function() {
+//                alert("出错了，请输入正确的经纬度！！！");
+//            });
+//
+//        }
     </script>
 </head>
 

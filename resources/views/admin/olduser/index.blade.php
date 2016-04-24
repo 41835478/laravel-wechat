@@ -10,13 +10,6 @@
      </div>
  @endif
  @stop
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <a class="btn btn-primary" href="{{ route('admin.user.create') }}">新用户</a>
-        </div>
-    </div>
-</div>
 <!-- Removing search and results count filter -->
 <div class="panel panel-default">
   <div class="panel-heading">

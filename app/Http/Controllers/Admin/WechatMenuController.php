@@ -44,7 +44,7 @@ class WechatMenuController extends WechatBaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\WechatMenuPostRequest $request)
     {
         //
         $data = $request->except('_token');
@@ -110,7 +110,7 @@ class WechatMenuController extends WechatBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\WechatMenuPostRequest $request, $id)
     {
         //
         $data = $request->except('_token','_method','level');

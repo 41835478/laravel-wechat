@@ -35,7 +35,7 @@
                         <label class="col-sm-2 control-label" for="s_name" >车系</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="s_name" id="s_name" placeholder="@if($errors->first('s_name')) {{$errors->first('s_name')}} @else 用户名 @endif">
+                            <input type="text" class="form-control" name="s_name" id="s_name" placeholder="@if($errors->first('s_name')) {{$errors->first('s_name')}} @else 车系名称 @endif">
                         </div>
                     </div>
 

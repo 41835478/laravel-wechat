@@ -49,7 +49,7 @@ class WechatStaffController extends WechatBaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\StaffPostRequest $request)
     {
         //
         $data = $request->all();
@@ -103,7 +103,7 @@ class WechatStaffController extends WechatBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\StaffPostRequest $request, $id)
     {
         //
         $kf_account = $request->input('kf_account');
@@ -148,6 +148,10 @@ class WechatStaffController extends WechatBaseController
     {
         $kf_account = $request->input('kf_account');
         $invite_wx  = $request->input('invite_wx');
+        if($invite_wx){
+            $result = ['status'=>201,'msg'=>'请填写被邀请人的微信号!'];
+            return response()->json($result);
+        }
         $result = $this->staff->invite($kf_account,$invite_wx);
 
         if($result->errcode==0){

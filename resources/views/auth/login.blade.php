@@ -1,61 +1,91 @@
-@extends('app')
+<?php
+/**
+ * Created by PhpStorm.
+ * User: lvdingtao
+ * Date: 8/21/15
+ * Time: 9:32 AM
+ * Description: login page
+ */
+ ?>
+@extends('layouts.master')
+@section('container')
+<div class="login-container">
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+    <div class="row">
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <div class="col-sm-6">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
+            <!-- Errors container -->
+            <div class="errors-container">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
+            </div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
+            <!-- Add class "fade-in-effect" for login form effect -->
+            {!! Form::open(array('url' => array('auth/login'),'method'=>'POST','id'=>'login','class'=>'login-form validate','novalidate'=>'novalidate')) !!}
+                <div class="login-header">
+                    <a href="{{url('/')}}" class="logo">
+                        {!! Html::image("style/assets/images/logo@2x.png",null,['width'=>'80']) !!}
+                        <span>登录</span>
+                    </a>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Login</button>
+                    <p>您好, 请登录进行更好的体验!</p>
+                </div>
 
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+
+                <div class="form-group">
+                    {!! Form::label('email', '',['class' => 'control-label']) !!}
+                    {!! Form::text('email', old('email'), ["class"=>"form-control input-dark", "id"=>"email","data-validate"=>"required", "data-message-required"=>"这是必填项"]) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('password', '',['class' => 'control-label']) !!}
+                    {!! Form::password('password', ["class"=>"form-control input-dark", "id"=>"password","data-validate"=>"required", "data-message-required"=>"这是必填项"]) !!}
+                    </div>
+                <div class="form-group">
+                    {!! Form::checkbox('remember') !!}
+                    {!! Form::label('remember', '记住密码') !!}
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-dark  btn-block text-left">
+                        <i class="fa-lock"></i>
+                        登录
+                    </button>
+                </div>
+
+                <div class="login-footer">
+                    <a href="{{url('password/email')}}">忘记密码?</a>
+
+                </div>
+
+            {!! Form::close() !!}
+
+            <!-- External login -->
+            {{--<div class="external-login">--}}
+                {{--<a href="#" class="facebook">--}}
+                    {{--<i class="fa-facebook"></i>--}}
+                    {{--Facebook Login--}}
+                {{--</a>--}}
+
+                {{--<a href="#" class="twitter">--}}
+                    {{--<i class="fa-twitter"></i>--}}
+                    {{--Login with Twitter--}}
+                {{--</a>--}}
+
+                {{--<a href="#" class="gplus">--}}
+                    {{--<i class="fa-google-plus"></i>--}}
+                    {{--Login with Google Plus--}}
+                {{--</a>--}}
+
+            {{--</div>--}}
+
+        </div>
+
+    </div>
+
 </div>
-@endsection
+@stop
+
+@section('script')
+{!! Html::script("style/assets/js/jquery-validate/jquery.validate.min.js") !!}
+@stop

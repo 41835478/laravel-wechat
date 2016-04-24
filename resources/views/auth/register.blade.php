@@ -1,65 +1,77 @@
-@extends('app')
+<?php
+/**
+ * Created by PhpStorm.
+ * User: lvdingtao
+ * Date: 8/21/15
+ * Time: 9:32 AM
+ * Description: register page
+ */
+ ?>
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Register</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+ @extends('layouts.master')
+ @section('container')
+ <div class="login-container">
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+     <div class="row">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
-							</div>
-						</div>
+         <div class="col-sm-6">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
+             <!-- Errors container -->
+             <div class="errors-container">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
+             </div>
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
-							</div>
-						</div>
+             <!-- Add class "fade-in-effect" for login form effect -->
+             {!! Form::open(['url' => ['auth/register'],'method'=>'POST','id'=>'login','class'=>'login-form validate','novalidate'=>'novalidate']) !!}
+                 <div class="login-header">
+                     <a href="{{url('/')}}" class="logo">
+                         {!! Html::image("style/assets/images/logo@2x.png",null,['width'=>'80']) !!}
+                         <span>注册</span>
+                     </a>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Register
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-@endsection
+                     <p>亲爱的,注册为我们的会员享受更好的服务哦!</p>
+                 </div>
+                 <div class="form-group">
+                     {!! Form::label('name', '用户名',['class' => 'control-label']) !!}
+                     {!! Form::text('name', old('name'), ["class"=>"form-control input-dark", "id"=>"name","data-validate"=>"required", "data-message-required"=>"这是必填项"]) !!}
+                 </div>
+
+                 <div class="form-group">
+                     {!! Form::label('email', 'Email',['class' => 'control-label']) !!}
+                     {!! Form::text('email', old('email'), ["class"=>"form-control input-dark", "id"=>"email","data-validate"=>"required", "data-message-required"=>"这是必填项"]) !!}
+                 </div>
+
+                 <div class="form-group">
+                     {!! Form::label('password', '密码',['class' => 'control-label']) !!}
+                     {!! Form::password('password', ["class"=>"form-control input-dark", "id"=>"password","data-validate"=>"required", "data-message-required"=>"这是必填项"]) !!}
+                 </div>
+
+                 <div class="form-group">
+                     {!! Form::label('password_confirmation', '确认密码',['class' => 'control-label']) !!}
+                     {!! Form::password('password_confirmation', ["class"=>"form-control input-dark", "id"=>"password","data-validate"=>"required", "data-message-required"=>"这是必填项"]) !!}
+                 </div>
+
+                 <div class="form-group">
+                     <button type="submit" class="btn btn-dark  btn-block text-left">
+                         <i class="fa-lock"></i>
+                         注册
+                     </button>
+                 </div>
+
+                 <div class="login-footer">
+                     <a href="{{url('auth/login')}}">已有账号?</a>
+
+                 </div>
+
+             {!! Form::close() !!}
+
+         </div>
+
+     </div>
+
+ </div>
+ @stop
+
+ @section('script')
+ {!! Html::script("assets/js/jquery-validate/jquery.validate.min.js") !!}
+ @stop

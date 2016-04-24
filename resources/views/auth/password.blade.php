@@ -1,50 +1,57 @@
-@extends('app')
+<?php
+/**
+ * Created by PhpStorm.
+ * User: lvdingtao
+ * Date: 8/21/15
+ * Time: 3:14 PM
+ */
+ ?>
+ @extends('layouts.master')
+ @section('container')
+ <div class="login-container">
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Reset Password</div>
-				<div class="panel-body">
-					@if (session('status'))
-						<div class="alert alert-success">
-							{{ session('status') }}
-						</div>
-					@endif
+     <div class="row">
 
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+         <div class="col-sm-6">
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+             <!-- Errors container -->
+             <div class="errors-container">
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
+             </div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Send Password Reset Link
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-@endsection
+             <!-- Add class "fade-in-effect" for login form effect -->
+             {!! Form::open(array('url' => array('/password/email'),'method'=>'POST','id'=>'login','class'=>'login-form validate','novalidate'=>'novalidate')) !!}
+                 <div class="login-header">
+                     <a href="{{url('/')}}" class="logo">
+                         {!! Html::image("style/assets/images/logo@2x.png",null,['width'=>'80']) !!}
+                         <span>找回密码</span>
+                     </a>
+
+                     <p>忘记密码? 不用怕，找回密码请输入注册邮箱哦</p>
+                 </div>
+
+
+                 <div class="form-group">
+                     {!! Form::label('email', 'Email',['class' => 'control-label']) !!}
+                     {!! Form::text('email', old('email'), ["class"=>"form-control input-dark", "id"=>"email","data-validate"=>"required", "data-message-required"=>"这是必填项"]) !!}
+                 </div>
+
+                 <div class="form-group">
+                     <button type="submit" class="btn btn-dark  btn-block text-left">
+                         <i class="fa-lock"></i>
+                         发送邮件
+                     </button>
+                 </div>
+
+             {!! Form::close() !!}
+
+         </div>
+
+     </div>
+
+ </div>
+ @stop
+
+ @section('script')
+ {!! Html::script("assets/js/jquery-validate/jquery.validate.min.js") !!}
+ @stop

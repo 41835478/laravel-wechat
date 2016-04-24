@@ -152,7 +152,7 @@ return [
         App\Providers\ComposerServiceProvider::class,//视图组件
         Liaol\SocialiteCn\SocialiteCnServiceProvider::class,
         //Overtrue\LaravelWechat\ServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class, //debugbar
+        //Barryvdh\Debugbar\ServiceProvider::class, //debugbar
         Mews\Captcha\CaptchaServiceProvider::class, //验证码
     ],
 
@@ -208,7 +208,7 @@ return [
         'Flash'     => Laracasts\Flash\Flash::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
         //'Wechat'    => Overtrue\LaravelWechat\Facade::class,
-        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
+        //'Debugbar'  => Barryvdh\Debugbar\Facade::class,
         'Captcha'   => Mews\Captcha\Facades\Captcha::class,  //验证码
     ],
 

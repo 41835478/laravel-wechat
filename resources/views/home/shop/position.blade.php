@@ -10,7 +10,6 @@
 <meta name="description" content="陆风" />
 <title>4s店查询</title>
     @include('home.user.common')
-    {{--<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>--}}{{--腾讯地图API--}}
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BNUjjtFI1Uis61ECHgO1jZvG"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
@@ -53,32 +52,12 @@
             // 根据坐标得到地址描述
             myGeo.getLocation(new BMap.Point(lng, lat), function(result){
                 if (result){
-                    alert(result.address);
+                    //alert(result.address);
+                    $('.s_result').append('<p>'+result.address+'</p>');
                 }
             });
         }
 
-
-//        var geocoder = null;
-//        //地址和经纬度之间进行转换服务
-//        geocoder = new qq.maps.Geocoder();
-//        function codeLatLng(lat,lng) {
-//            //获取经纬度
-//            var lat = parseFloat(lat);
-//            var lng = parseFloat(lng);
-//            var latLng = new qq.maps.LatLng(lat, lng);
-//            //对指定经纬度进行解析
-//            geocoder.getAddress(latLng);
-//            //设置服务请求成功的回调函数
-//            geocoder.setComplete(function(result) {
-//                alert(result.detail.address);
-//            });
-//            //若服务请求失败，则运行以下函数
-//            geocoder.setError(function() {
-//                alert("出错了，请输入正确的经纬度！！！");
-//            });
-//
-//        }
     </script>
 </head>
 
@@ -89,14 +68,10 @@
         {!! Html::image('wechat/images/logo.png') !!}<p>4s店查询</p>
     </div>
     <div class="s_position">
-    	<a class="s_btn" id="position">重新定位</a>
+    	<a class="s_btn">重新定位</a>
     	<p>开启手机“定位服务”<br/>以便获得更准确的结果</p>
     </div>
     <div class="s_result">
-    	<p>北京市海淀区三里河路5号院-西北门</p>
-        <p>北京市海淀区三里河路5号院-西北门</p>
-        <p>北京市海淀区三里河路5号院-西北门</p>
-        <p>北京市海淀区三里河路5号院-西北门</p>
     </div>
 </div>
 

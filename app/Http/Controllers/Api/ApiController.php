@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Integral;
 use App\OldUser;
+use App\OrderDrive;
 use App\OrderUpKeep;
 use Illuminate\Http\Request;
 
@@ -273,7 +274,7 @@ class ApiController extends Controller
                 'msg'       => $validator->errors()->first()
             ];
         }else{
-            $create = OrderUpKeep::create($data);
+            $create = OrderDrive::create($data);
             if($create){
                 $result = [
                     'status'    => 200,

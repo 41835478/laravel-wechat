@@ -16,6 +16,8 @@ class CreateWechatDomainsTable extends Migration
             $table->increments('id');
             $table->integer('wechat_id')->default(0)->index();
             $table->string('domain');
+            $table->text('remark');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

@@ -356,7 +356,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::resource('wechat-staff', 'WechatStaffController',['names'=>['index'=>'admin.wechat-staff']]);
     Route::resource('wechat-news', 'WechatNewsController',['names'=>['index'=>'admin.wechat-news']]);
 
-
+    //多域名管理
+    Route::resource('wechat-domain', 'DomainController',['names'=>['index'=>'admin.wechat-domain']]);
 
     //原有功能
     //车系

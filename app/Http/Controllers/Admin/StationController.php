@@ -103,9 +103,9 @@ class StationController extends Controller
     {
         $res = Station::destroy($id);
         if($res){
-            flash()->success('更新成功');
+            flash()->success('删除成功');
         }else{
-            flash()->error('更新失败');
+            flash()->error('删除失败');
         }
         return redirect()->back();
     }

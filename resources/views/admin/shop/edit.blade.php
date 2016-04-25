@@ -41,11 +41,11 @@
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('address')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="address" >专营店地址</label>
+                    <div class="form-group @if($errors->first('adress')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="adress" >专营店地址</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="address" id="address" value="{{$shop->address}}" placeholder="@if($errors->first('address')) {{$errors->first('address')}} @else 专营店地址 @endif">
+                            <input type="text" class="form-control" name="adress" id="adress" value="{{$shop->adress}}" placeholder="@if($errors->first('adress')) {{$errors->first('adress')}} @else 专营店地址 @endif">
                         </div>
                     </div>
 

@@ -31,21 +31,21 @@
 
                     {!! Form::open(['route'=>['admin.shop.store'],'role'=>'form','class'=>'form-horizontal']) !!}
 
-                    <div class="form-group @if($errors->first('stationname')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="stationname" >专营店名称</label>
+                    <div class="form-group @if($errors->first('shopname')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="shopname" >专营店名称</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="stationname" id="stationname" placeholder="@if($errors->first('stationname')) {{$errors->first('stationname')}} @else 专营店名称 @endif">
+                            <input type="text" class="form-control" name="shopname" id="shopname" placeholder="@if($errors->first('shopname')) {{$errors->first('shopname')}} @else 专营店名称 @endif">
                         </div>
                     </div>
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('address')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="address" >专营店地址</label>
+                    <div class="form-group @if($errors->first('adress')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="adress" >专营店地址</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="address" id="address" placeholder="@if($errors->first('address')) {{$errors->first('address')}} @else 专营店地址 @endif">
+                            <input type="text" class="form-control" name="adress" id="adress" placeholder="@if($errors->first('adress')) {{$errors->first('adress')}} @else 专营店地址 @endif">
                         </div>
                     </div>
 
@@ -117,7 +117,7 @@
 
                         <div class="col-sm-10">
 
-                            <button class="btn btn-danger">更新</button>
+                            <button class="btn btn-danger">添加</button>
 
                         </div>
                     </div>

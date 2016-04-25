@@ -23,10 +23,6 @@ Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
         'as'=>'api.makeSign','uses'=>'ApiController@makeSign'
     ]);
 
-    Route::any('makeSign',[
-        'as'=>'api.makeSign','uses'=>'ApiController@makeSign'
-    ]);
-
     Route::post('makeCollect',[
         'as'=>'api.makeCollect','uses'=>'ApiController@makeCollect'
     ]);
@@ -39,12 +35,28 @@ Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
         'as'=>'api.makeCarBind','uses'=>'ApiController@makeCarBind'
     ]);
 
+    Route::post('appointMaintenance',[
+        'as'=>'api.appointMaintenance','uses'=>'ApiController@appointMaintenance'
+    ]);
+
+    Route::post('appointTestDrive',[
+        'as'=>'api.appointTestDrive','uses'=>'ApiController@appointTestDrive'
+    ]);
+
     Route::post('getViolation',[
         'as'=>'api.getViolation','uses'=>'ApiController@getViolation'
     ]);
 
     Route::post('getOilRecord',[
         'as'=>'api.getOilRecord','uses'=>'ApiController@getOilRecord'
+    ]);
+
+    Route::post('oilConsumption',[
+        'as'=>'api.oilConsumption','uses'=>'ApiController@oilConsumption'
+    ]);
+
+    Route::post('getCarModels',[
+        'as'=>'api.getCarModels','uses'=>'ApiController@getCarModels'
     ]);
 
 });
@@ -60,6 +72,7 @@ Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
     Route::get('appointment','UserController@appointment');
     Route::get('appointRecord','UserController@appointRecord');
     Route::get('oil','UserController@oil');
+    Route::get('oilResult','UserController@oilResult');
     Route::get('maintenance','UserController@maintenance');
 
 });

@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Home;
 
 
 use App\OldUser;
+use App\Series;
 
 class UserController extends BaseController
 {
@@ -65,11 +66,12 @@ class UserController extends BaseController
     }
 
     //预约
-//    public function appointment()
-//    {
-//        $user = OldUser::where('us_weixinid',$this->user['id'])->first();
-//        return view('home.user.appoint',compact('user'));
-//    }
+    public function appointment()
+    {
+        $series = Series::all();
+        $user = OldUser::where('us_weixinid',$this->user['id'])->first();
+        return view('home.user.appoint',compact('user','series'));
+    }
     //预约记录
     public function appointRecord()
     {
@@ -87,7 +89,7 @@ class UserController extends BaseController
     public function oilResult()
     {
         $user = OldUser::with('oilRecords')->where('us_weixinid',$this->user['id'])->first();
-        return view('home.user.oilresult',compact('user'));
+        return view('home.user.history',compact('user'));
     }
 
     //维修保养记录

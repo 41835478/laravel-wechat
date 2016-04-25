@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\CarModel;
 use App\Integral;
+use App\OilWear;
 use App\OldUser;
 use App\OrderDrive;
 use App\OrderUpKeep;
@@ -163,6 +165,7 @@ class ApiController extends Controller
             "us_gender" => $us_gender,
             "us_tel"    => $us_tel,
             "us_address"=> $us_address,
+            'us_date'   => date('Y-m-d H:i:s',time())
         ];
         $update = OldUser::where('us_id',$us_id)->update($data);
         if($update){
@@ -236,6 +239,62 @@ class ApiController extends Controller
 
     }
 
+    //油耗计算接口
+    public function oilConsumption(Request $request)
+    {
+        $us_id      = $request->input('us_id');
+        $journey    = $request->input('journey');   //总里程
+        $fuel       = $request->input('fuel');      //总油量
+        $price      = $request->input('price');     //油价
+        //验证验证码
+        $rules = [
+            'us_id'    => 'required',
+            'journey'  => 'required|numeric',
+            'fuel'     => 'required|numeric',
+            'price'    => 'required|numeric'
+        ];
+        $message = [
+            'journey.required'          => '请填写车架号',
+            'us_carno.numeric'          => '请填写正确的数值',
+            'fuel.required'             => '请填写手机号',
+            'fuel.numeric'              => '请填写正确的数值',
+            'price.required'            => '请填写价格',
+            'price.numeric'             => '请填写正确的数值',
+        ];
+        $validator = Validator::make($request->all(),$rules,$message);
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+            return response()->json($result);
+        }
+        //油耗计算
+        $onekm  = $journey/$fuel;  //每公升油可以行驶
+        $oneoil = $fuel/$journey;  //每公里油耗
+        $kmmoney= $oneoil*$price;  //每公里的油钱
+        $create = OilWear::create([
+            'o_us_id'     => $us_id,
+            'o_oneoil'    => number_format($oneoil,3),
+            'o_onekm'     => number_format($onekm,3),
+            'o_kmmoney'   => number_format($kmmoney,3),
+            '0_date'   => date('Y-m-d H:i:s',time())
+        ]);
+        if($create){
+            $result = [
+                'status'    => 200,
+                'msg'       => '计算成功!',
+                'info'      => $create
+            ];
+        }else{
+            $result = [
+                'status'    => 201,
+                'msg'       => '网络错误!'
+            ];
+        }
+        return response()->json($result);
+    }
+
     public function getOilRecord(Request $request)
     {
         //验证
@@ -266,7 +325,7 @@ class ApiController extends Controller
             'od_tel.required'             => '请填写您的手机号',
             'od_msg.required'             => '请填写留言信息',
         ];
-
+        $data['od_date'] = date('Y-m-d H:i:s',time());
         $validator = Validator::make($data,$rules,$message);
         if($validator->fails()){
             $result = [
@@ -313,7 +372,7 @@ class ApiController extends Controller
             'ou_tel.required'             => '请填写您的手机号',
             'ou_msg.required'             => '请填写留言信息',
         ];
-
+        $data['ou_date'] = date('Y-m-d H:i:s',time());
         $validator = Validator::make($data,$rules,$message);
         if($validator->fails()){
             $result = [
@@ -333,6 +392,26 @@ class ApiController extends Controller
                     'msg'       => '网络错误'
                 ];
             }
+        }
+        return response()->json($result);
+    }
+
+    //获取chex
+    public function getCarModels(Request $request)
+    {
+        $s_id = $request->input('s_id');
+        if($s_id){
+            $carmodels = CarModel::where('s_id',$s_id)->get();
+            $result = [
+                'status'    => 200,
+                'msg'       => '获取成功',
+                'models'    => $carmodels
+            ];
+        }else{
+            $result = [
+                'status'    => 201,
+                'msg'       => '网络错误'
+            ];
         }
         return response()->json($result);
     }

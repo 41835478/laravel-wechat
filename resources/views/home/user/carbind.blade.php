@@ -20,13 +20,13 @@
             @include('home.user.avatar',['path'=>$user->us_portrait])
         </div>
         <div class="c_header02">
-        	<p>{{ $user->us_nick }}<span>积分：<i>{{ $user->us_integral }}</i></span></p>
+        	<p>{{ $user->us_nick }}<span>积分：<i id="point">{{ $user->us_integral }}</i></span></p>
             <div class="c_btn">
             	<a href="javascript:;" class="sign">签到</a> | <a href="{{ url('user/userCollection') }}" class="collect">收藏</a>
             </div>
         </div>
     </div>
-    <form method="get">
+    <form method="get" action="{{ route('api.makeCarBind') }}">
     	<div class="c_form">
         	<input class="txt01" type="text" name="us_carno" value="{{ $user->us_carno }}" placeholder="请输入车架号后8位"/>
             <input class="txt02" type="text" name="us_tel" value="{{ $user->us_tel }}" placeholder="请输入手机号码"/>
@@ -39,11 +39,17 @@
                 <p class="c_code02p">可&nbsp;·&nbsp;快&nbsp;·&nbsp;捷&nbsp;·&nbsp;查&nbsp;·&nbsp;询</p>
             </div>
         </div>
+        <input type="hidden" name="us_id" value="{{ $user->us_id }}">
         <input class="txt05 c_carbind" type="button" name="" value="确认绑定"/>
     </form>
     @include('home.user.back')
     
 </div>
-
+<script>
+    $('.c_code01 img').click(function(){
+        var img = '{!!  captcha_img() !!}';
+        $(this).parent().html(img);
+    });
+</script>
 </body>
 </html>

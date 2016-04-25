@@ -27,27 +27,29 @@
             </div>
         </div>
     </div>
-    <form method="get">
+    <form method="get" id="oilform" action="{{ route('api.oilConsumption') }}">
     	<div class="o_form">
-        	<input class="txt01" name="" type="text" placeholder="请输入公里数"/>
-            <input class="txt02" name="" type="text" placeholder="请输入油箱加满几公升"/>
-            <input class="txt03" name="" type="text" placeholder="请输入油价"/>
+            <input type="hidden" name="us_id" value="{{ $user->us_id }}">
+        	<input class="txt01" name="journey" type="text" placeholder="请输入公里数"/>
+            <input class="txt02" name="fuel" type="text" placeholder="请输入油箱加满几公升"/>
+            <input class="txt03" name="price" type="text" placeholder="请输入油价"/>
     	</div>
          <div class="o_tip">
             <p>为使计算结果准确。请务必在加满油的两次之间的里程数计算。</p>
         </div>
-        <input class="txt05" name="" type="button" value="进行计算"/>
+        <input class="txt05 calculate" name="" type="button" value="进行计算"/>
+        <input name="res" type="reset" style="display:none;" />
     </form>
    
     <a href="javascript:;" class="txt06">查看历史记录</a>
     
-    <div class="o_result">
+    <div class="o_result" id="result" style="display: none;">
     	<h2>油价计算结果</h2>
-        <p>每公升油可以行驶: <span>6.5</span> 公里</p>
-		<p>每跑一公里需用： <span>0.154</span> 公升(约等同200.000cc)的油</p>
-		<p>每公里的油钱是： <span>0.769</span> 元</p>
+        <p>每公升油可以行驶: <span id="o_onekm">6.5</span> 公里</p>
+		<p>每跑一公里需用： <span id="o_oneoil">0.154</span> 公升(约等同<span id="cc"></span>cc)的油</p>
+		<p>每公里的油钱是： <span id="o_kmmoney">0.769</span> 元</p>
     </div>
-    <a href="javascript:;" class="txt06 c_return">重新计算</a>
+    <a href="javascript:;" id="reset" class="txt06 c_return">重新计算</a>
     
 </div>
 

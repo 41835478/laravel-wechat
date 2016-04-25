@@ -21,7 +21,7 @@
     </div>
     <div class="n_top">
     	<div class="n_topleft">积分：<span>{{ $user->us_integral }}</span></div>
-        <div class="n_topright"><a href="javascript:;"></a></div>
+        <div class="n_topright"><a href="javascript:;" id="sign"></a></div>
     </div>
     <ul class="n_list">
     	<li><div class="n_list01 n01"><a href="{{ url('user/carBind') }}"></a></div><div class="n_list02 n02"><a href="{{ url('user/userInfo') }}"></a></div></li>

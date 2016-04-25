@@ -27,7 +27,7 @@ $(function(){
 	//微信预约切换
 	$(".a_form1 .txt02 a").on("touchstart",function(){
 		$(this).addClass("active").siblings().removeClass("active");
-		
+		$('input[name=ou_type]').val($(this).text());
 	});
 	
 	//
@@ -37,6 +37,5 @@ $(function(){
 	$(".a_form2 .txt07").on("touchstart",function(){
 		$(this).focus();
 	});
-	
 	
 });

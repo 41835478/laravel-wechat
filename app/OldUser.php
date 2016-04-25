@@ -32,7 +32,7 @@ class OldUser extends Model
 
     //油耗计算记录
 
-    public function oilRecord()
+    public function oilRecords()
     {
         return $this->hasMany('App\OilWear','o_us_id','us_id');
     }

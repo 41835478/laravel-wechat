@@ -1,30 +1,4 @@
 @extends('layouts.admin.admin')
-@section('page-title')
-<div class="page-title">
-    <div class="title-env">
-        <h1 class="title">权限管理</h1>
-        <p class="description">Dynamic table variants with pagination and other controls</p>
-    </div>
-    
-    <div class="breadcrumb-env">
-        
-        <ol class="breadcrumb bc-1">
-            <li>
-                <a href="dashboard-1.html"><i class="fa-home"></i>Dashboard</a>
-            </li>
-            <li>
-                
-                <a href="tables-basic.html">用户中心</a>
-            </li>
-            <li class="active">
-                
-                <strong>权限管理</strong>
-            </li>
-        </ol>
-        
-    </div>
-</div>
-@stop
  @section('flash-message')
  @if (Session::has('flash_notification.message'))
      <div class="alert alert-{{ Session::get('flash_notification.level') }}">
@@ -128,10 +102,10 @@
                                     <a href="{{route('admin.permission.edit',$permission->id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
                                         编辑
                                     </a>
-                                    
-                                    <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                                        删除
-                                    </a>
+
+                                    {!! Form::open(['route'=>['admin.permission.destroy',$permission->id],'role'=>'form','class'=>'form-horizontal','method'=>'delete','style'=>'display:inline']) !!}
+                                    <button class="btn btn-danger btn-sm btn-icon icon-left">删除</button>
+                                    {!! Form::close() !!}
                                 </td>
                             </tr>
                             @endforeach

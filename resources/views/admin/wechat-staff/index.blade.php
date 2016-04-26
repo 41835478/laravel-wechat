@@ -93,7 +93,9 @@
                     <td>
                         <input type="checkbox" class="cbr">
                     </td>
-                    <th>{{ $item['kf_account'] }}</th>
+                    <?php $account = explode('@',$item['kf_account']);
+                    ?>
+                    <th>{{ $account[0] }}</th>
                     <td>{{ $item['kf_nick'] }}</td>
                     <td>{{ $item['kf_id'] }}</td>
                     <td><img src="{{ $item['kf_headimgurl'] }}" width="50" /> </td>

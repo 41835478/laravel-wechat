@@ -56,9 +56,15 @@ use Laracasts\Flash\Flash;
             return redirect()->back();
 
         }
-        
+
         public function destroy($id)
         {
-            
+            $user = Permission::destroy($id);
+            if($user) {
+                flash()->success('删除成功');
+            }else{
+                flash()->error('删除失败');
+            }
+            return redirect()->back();
         }
     }

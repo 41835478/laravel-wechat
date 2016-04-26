@@ -33,9 +33,10 @@
                     
                     <div class="form-group @if($errors->first('kf_account')) has-error @endif">
                         <label class="col-sm-2 control-label" for="kf_account" >客服账号</label>
-                        
+                        <?php $account = explode('@',$staff['kf_account']);
+                        ?>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{ $staff['kf_account'] }}" name="kf_account" id="kf_account" placeholder="@if($errors->first('kf_account')) {{$errors->first('kf_account')}} @else 客服账号 @endif" readonly="readonly">
+                            <input type="text" class="form-control" value="{{ $account[0] }}" name="kf_account" id="kf_account" placeholder="@if($errors->first('kf_account')) {{$errors->first('kf_account')}} @else 客服账号 @endif" readonly="readonly">
                         </div>
                     </div>
                     
@@ -66,7 +67,7 @@
                         
                         <div class="col-sm-10">
                             
-                            <button class="btn btn-danger">添加</button>
+                            <button class="btn btn-danger">更新</button>
                             
                         </div>
                     </div>

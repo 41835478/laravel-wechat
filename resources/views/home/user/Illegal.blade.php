@@ -219,7 +219,7 @@
             $.post(url, jsondata, function (msg) {
                 console.log(msg)
                 $("#layer").show().find(".txt").html("");
-                
+
                 if (msg) {
                     if (msg.resultcode != 200) {
                         $("#layer .txt").append("<p>" + msg.reason + "</p>");

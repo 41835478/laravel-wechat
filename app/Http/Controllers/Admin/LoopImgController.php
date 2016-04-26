@@ -89,7 +89,7 @@ class LoopImgController extends Controller
         //
         $data['l_date'] = date('Y-m-d H:i:s',time());
         //dd($data);
-        $res = LoopImg::where('id',$id)->update( $data );
+        $res = LoopImg::where('l_id',$id)->update( $data );
         if($res){
             flash()->success('更新成功');
         }else{

@@ -87,7 +87,18 @@
                 echo $res;
             }
         }
-        
+
+        public function destroy($id)
+        {
+            $user = User::destroy($id);
+            if($user) {
+                flash()->success('删除成功');
+            }else{
+                flash()->error('删除失败');
+            }
+            return redirect()->back();
+        }
+
         public function profile($id)
         {
             $user = User::find($id);

@@ -199,6 +199,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::post('user/update',[
         'as'=>'admin.user.update','uses'=>'UserController@update'
     ]);
+    Route::delete('user/{id}',[
+        'as'=>'admin.user.destroy','uses'=>'UserController@destroy'
+    ]);
     Route::get('user/{id}/profile',[
         'as'=>'admin.user.profile','uses'=>'UserController@profile'
     ]);
@@ -249,7 +252,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::post('permission/update',[
         'as'=>'admin.permission.update','uses'=>'PermissionController@update'
     ]);
-
+    Route::delete('permission/{id}',[
+        'as'=>'admin.permission.destroy','uses'=>'PermissionController@destroy'
+    ]);
      ///
     Route::get('user/test',[
         'as'=>'admin.user.test','uses'=>'UserController@test'

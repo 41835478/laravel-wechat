@@ -29,7 +29,7 @@
                 </div>
                 <div class="panel-body">
 
-                    {!! Form::open(['route'=>['admin.loopimg.store'],'role'=>'form','class'=>'form-horizontal']) !!}
+                    {!! Form::open(['route'=>['admin.loopimg.update',$loopimg->l_id],'role'=>'form','class'=>'form-horizontal','method'=>'patch']) !!}
 
                     <div class="form-group-separator"></div>
 
@@ -106,7 +106,7 @@
 
                         <div class="col-sm-10">
 
-                            <button class="btn btn-danger">添加</button>
+                            <button class="btn btn-danger">保存</button>
 
                         </div>
                     </div>

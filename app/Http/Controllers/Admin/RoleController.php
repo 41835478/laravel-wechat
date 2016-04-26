@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Admin;
     
+    use App\Http\Requests\UpdateRoleRequest;
     use Illuminate\Html;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
@@ -99,7 +100,7 @@
             }
             $role->permissions()->detach($detach);
             $role->permissions()->attach($request['id']);
-            return redirect()->route('role.can', $request['role_id']);
+            return redirect()->route('admin.role.can', $request['role_id']);
             
         }
         

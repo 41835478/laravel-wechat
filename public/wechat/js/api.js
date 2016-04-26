@@ -62,7 +62,7 @@ $(function(){
     });
 
     //车辆绑定
-    $('.c_carbind').click(function () {
+    $('#c_carbind').click(function () {
         var data = $(this).parent().serialize(),
             action = $(this).parent().attr('action');
         $.ajax({

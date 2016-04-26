@@ -40,7 +40,7 @@
             </div>
         </div>
         <input type="hidden" name="us_id" value="{{ $user->us_id }}">
-        <input class="txt05 c_carbind" type="button" name="" value="确认绑定"/>
+        <input class="txt05 c_carbind" id="c_carbind" type="button" name="" value="确认绑定"/>
     </form>
     @include('home.user.back')
     

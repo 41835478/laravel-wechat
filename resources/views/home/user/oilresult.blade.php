@@ -41,7 +41,7 @@
         <input name="res" type="reset" style="display:none;" />
     </form>
    
-    <a href="javascript:;" class="txt06">查看历史记录</a>
+    <a href="{{ url('user/oilResult') }}" class="txt06">查看历史记录</a>
     
     <div class="o_result" id="result" style="display: none;">
     	<h2>油价计算结果</h2>

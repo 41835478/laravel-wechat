@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>【扫一扫】陆风X7带回家！！ </title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <meta name="keywords" content="【扫一扫】陆风X7带回家！！ ">
+    <meta name="description" content="陆风X7惊艳亮相！快来体验全新梦想SUV！ ">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="Expires" content="-1">
+    <!--浏览器兼容设置-->
+    <script type="text/javascript">
+        //移动端兼容适配
+        if (/Android\s(\d+\.\d+)/.test(navigator.userAgent)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                var phoneScale = parseInt(window.screen.width) / 640;
+                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+            } else {
+                document.write('<meta name="viewport" content="width=640,user-scalable =0, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+        //微信去掉下方刷新栏
+        if (navigator.userAgent.indexOf('MicroMessenger') >= 0) {
+            document.addEventListener('WeixinJSBridgeReady', function () {
+                WeixinJSBridge.call('hideToolbar');
+            });
+        }
+
+    </script>
+    <!--[END 浏览器兼容设置]-->
+    <!--[基础样式加载]-->
+    <link href="css/reset.css" rel="stylesheet" />
+    <!--[自定义样式]-->
+    <link rel="stylesheet" type="text/css" href="css/main1.css" />
+</head>
+<body>
+    <div id="loading"></div>
+    <section id="box">
+        <div id="warp"></div>
+        <img src="img/logo.png" class="logo" />
+        <a href="interior.html" class="tointerior">
+            <img src="img/X7-1-btn.png" />
+        </a>
+        <i class="toleft"></i>
+        <i class="toright"></i>
+    </section>
+    <section id="car">
+        <div class="bg"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="txt">请翻转屏幕</div>
+    </section>
+    <script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/load.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/spritespin.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/weixin1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lazy1.js"></script>
+    <script type="text/javascript">
+        (function () {
+            //禁止ios的浏览器容器弹性
+            $(window).on('scroll.elasticity', function (e) {
+                e.preventDefault();
+            })
+            //禁止拖动图片
+            $(window).delegate('img', 'mousemove', function (e) {
+                e.preventDefault();
+            });
+        })();
+    </script>
+    <script>
+        $(function () {
+            var width = 640;
+            var height = 1008;
+            var timer = null;
+            var sprite = null;
+
+            //旋转判断
+            function init() {
+                //console.log("运行一次");
+                var h = width;
+                var w = h * 4 / 3;
+                var orat = "horizontal";
+                //console.log(width + ":" + height);
+                //图片=800*600
+                if (width > height) {
+                    $('#box').css({
+                        width: width + "px",
+                        height: height + "px"
+                    });
+                    w = width;
+                    h = w * 3 / 4;
+                    $('#warp').css({
+                        "top": (height - h) / 2 + "px",
+                        "left": "0"
+                    });
+
+                } else {
+                    $('#box').css({
+                        width: height + "px",
+                        height: width + "px"
+                    });
+                    $('#warp').css({
+                        "left": (height - w) / 2 + "px",
+                        "top": "0"
+                    });
+                    orat = "adw";
+                }
+                setimg(w, h, orat);
+            }
+            function setimg(w, h, orienta) {
+                $("#warp").spritespin({
+                    source: SpriteSpin.sourceArray('img/YeMaiLv.{frame}.png', {
+                        frame: [1, 31],
+                        digits: 3
+                    }),
+                    width: w,
+                    height: h,
+                    sense: -1,
+                    renderer: 'image',
+                    loop: false,
+                    orientation: orienta
+                })
+            }
+            //微信
+            $.fn.wx({
+                title: "【扫一扫】陆风X7带回家！！ ",
+                con: "陆风X7惊艳亮相！快来体验全新梦想SUV！ ",
+                img: "kehu.smartech-inc.com:12345/upload/logo/2014111403301460.png"
+            });
+            //懒加载
+            var list = [
+                { src: 'img/YeMaiLv.001.png' },
+                { src: 'img/YeMaiLv.002.png' },
+                { src: 'img/YeMaiLv.003.png' },
+                { src: 'img/YeMaiLv.004.png' },
+                { src: 'img/YeMaiLv.005.png' },
+                { src: 'img/YeMaiLv.006.png' },
+                { src: 'img/YeMaiLv.007.png' },
+                { src: 'img/YeMaiLv.008.png' },
+                { src: 'img/YeMaiLv.009.png' },
+                { src: 'img/YeMaiLv.010.png' },
+                { src: 'img/YeMaiLv.011.png' },
+                { src: 'img/YeMaiLv.012.png' },
+                { src: 'img/YeMaiLv.013.png' },
+                { src: 'img/YeMaiLv.014.png' },
+                { src: 'img/YeMaiLv.015.png' },
+                { src: 'img/YeMaiLv.016.png' },
+                { src: 'img/YeMaiLv.017.png' },
+                { src: 'img/YeMaiLv.018.png' },
+                { src: 'img/YeMaiLv.019.png' },
+                { src: 'img/YeMaiLv.020.png' },
+                { src: 'img/YeMaiLv.021.png' },
+                { src: 'img/YeMaiLv.022.png' },
+                { src: 'img/YeMaiLv.023.png' },
+                { src: 'img/YeMaiLv.024.png' },
+                { src: 'img/YeMaiLv.025.png' },
+                { src: 'img/YeMaiLv.026.png' },
+                { src: 'img/YeMaiLv.027.png' },
+                { src: 'img/YeMaiLv.028.png' },
+                { src: 'img/YeMaiLv.029.png' },
+                { src: 'img/YeMaiLv.030.png' },
+                { src: 'img/YeMaiLv.031.png' }
+            ];
+            lazy(list, load.load, function (res) {
+                load.end(function () {
+                    width = $(window).width();
+                    height = $(window).height();
+                    if (width > height) {
+                        $('#box').css({
+                            width: width + "px",
+                            height: height + "px"
+                        });
+                    } else {
+                        $('#box').css({
+                            width: height + "px",
+                            height: width + "px"
+                        });
+                    }
+
+                    $("#car").addClass("active");
+                    setTimeout(function () { 
+                        $("#car").remove();
+                        init();
+                        timer = setInterval(function () {
+                            var theight = $(window).height();
+                            if (theight != height) {
+                                width = $(window).width();
+                                height = $(window).height();
+                                init();
+                            }
+                        }, 500);
+
+                    }, 3800)
+
+                    //
+                });
+            });
+
+        })
+    </script>
+</body>
+</html>

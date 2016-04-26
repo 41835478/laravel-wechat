@@ -69,18 +69,22 @@ Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
     Route::get('queryViolation','UserController@queryViolation');
     Route::get('userCollection','UserController@userCollection');
     Route::get('queryScore','UserController@queryScore');
-    Route::get('appointment','UserController@appointment');
+    Route::get('appointment','UserController@appointment'); //试驾
     Route::get('appointRecord','UserController@appointRecord');
     Route::get('oil','UserController@oil');
     Route::get('oilResult','UserController@oilResult');
     Route::get('maintenance','UserController@maintenance');
 
+    //车系
+    Route::get('series','SeriesController@index');
+    //车系展示
+    Route::get('series/{id}','SeriesController@show');
+
+
+
 });
 //4s店查询
 Route::get('shop','Home\ShopController@shop');
-
-Route::get('posts','Home\PostController@all');
-Route::get('posts/{nodeId?}', 'Home\PostController@postsList');
 
 
 //微信入口

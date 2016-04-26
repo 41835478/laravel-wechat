@@ -12,5 +12,9 @@ class Series extends Model
     protected $guarded = array();
     public $timestamps = false;
 
+    public function carmodel()
+    {
+        return $this->hasMany('App\CarModel','s_id','s_id');
+    }
 
 }

@@ -16,4 +16,9 @@ class CarModel extends Model
     {
         return $this->belongsTo('App\Series','s_id','s_id');
     }
+
+    public function carImages()
+    {
+        return $this->hasMany('App\CarImages','sortid');
+    }
 }

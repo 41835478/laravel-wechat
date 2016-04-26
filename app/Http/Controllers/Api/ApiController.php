@@ -46,7 +46,6 @@ class ApiController extends Controller
                 $user = OldUser::find($i_us_id);
                 $user->us_integral +=1;
                 $user->save();
-                dd($user);
                 $result = [
                     'status'    => 200,
                     'msg'       => '签到成功!',

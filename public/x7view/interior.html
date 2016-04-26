@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>【扫一扫】陆风X7带回家！！ </title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <meta name="keywords" content="【扫一扫】陆风X7带回家！！ ">
+    <meta name="description" content="陆风X7惊艳亮相！快来体验全新梦想SUV！ ">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="Expires" content="-1">
+    <!--浏览器兼容设置-->
+    <script type="text/javascript">
+        //移动端兼容适配
+        if (/Android\s(\d+\.\d+)/.test(navigator.userAgent)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                var w = parseInt(window.screen.width);
+                var h = parseInt(window.screen.height);
+                var phoneScale = w / 640;
+                if (w > h) {
+                    phoneScale = h / 640;
+                }
+
+                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ',user-scalable =0, maximum-scale = ' + phoneScale + ', user-scalable =0,target-densitydpi=device-dpi">');
+            } else {
+                document.write('<meta name="viewport" content="width=640,user-scalable =0, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+        //微信去掉下方刷新栏
+        if (navigator.userAgent.indexOf('MicroMessenger') >= 0) {
+            document.addEventListener('WeixinJSBridgeReady', function () {
+                WeixinJSBridge.call('hideToolbar');
+            });
+        }
+    </script>
+    <!--[END 浏览器兼容设置]-->
+    <!--[基础样式加载]-->
+    <link href="css/reset.css" rel="stylesheet" />
+    <!--[自定义样式]-->
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+    <input type="hidden" id="title" value="【扫一扫】陆风X7带回家！！ " />
+    <input type="hidden" id="content" value="陆风X7惊艳亮相！快来体验全新梦想SUV！" />
+    <input type="hidden" id="logo" value="/images/2014111403301460.png" />
+    <div id="loading">
+    </div>
+    <section id="interior">
+        <img src="img/logo.png" class="logo" />
+        <a href="#" class="collect" id="collect">
+            <img src="img/collect.png" />
+        </a>
+        <div class="spritespin"></div>
+        <a href="index.html" class="toindex">
+            <img src="img/back.png" />
+        </a>
+       
+        <i class="toleft1"></i>
+        <i class="toright1"></i>
+
+    </section>
+    <script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/load.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/spritespin.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/weixin.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        (function () {
+
+            //禁止ios的浏览器容器弹性
+            $(window).on('scroll.elasticity', function (e) {
+                e.preventDefault();
+            })
+
+            //禁止拖动图片
+            $(window).delegate('img', 'mousemove', function (e) {
+                e.preventDefault();
+            });
+
+            load.end();
+
+            $("").wx({
+                title: "【扫一扫】陆风X7带回家！！ ",
+                con: "陆风X7惊艳亮相！快来体验全新梦想SUV！ ",
+                img: "kehu.smartech-inc.com:12345/upload/logo/2014111403301460.png"
+            })
+        })();
+    </script>
+    <script>
+        var url = document.getElementById("collect");
+        var gift_url = document.getElementById('gift');
+        var title = document.getElementById("title").value;
+        var content = document.getElementById("content").value;
+        var logo = document.getElementById("logo").value;
+       // url.setAttribute('href', '/x7operate/collectx7?type=1&url=' + window.location.href + '&title=' + title + '&content=' + content + '&logo=' + logo);
+        url.setAttribute('href', '/x7operate/X7OrderList');
+        //gift_url.setAttribute('href', '/x7operate/collectx7?type=2&url=eg');
+        $(function () {
+            function spritespinfn(w, h) {
+
+                $('.spritespin').spritespin({
+                    source: SpriteSpin.sourceArray('img/LandWindE32_{frame}.jpg', {
+                        frame: [1, 47],
+                        digits: 3
+                    }),
+                    width: w,
+                    height: h,
+                    sense: -1,
+                    renderer: 'image',
+                    loop: false,
+                    orientation: "adw"
+                });
+            }
+            var supportOrientation = (typeof window.orientation == "number" && typeof window.onorientationchange == "object");
+
+            var _w = $(window).height(),
+                _h = $(window).width();
+
+
+            var updateOrientation = function () {
+                if (supportOrientation) {
+                    updateOrientation = function () {
+                        var orientation = window.orientation;
+                        switch (orientation) {
+                            case 90:
+                            case -90:
+                                orientation = "landscape";
+
+                                _w = $(window).width();
+                                _h = $(window).height();
+                                $("#interior").css({
+                                    "-webkit-transform": "rotate(0deg) translate(0px,0px) ",
+                                    "transform-origin": "0 0",
+                                    "width": _w + "px",
+                                    "height": _h + "px"
+                                })
+                                spritespinfn(_w, _h);
+                                break;
+                            default:
+                                //orientation = "portrait";
+
+                                orientation = "landscape";
+
+                                _w = $(window).height();
+                                _h = $(window).width();
+                                orientation = "landscape";
+                                $("#interior").css({
+                                    "-webkit-transform": "rotate(90deg) translate(0px, -640px) ",
+                                    "transform-origin": "0 0",
+                                    "width": _w + "px",
+                                    "height": _h + "px"
+                                })
+                                spritespinfn(_w, _h);
+
+                        }
+                        document.body.parentNode.setAttribute("class", orientation);
+                    };
+                } else {
+                    updateOrientation = function () {
+                        var orientation = (window.innerWidth > window.innerHeight) ? "landscape" : "portrait";
+                        if (orientation == "portrait") {
+                            _w = $(window).height();
+                            _h = $(window).width();
+                            orientation = "landscape";
+                            $("#interior").css({
+                                "-webkit-transform": "rotate(90deg) translate(0px, -640px) ",
+                                "transform-origin": "0 0",
+                                "width": _w + "px"
+                            })
+                            spritespinfn(_w, _h);
+
+                        }
+                        document.body.parentNode.setAttribute("class", orientation);
+                    };
+                }
+                updateOrientation();
+            };
+
+
+            var init = function () {
+                updateOrientation();
+                if (supportOrientation) {
+                    window.addEventListener("orientationchange", updateOrientation, false);
+
+                } else {
+                    window.setInterval(updateOrientation, 5000);
+                }
+
+
+            };
+            window.addEventListener("DOMContentLoaded", init, false);
+
+        })
+
+    </script>
+</body>
+</html>

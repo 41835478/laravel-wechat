@@ -1,0 +1,295 @@
+﻿@charset "utf-8";
+
+#loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1001;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+    #loading img {
+        margin: 50% auto;
+        display: block;
+    }
+
+.portrait #appearance {
+    padding-bottom: 60px;
+}
+
+.portrait #wrapper {
+    position: relative;
+    margin-top: 30%;
+}
+
+.tointerior {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+}
+
+.landscape #wrapper {
+    position: relative;
+}
+
+.landscape .terior {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    z-index: 10;
+}
+
+.landscape .tointerior img {
+    display: block;
+    max-height: 8%;
+    width: 200px;
+}
+
+.logo {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 200px;
+}
+
+.light {
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+    .light img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 300px auto 0;
+    }
+
+    .light .car {
+        width: 100%;
+        height: 100%;
+        background: url(../img/YeMaiLv.png) no-repeat center;
+    }
+
+    .light .left,
+    .light .right {
+        position: absolute;
+        top: 46%;
+        width: 0px;
+        height: 0px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 55px 35px #fff;
+        opacity: .1;
+        z-index: 9;
+    }
+
+    .light .bg {
+        background: #000;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 1;
+    }
+
+        .light .bg.active {
+            opacity: 0;
+            -webkit-animation: bg linear 1.2s;
+        }
+
+@-webkit-keyframes bg {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.light .left.active,
+.light .right.active {
+    opacity: 0;
+    -webkit-animation: light cubic-bezier(.22, .73, .8, 1) 3s;
+}
+
+@-webkit-keyframes light {
+    0% {
+        opacity: .1;
+    }
+
+    13% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: .9;
+    }
+
+    65% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: .8;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.light .left {
+    left: 29%;
+}
+
+.light .right {
+    right: 29%;
+}
+
+.light .txt {
+    position: absolute;
+    top: 75%;
+    left: 245px;
+    font-size: 30px;
+    font-family: 'Microsoft YaHei';
+    color: #333;
+}
+
+.portrait #interior .logo {
+    background: rgba(255, 255, 255, .7);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    left: 20px;
+    z-index: 9;
+}
+
+.landscape #interior .logo {
+    background: rgba(255, 255, 255, .7);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    left: 20px;
+    z-index: 9;
+    max-height: 15%;
+    width: 200px;
+    display: block;
+}
+
+.landscape .collect img {
+    max-height: 8%;
+    width: 180px;
+    display: block;
+}
+
+.landscape .toindex img {
+    max-height: 10%;
+    width: 180px;
+    display: block;
+}
+
+.landscape .awards img {
+    max-height: 10%;
+    width: 250px;
+    display: block;
+}
+
+#interior {
+    position: relative;
+}
+
+.collect {
+    position: absolute;
+    right: 40px;
+    top: 25px;
+    z-index: 10;
+}
+
+.toindex {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 10;
+}
+
+.awards {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    z-index: 10;
+}
+
+.toleft, .toright {
+    background: url(../img/lr.png) no-repeat;
+    display: block;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 48%;
+    animation: lrjump .8s linear;
+    -webkit-animation: lrjump .8s linear;
+}
+.toleft {
+    background-position: -47px 0px;
+    left: 50px;
+}
+
+.toright {
+    background-position: 7px 0px;
+    right: 50px;
+}
+.toleft1, .toright1 {
+    background: url(../img/lr2.png) no-repeat;
+    display: block;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 48%;
+    animation: lrjump .8s linear;
+    -webkit-animation: lrjump .8s linear;
+}
+.toleft1 {
+    background-position: -47px 0px;
+    left: 50px;
+}
+
+.toright1 {
+    background-position: 7px 0px;
+    right: 50px;
+}
+@keyframes lrjump {
+    0% {
+        transform: translateX(30px);
+    }
+
+    50% {
+        transform: translateX(-30px);
+    }
+
+    100% {
+        transform: translateX(30px);
+    }
+}
+
+@-webkit-keyframes lrjump {
+    0% {
+        -webkit-transform: translateX(30px);
+    }
+
+    50% {
+        -webkit-transform: translateX(-30px);
+    }
+
+    100% {
+        -webkit-transform: translateX(30px);
+    }
+}

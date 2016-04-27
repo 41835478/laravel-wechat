@@ -198,10 +198,11 @@ class WechatMenuController extends WechatBaseController
                     $buttons[$key]['url'] = $menu->content;
                 }elseif($menu->type=='click'){
 
-                    $buttons[$key]['key'] = 'test';
+                    $buttons[$key]['key'] = $menu->key;
                 }
             }
         }
+        dd($buttons);
         $res = $this->wechatApp->menu->add($buttons);
         if($res->errcode==0){
             flash()->success('推送成功');

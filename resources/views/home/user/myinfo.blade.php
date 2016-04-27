@@ -18,8 +18,9 @@
 	<div class="g_header">
         @include('home.user.avatar',['path'=>$user->us_portrait])
     </div>
-    <form method="get">
+    <form method="get" action="{{ route('api.userStore') }}">
     	<div class="g_form">
+            <input type="hidden" name="us_id" value="{{ $user->us_id }}"/>
         	<input class="txt01" type="text" name="us_name" value="{{ $user->us_name }}" placeholder="请填写您的姓名"/>
             <select class="txt02" name="us_gender">
                 <option value="1" @if($user->gender==1) selected="selected" @endif>男</option>

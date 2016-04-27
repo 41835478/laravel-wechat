@@ -8,7 +8,7 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
 <meta name="Keywords" content="陆风" />
 <meta name="description" content="陆风" />
-<title>4s店查询</title>
+<title>维修站查询</title>
     @include('home.user.common')
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BNUjjtFI1Uis61ECHgO1jZvG"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>

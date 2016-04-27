@@ -121,16 +121,3 @@
 @section('other')
     @include('upload.single_file',['type'=>'car_model'])
 @stop
-@section('script')
-
-    {!! Html::script('ckeditor/ckeditor.js') !!}
-    {!! Html::script('ckfinder/ckfinder.js') !!}
-    {!! Html::script('ckeditor/adapters/jquery.js') !!}
-
-    {!! Html::script('style/assets/js/dropzone/dropzone.min.js') !!}
-    <script>
-        var editor = CKEDITOR.replace( 'txt' );
-        CKFinder.setupCKEditor( editor, '/ckfinder/' );
-    </script>
-
-@stop

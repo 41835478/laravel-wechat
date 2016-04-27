@@ -15,6 +15,7 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+route::get('home','HomeController@index');
 
 //前端API
 Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
@@ -404,7 +405,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
 Route::Controller('api', 'ApiController');
 
 /*文件上传*/
-Route::post('upload',[
+Route::post('uploadimg',[
     'as'=>'upload','uses'=>'UploadController@upload'
 ]);
 Route::post('uploadfile',[

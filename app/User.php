@@ -11,7 +11,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword;
     use EntrustUserTrait;
-    use SoftDeletes;
+    //use SoftDeletes;
     
 	/**
 	 * The database table used by the model.
@@ -34,7 +34,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
     
-    protected $dates = ['deleted_at'];
+    //protected $dates = ['deleted_at'];
     
     public function roles()
     {

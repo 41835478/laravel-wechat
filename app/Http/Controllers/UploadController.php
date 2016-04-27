@@ -8,14 +8,30 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Requests\UploadRequest;
 use Illuminate\Support\Facades\File;
+
+use Illuminate\Support\Facades\Validator;
 
 class UploadController extends Controller{
 
-    public function upload(UploadRequest $request)
+    public function upload(\Illuminate\Http\Request $request)
     {
+        $data = $request->only('file');
+        $rules = [
+            'file'          => 'required|image',
+        ];
+        $message = [
+            'ou_us_id.required'           => '选择上传图片',
+            'ou_st_id.images'             => '请上传图片格式文件,支持jpeg、png、bmp、gif、 或 svg'
+        ];
+        $validator = Validator::make($data,$rules,$message);
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+            return response()->json($result);
+        }
         $type = $request->input('type');
         if($request->ajax()){
             //确认文件是否有上传

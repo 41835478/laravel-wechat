@@ -89,7 +89,8 @@ class StationController extends BaseController
     {
         $js = $this->wechatApp->js;
         $shop = Station::find($id);
+        //dd($shop);
         $user = OldUser::where('us_weixinid',$this->user['id'])->first();
-        return view('home.shop.show',compact('js','shop','user'));
+        return view('home.station.show',compact('js','shop','user'));
     }
 }

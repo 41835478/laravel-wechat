@@ -185,7 +185,7 @@ class WechatMenuController extends WechatBaseController
                     if($m->type=='view'){
                         $buttons[$key]['sub_button'][$k]['url'] = $m->content;
                     }elseif($m->type=='click'){
-                        $buttons[$key]['sub_button'][$k]['key'] = 'test';
+                        $buttons[$key]['sub_button'][$k]['key'] = $m->key;
                     }
                 }
             }else{

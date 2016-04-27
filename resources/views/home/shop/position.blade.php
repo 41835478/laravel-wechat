@@ -70,7 +70,7 @@
                                     var url = host +'shop/'+ v.id;
                                     var pointA = new BMap.Point(lng,lat);  // 创建点坐标A--大渡口区
                                     var pointB = new BMap.Point(v.x, v.y);  // 创建点坐标B--江北区
-                                    var distance = (map.getDistance(pointA,pointB)).toFixed(2)/1000;
+                                    var distance = (map.getDistance(pointA,pointB)/1000).toFixed(2);
                                     list += '<li>';
                                     list += '<h2><i></i><a href="'+url+'">'+ v.shopname +'</a></h2>';
                                     list += '<p>距离：'+ distance +'公里</p>';

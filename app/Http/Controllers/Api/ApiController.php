@@ -287,7 +287,7 @@ class ApiController extends Controller
             'o_oneoil'    => number_format($oneoil,3),
             'o_onekm'     => number_format($onekm,3),
             'o_kmmoney'   => number_format($kmmoney,3),
-            '0_date'   => date('Y-m-d H:i:s',time())
+            'o_date'      => date('Y-m-d H:i:s',time())
         ]);
         if($create){
             $result = [
@@ -388,7 +388,7 @@ class ApiController extends Controller
 
     public function appointTestDrive(Request $request)
     {
-        $data = $request->only(['od_us_id','od_st_id','od_s_id','od_ct_id','od_name','od_tel','od_km','od_msg']);
+        $data = $request->only(['od_us_id','od_st_id','od_s_id','od_ct_id','od_name','od_tel','od_msg','od_date']);
         $rules = [
             'od_us_id'          => 'required',
             'od_st_id'          => 'required',
@@ -407,7 +407,7 @@ class ApiController extends Controller
             'od_tel.required'             => '请填写您的手机号',
             'od_msg.required'             => '请填写留言信息',
         ];
-        $data['od_date'] = date('Y-m-d H:i:s',time());
+        $data['od_date'] = strtotime($request->input('od_date'));
         $validator = Validator::make($data,$rules,$message);
         if($validator->fails()){
             $result = [
@@ -435,7 +435,7 @@ class ApiController extends Controller
 
     public function appointMaintenance(Request $request)
     {
-        $data = $request->only(['ou_us_id','ou_st_id','ou_type','ou_carno','ou_name','ou_tel','ou_km','ou_msg']);
+        $data = $request->only(['ou_us_id','ou_st_id','ou_type','ou_carno','ou_name','ou_tel','ou_km','ou_msg','ou_date']);
         $rules = [
             'ou_us_id'          => 'required',
             'ou_st_id'          => 'required',
@@ -454,7 +454,7 @@ class ApiController extends Controller
             'ou_tel.required'             => '请填写您的手机号',
             'ou_msg.required'             => '请填写留言信息',
         ];
-        $data['ou_date'] = date('Y-m-d H:i:s',time());
+        $data['ou_date'] = strtotime($request->input('ou_date'));
         $validator = Validator::make($data,$rules,$message);
         if($validator->fails()){
             $result = [

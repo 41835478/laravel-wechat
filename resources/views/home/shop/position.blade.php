@@ -14,12 +14,12 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         $(function(){
-            wx.config(<?php echo $js->config(array('getLocation', 'openLocation'), true) ?>);
+            wx.config(<?php echo $js->config(array('getLocation', 'openLocation'), false) ?>);
             wx.ready(function () {
                //自动获取位置
                 wx.getLocation({
                     success: function (res) {
-                        alert(JSON.stringify(res));
+                        //alert(JSON.stringify(res));
                         //地址解析
                         getAddress(res.latitude,res.longitude);
                     },
@@ -31,7 +31,7 @@
                 $('.s_btn').click(function(){
                     wx.getLocation({
                         success: function (res) {
-                            alert(JSON.stringify(res));
+                            //alert(JSON.stringify(res));
                             getAddress(res.latitude,res.longitude);
                         },
                         cancel: function (res) {

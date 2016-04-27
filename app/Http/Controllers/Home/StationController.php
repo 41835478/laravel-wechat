@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\OldUser;
 use App\Station;
 use App\Wechat;
+use EasyWeChat\Foundation\Application;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

@@ -55,10 +55,11 @@ $(function(){
             success:function(res)
             {
                 alert(res.msg);
-                $('input[name=res]').click();
+                //$('input[name=res]').click();
             },
             dataType:'json'
         });
+        return false;
     });
 
     //车辆绑定
@@ -76,6 +77,14 @@ $(function(){
             },
             dataType:'json'
         });
+        return false;
+    });
+
+    $('input[name=ou_st_id]').focus(function(){
+        location.href=$(this).data('url');
+    });
+    $('input[name=od_st_id]').focus(function(){
+        location.href=$(this).data('url');
     });
 });
 

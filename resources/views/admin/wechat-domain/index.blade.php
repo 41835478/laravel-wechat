@@ -45,6 +45,7 @@
                                          null,
                                          null,
                                          null,
+                                         null,
                                          null
                                          ],
                              });
@@ -83,6 +84,7 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>域名</th>
+                                <th>密钥</th>
                                 <th>备注</th>
                                 <th>状态</th>
                                 <th>添加时间</th>
@@ -97,6 +99,7 @@
                                     <input type="checkbox" class="cbr">
                                 </td>
                                 <td>{{ $item->domain }}</td>
+                                <td>{{ $item->token }}</td>
                                 <td>{{ $item->remark }}</td>
                                 <td>{{ $item->status?"可用":"不可用" }}</td>
                                 <td>{{ $item->created_at }}</td>

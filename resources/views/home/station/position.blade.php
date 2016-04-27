@@ -66,6 +66,7 @@
                                 $.each(res.list,function(i,v){
                                     var url = host +'shop/'+ v.id;
                                     //获取亮点间距离
+                                    var map = new BMap.Map("allmap");
                                     var pointA = new BMap.Point(lng,lat);  // 创建点坐标A--大渡口区
                                     var pointB = new BMap.Point(v.x, v.y);  // 创建点坐标B--江北区
                                     var distance = (map.getDistance(pointA,pointB)).toFixed(2)/1000;

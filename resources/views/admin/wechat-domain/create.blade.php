@@ -30,6 +30,16 @@
                     </div>
 
                     <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('token')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="token" >密钥</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="token" id="token" placeholder="@if($errors->first('token')) {{$errors->first('token')}} @else 密钥 @endif">
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
                     
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="remark">备注</label>

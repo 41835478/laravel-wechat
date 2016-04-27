@@ -97,11 +97,13 @@ class WechatController extends WechatBaseController{
          * 监听事件类型
          * 关注事件回复
          * */
-//        $message = (object)[
-//            'Content'=>'123123123',
-//            'ToUserName'=>'gh_68f0112f08be',
-//            'MsgType'   => 'text'
-//        ];
+        $message = (object)[
+            'Content'=>'123123123',
+            'ToUserName'=>'gh_68f0112f08be',
+            'MsgType'   => 'text',
+            'Event'     => 'CLICK',
+            'EventKey'       => 'zijia'
+        ];
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
         $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();
@@ -200,7 +202,7 @@ class WechatController extends WechatBaseController{
 
             //查询对应回复   一对多
             $replies = $keyword->keywordRule->replies;
-            if($replies){
+            if(count($replies)>0){
                 //取随机数
                 $num = mt_rand(0,count($replies)-1);
 

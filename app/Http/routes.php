@@ -99,6 +99,7 @@ Route::get('station/{id}','Home\StationController@show');
 //微信入口
 
 Route::group(['namespace' => 'Wechat'],function(){
+
     Route::match(['get','post'],'wechat/auth/{wechatId}','WechatController@index');
 
     Route::post('reply/{message}',[

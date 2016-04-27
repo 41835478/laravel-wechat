@@ -46,7 +46,7 @@ class UserController extends BaseController
     public function queryViolation()
     {
         $user = OldUser::where('us_weixinid',$this->user['id'])->first();
-        return view('home.user.illegal',compact('user'));
+        return view('home.user.Illegal',compact('user'));
     }
 
     //我的收藏

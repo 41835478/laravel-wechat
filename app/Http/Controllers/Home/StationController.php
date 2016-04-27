@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\OldUser;
 use App\Station;
 use App\Wechat;
 use Illuminate\Http\Request;
@@ -79,13 +80,15 @@ class StationController extends BaseController
     public function station()
     {
         $js = $this->wechatApp->js;
-        return view('home.station.position',compact('js'));
+        $user = OldUser::where('us_weixinid',$this->user['id'])->first();
+        return view('home.station.position',compact('js','user'));
     }
 
     public function show($id)
     {
         $js = $this->wechatApp->js;
         $shop = Station::find($id);
-        return view('home.shop.show',compact('js','shop'));
+        $user = OldUser::where('us_weixinid',$this->user['id'])->first();
+        return view('home.shop.show',compact('js','shop','user'));
     }
 }

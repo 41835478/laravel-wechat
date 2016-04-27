@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Home;
 
 
+use App\OldUser;
 use App\Shop;
 use App\Wechat;
 use EasyWeChat\Foundation\Application;
@@ -83,13 +84,15 @@ class ShopController extends BaseController
     public function shop()
     {
         $js = $this->wechatApp->js;
-        return view('home.shop.position',compact('js'));
+        $user = OldUser::where('us_weixinid',$this->user['id'])->first();
+        return view('home.shop.position',compact('js','user'));
     }
 
     public function show($id)
     {
         $js = $this->wechatApp->js;
         $shop = Shop::find($id);
-        return view('home.shop.show',compact('js','shop'));
+        $user = OldUser::where('us_weixinid',$this->user['id'])->first();
+        return view('home.shop.show',compact('js','shop','user'));
     }
 }

@@ -17,8 +17,8 @@
 <body>
 
 <div class="wrapper">
-	<div class="re_map">
-    	<img src="images/map.jpg"/>
+	<div class="re_map" id="allmap">
+    	<img src="{{ url('wechat/images/map.jpg') }}"/>
     </div>
     <div class="h_result re_result">
     	<ul>

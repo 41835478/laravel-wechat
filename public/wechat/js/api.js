@@ -80,10 +80,10 @@ $(function(){
         return false;
     });
 
-    $('input[name=ou_st_id]').focus(function(){
+    $('input[name=ou_st_id]').click(function(){
         location.href=$(this).data('url');
     });
-    $('input[name=od_st_id]').focus(function(){
+    $('input[name=od_st_id]').click(function(){
         location.href=$(this).data('url');
     });
 });

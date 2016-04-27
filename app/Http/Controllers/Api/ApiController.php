@@ -8,6 +8,8 @@ use App\OilWear;
 use App\OldUser;
 use App\OrderDrive;
 use App\OrderUpKeep;
+use App\Shop;
+use App\Station;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -308,7 +310,80 @@ class ApiController extends Controller
         //todo
     }
 
+    //定位查询4s店
+    public function getDistributor(Request $request)
+    {
+        $lng = $request->input('lng');  //x
+        $lat = $request->input('lat');  //y
 
+        $distance = 120;//单位是10KM
+
+        $squares = $this->returnSquarePoint($lng,$lat,$distance);
+        $where = "y<>0 and y>{$squares['right-bottom']['lat']} and y<{$squares['left-top']['lat']} and x>{$squares['left-top']['lng']} and x<{$squares['right-bottom']['lng']}";
+        $shops = Shop::whereRaw($where)->get();
+
+        if($shops){
+            $result = [
+                'status'    => 200,
+                'msg'       => '获取成功',
+                'list'      => $shops
+            ];
+        }else{
+            $result = [
+                'status'    => 201,
+                'msg'       => '附近没有搜索到4S店',
+                'list'      => $shops
+            ];
+        }
+        return response()->json($result);
+
+    }
+
+    //定位查询4s店
+    public function getStation(Request $request)
+    {
+        $lng = $request->input('lng');  //x
+        $lat = $request->input('lat');  //y
+
+        $distance = 120;//单位是10KM
+
+        $squares = $this->returnSquarePoint($lng,$lat,$distance);
+        $where = "y<>0 and y>{$squares['right-bottom']['lat']} and y<{$squares['left-top']['lat']} and x>{$squares['left-top']['lng']} and x<{$squares['right-bottom']['lng']}";
+        $shops = Station::whereRaw($where)->get();
+
+        if($shops){
+            $result = [
+                'status'    => 200,
+                'msg'       => '获取成功',
+                'list'      => $shops
+            ];
+        }else{
+            $result = [
+                'status'    => 201,
+                'msg'       => '附近没有搜索到专营店',
+                'list'      => $shops
+            ];
+        }
+        return response()->json($result);
+
+    }
+
+    function returnSquarePoint($lng, $lat,$distance = 120){
+        $radius = 6371.393;//代为是KM 地球半径
+
+        $dlng =  2 * asin(sin($distance / (2 * $radius)) / cos(deg2rad($lat)));
+        $dlng = rad2deg($dlng);
+
+        $dlat = $distance/$radius;
+        $dlat = rad2deg($dlat);
+
+        return array(
+            'left-top'=>array('lat'=>$lat + $dlat,'lng'=>$lng-$dlng),
+            'right-top'=>array('lat'=>$lat + $dlat, 'lng'=>$lng + $dlng),
+            'left-bottom'=>array('lat'=>$lat - $dlat, 'lng'=>$lng - $dlng),
+            'right-bottom'=>array('lat'=>$lat - $dlat, 'lng'=>$lng + $dlng)
+        );
+    }
     //预约试驾
 
     public function appointTestDrive(Request $request)

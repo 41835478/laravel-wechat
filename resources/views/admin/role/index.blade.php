@@ -1,30 +1,4 @@
 @extends('layouts.admin.admin')
-@section('page-title')
-<div class="page-title">
-    <div class="title-env">
-        <h1 class="title">用户管理</h1>
-        <p class="description">Dynamic table variants with pagination and other controls</p>
-    </div>
-    
-    <div class="breadcrumb-env">
-        
-        <ol class="breadcrumb bc-1">
-            <li>
-                <a href="dashboard-1.html"><i class="fa-home"></i>Dashboard</a>
-            </li>
-            <li>
-                
-                <a href="tables-basic.html">用户中心</a>
-            </li>
-            <li class="active">
-                
-                <strong>角色管理</strong>
-            </li>
-        </ol>
-        
-    </div>
-</div>
-@stop
 
  @section('flash-message')
  @if (Session::has('flash_notification.message'))
@@ -130,9 +104,9 @@
                                         编辑
                                     </a>
                                     
-                                    <a href="{{route('admin.role.destroy',$role->id)}}" class="btn btn-danger btn-sm btn-icon icon-left">
-                                        删除
-                                    </a>
+                                    {{--<a href="{{route('admin.role.destroy',$role->id)}}" class="btn btn-danger btn-sm btn-icon icon-left">--}}
+                                        {{--删除--}}
+                                    {{--</a>--}}
                                     
                                     <a href="{{route('admin.role.can',$role->id)}}" class="btn btn-info btn-sm btn-icon icon-left">
                                         权限

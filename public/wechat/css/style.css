@@ -196,3 +196,13 @@ html, body { width: 640px; height: auto; margin: 0 auto;}
 .a_form2 .txt05 { top: 354px; background: none; text-align: left; position: absolute; width: 430px; height: 40px; line-height: 40px; left: 30px; margin-top: 0px;}
 .a_form2 .txt07 { top: 465px; left: 0;}
 .a_form2 .txt08 { width: 438px; height: 168px; position: absolute; top: 582px; left: 20px; font-size: 24px; color: #a5abb8; line-height: 30px; background: none; border: none; outline: none;}
+
+/**repair**/
+.s_result0 { width: 100%; height: auto; overflow: hidden; border-bottom: 1px solid #2c2f34;}
+.s_result0 p { padding: 20px 76px; font-size: 20px; color: #a5abb8; letter-spacing: 1px;}
+.re_result h2 i{ display: block; width: 14px; height: 27px; background: url(../images/icon11.png) no-repeat; float: right;}
+.re_result h2 a { color: #a5abb8;}
+.re_result { border-bottom: none;}
+.re_map { width: 100%; height: 431px; overflow: hidden;}
+.re_tel { width: 483px; height: 91px; overflow: hidden; position: relative; margin: 0 auto; background: url(../images/tel.png) no-repeat; background-size: 100% 100%; margin-top: 40px;}
+.re_tel p { position: absolute; font-size: 24px; color: #ef5a6c; top: 28px; right: 44px;}

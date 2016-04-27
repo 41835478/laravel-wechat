@@ -58,7 +58,14 @@ Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
     Route::post('getCarModels',[
         'as'=>'api.getCarModels','uses'=>'ApiController@getCarModels'
     ]);
-
+    //获取附近4s店
+    Route::post('getDistributor',[
+        'as'=>'api.getDistributor','uses'=>'ApiController@getDistributor'
+    ]);
+    //获取附近专营店
+    Route::post('getStation',[
+        'as'=>'api.getStation','uses'=>'ApiController@getStation'
+    ]);
 });
 //前端页面
 Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
@@ -85,8 +92,9 @@ Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
 });
 //4s店查询
 Route::get('shop','Home\ShopController@shop');
-
-
+Route::get('shop/{id}','Home\ShopController@show');
+Route::get('station','Home\StationController@station');
+Route::get('station/{id}','Home\StationController@show');
 //微信入口
 
 Route::group(['namespace' => 'Wechat'],function(){

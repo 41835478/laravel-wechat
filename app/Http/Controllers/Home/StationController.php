@@ -1,19 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lvdingtao
- * Date: 16/4/24
- * Time: 上午2:43
- */
 
 namespace App\Http\Controllers\Home;
 
-
-use App\Shop;
+use App\Station;
 use App\Wechat;
-use EasyWeChat\Foundation\Application;
+use Illuminate\Http\Request;
 
-class ShopController extends BaseController
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+class StationController extends BaseController
 {
     public $wechatApp;
 
@@ -80,16 +76,16 @@ class ShopController extends BaseController
 
     }
 
-    public function shop()
+    public function station()
     {
         $js = $this->wechatApp->js;
-        return view('home.shop.position',compact('js'));
+        return view('home.station.position',compact('js'));
     }
 
     public function show($id)
     {
         $js = $this->wechatApp->js;
-        $shop = Shop::find($id);
+        $shop = Station::find($id);
         return view('home.shop.show',compact('js','shop'));
     }
 }

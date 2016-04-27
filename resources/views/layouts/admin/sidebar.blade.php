@@ -17,7 +17,7 @@
             <!-- logo -->
             <div class="logo">
                 <a href="##" class="logo-expanded">
-                    {!! Html::image('style/assets/images/logo@2x.png',null,['width'=>'80']) !!}
+                    {!! Html::image('wechat/images/logo.jpg',null,['width'=>'80']) !!}
                 </a>
                 
                 {{--<a href="##" class="logo-collapsed">--}}

@@ -56,24 +56,23 @@
                     $('.s_result0').html('<p>'+result.address+'</p>');
                     //请求接口获取附近4s店
                     $.ajax({
-                        url:host+'/api/getDistributor',
+                        url:host+'/api/getStation',
                         data:{lat:lat,lng:lng},
                         type:'post',
                         success:function(res)
                         {
                             var list = '';
-
                             if (res.status==200){
                                 $.each(res.list,function(i,v){
-                                    //获取亮点间距离
                                     var url = host +'shop/'+ v.id;
+                                    //获取亮点间距离
                                     var pointA = new BMap.Point(lng,lat);  // 创建点坐标A--大渡口区
                                     var pointB = new BMap.Point(v.x, v.y);  // 创建点坐标B--江北区
                                     var distance = (map.getDistance(pointA,pointB)).toFixed(2)/1000;
                                     list += '<li>';
                                     list += '<h2><i></i><a href="'+url+'">'+ v.shopname +'</a></h2>';
                                     list += '<p>距离：'+ distance +'公里</p>';
-                                    list += '<p>电话：'+ v.tel2+'</p>';
+                                    list += '<p>电话：'+ v.tel1+' <span>［'+ v.tel2 +'］</span></p>';
                                     list += '<p>地址：'+ v.adress+'</p>';
                                     list += '</li>';
                                 });
@@ -102,7 +101,6 @@
     	<p>开启手机“定位服务”<br/>以便获得更准确的结果</p>
     </div>
     <div class="s_result0">
-
     </div>
     <div class="h_result re_result">
         <ul>

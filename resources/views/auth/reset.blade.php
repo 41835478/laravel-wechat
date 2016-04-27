@@ -33,7 +33,7 @@
                  {!! Form::hidden('token',$token)!!}
                  <div class="login-header">
                      <a href="{{url('/')}}" class="logo">
-                         {!! Html::image("style/assets/images/logo@2x.png",null,['width'=>'80']) !!}
+                         {!! Html::image("wechat/images/logo.jpg",null,['width'=>'80']) !!}
                          <span>重置密码</span>
                      </a>
 

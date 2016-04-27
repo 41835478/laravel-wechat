@@ -23,7 +23,7 @@
              {!! Form::open(array('url' => array('/password/email'),'method'=>'POST','id'=>'login','class'=>'login-form validate','novalidate'=>'novalidate')) !!}
                  <div class="login-header">
                      <a href="{{url('/')}}" class="logo">
-                         {!! Html::image("style/assets/images/logo@2x.png",null,['width'=>'80']) !!}
+                         {!! Html::image("wechat/images/logo.jpg",null,['width'=>'80']) !!}
                          <span>找回密码</span>
                      </a>
 

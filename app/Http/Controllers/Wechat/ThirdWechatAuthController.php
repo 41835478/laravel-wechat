@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\WechatDomain;
 use App\WechatUser;
 use Illuminate\Http\Request;
 
@@ -25,17 +26,29 @@ class ThirdWechatAuthController extends BaseController
      * */
     public function thirdPartyAuthorization(Request $request,$wechatId)
     {
-
+        $third_url = $request->input('redirect');
+        $token = $request->input('auth_token');
         //判断是否授权
         if($request->session()->get('wechat_id', '0')==$wechatId && $request->session()->get('wechat_user', '')!=''){
             //跳转到业务页
-            $third_url = $request->input('redirect');
+
             $request->session()->put('third_url',$third_url);
             $character = strstr($third_url,'?')?'&':'?';
             $query = http_build_query($request->session()->get('wechat_user', ''));
             $target_url = $third_url.$character.$query;
             return redirect($target_url);
         }else{
+            //对比token
+            $domain = parse_url(urldecode($third_url));
+            $host = $domain['host'];
+            $res = WechatDomain::where('domain',$host)->first();
+            if($res){
+                if($res->token!=$token){
+                    return '密钥错误';
+                }
+            }else{
+                return '该域名未经授权';
+            }
             //进行授权
             $wechatApp = $this->instanceWechatServer($wechatId);
             $auth = $wechatApp->oauth;

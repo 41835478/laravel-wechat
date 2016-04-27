@@ -155,6 +155,7 @@ class ApiController extends Controller
         //关键词列表
         $kws = [];
         $keyword_ids = [];
+        //如果关键词不为空
         if(isset($keywords)){
             foreach($keywords as $key=>$keyword){
                 $has = Keyword::where('keyword_rule_id',$rule->id)->where('keyword',$keyword['keyword'])->first();
@@ -165,21 +166,24 @@ class ApiController extends Controller
                         'match_type'     => $keyword['match_type']
                     ]);
                 }else{
+                    //已存在的关键字
                     $keyword_ids[] = $has->id;
                 }
             }
-        }
-
-        if(!empty($kws)){
-            //删除不需要的关键词
-            if($keyword_ids){
-                Keyword::whereNotIn('id',$keyword_ids)->delete();
-            }else{
-                Keyword::where('keyword_rule_id',$rule_id)->delete();
-            }
-            $rule->keywords()->saveMany($kws);
         }else{
             Keyword::where('keyword_rule_id', $rule_id)->delete();
+        }
+
+        if(count($kws)>0){
+            //删除不需要的关键词
+            if(count($keyword_ids)>0){
+                Keyword::whereNotIn('id',$keyword_ids)->delete();
+            }else{
+                //删除所有关键词
+                Keyword::where('keyword_rule_id',$rule_id)->delete();
+            }
+            //保存新增的关键词
+            $rule->keywords()->saveMany($kws);
         }
         //添加关键词
         //添加回复
@@ -208,6 +212,8 @@ class ApiController extends Controller
                 }
 
             }
+        }else{
+            Reply::where('keyword_rule_id', $rule_id)->delete();
         }
         if(!empty($rps)) {
             //删除不需要的回复
@@ -217,8 +223,6 @@ class ApiController extends Controller
                 Reply::where('keyword_rule_id', $rule_id)->delete();
             }
             $rule->replies()->saveMany($rps);
-        }else{
-            Reply::where('keyword_rule_id', $rule_id)->delete();
         }
 
         if($rule->id){

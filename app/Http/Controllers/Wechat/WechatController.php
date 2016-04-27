@@ -110,7 +110,7 @@ class WechatController extends WechatBaseController{
 
         //查询关键字,预载入关键字规则
         if($message->MsgType=='event' && $message->Event=='CLICK'){
-            return $message->MsgType.'--'.$message->EventKey.'-'.$message->Event;
+            //return $message->MsgType.'--'.$message->EventKey.'-'.$message->Event;
             $keyword = $message->EventKey;
         }else{
             $keyword = $message->Content;

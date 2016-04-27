@@ -202,7 +202,6 @@ class WechatMenuController extends WechatBaseController
                 }
             }
         }
-        dd($buttons);
         $res = $this->wechatApp->menu->add($buttons);
         if($res->errcode==0){
             flash()->success('推送成功');

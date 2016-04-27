@@ -45,8 +45,8 @@
         <div class="a_list a_yysj" style="display: none;">
         	<form method="get" action="{{ route('api.appointTestDrive') }}">
                 <div class="a_form2">
-                    <input type="hidden" class="txt002" data-url="{{ url('station') }}" name="od_us_id" value="{{ $user->us_id }}"/>
-                    <input class="txt01" type="text" name="od_st_id" placeholder="请选择专营店／输入地址"/>
+                    <input type="hidden" class="txt002" name="od_us_id" value="{{ $user->us_id }}"/>
+                    <input class="txt01" type="text" data-url="{{ url('station') }}"  name="od_st_id" placeholder="请选择专营店／输入地址"/>
                     <select class="txt02" name="od_s_id">
                         <option value="0">选择车系</option>
                         @foreach($series as $sery)

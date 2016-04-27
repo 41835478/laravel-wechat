@@ -23,8 +23,8 @@
     <div class="h_result re_result">
     	<ul>
         	<li>
-                <h2>{{ $shop->shopname }}</h2>
-                <p>地址：{{ $shop->adress }}</p>
+                <h2>{{ $shop->stationname }}</h2>
+                <p>地址：{{ $shop->address }}</p>
                 <p>备注：{{ $shop->tel2 }}</p>
             </li>
             

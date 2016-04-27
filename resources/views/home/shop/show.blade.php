@@ -8,7 +8,7 @@
 <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
 <meta name="Keywords" content="陆风" />
 <meta name="description" content="陆风" />
-<title>维修站定位</title>
+<title>{{ $shop->shopname }}-4S店定位</title>
     @include('home.user.common')
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BNUjjtFI1Uis61ECHgO1jZvG"></script>
 

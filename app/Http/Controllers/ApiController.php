@@ -155,54 +155,72 @@ class ApiController extends Controller
         //关键词列表
         $kws = [];
         $keyword_ids = [];
-        foreach($keywords as $key=>$keyword){
-            $has = Keyword::where('keyword_rule_id',$rule->id)->where('keyword',$keyword['keyword'])->first();
+        if(isset($keywords)){
+            foreach($keywords as $key=>$keyword){
+                $has = Keyword::where('keyword_rule_id',$rule->id)->where('keyword',$keyword['keyword'])->first();
 
-            if(empty($has)){
-                $kws[] = new Keyword([
-                    'keyword'        => $keyword['keyword'],
-                    'match_type'     => $keyword['match_type']
-                ]);
-            }else{
-                $keyword_ids[] = $has->id;
+                if(empty($has)){
+                    $kws[] = new Keyword([
+                        'keyword'        => $keyword['keyword'],
+                        'match_type'     => $keyword['match_type']
+                    ]);
+                }else{
+                    $keyword_ids[] = $has->id;
+                }
             }
         }
+
         if(!empty($kws)){
             //删除不需要的关键词
-            Keyword::whereNotIn('id',$keyword_ids)->delete();
+            if($keyword_ids){
+                Keyword::whereNotIn('id',$keyword_ids)->delete();
+            }else{
+                Keyword::where('keyword_rule_id',$rule_id)->delete();
+            }
+            $rule->keywords()->saveMany($kws);
+        }else{
+            Keyword::where('keyword_rule_id', $rule_id)->delete();
         }
         //添加关键词
-        $rule->keywords()->saveMany($kws);
         //添加回复
         $rps = [];
         $reply_ids = [];
-        foreach($replies as $key=>$reply){
-            if($reply['message_type']=='text'){
-                $text = WechatText::firstOrCreate([
-                    'body'  => $reply['content']
-                ]);
-                $reply['content_id'] = $text->id;
-            }
-            $has = Reply::where('keyword_rule_id',$rule->id)
-                            ->where('message_type',$reply['message_type'])
-                            ->where('content_id',$reply['content_id'])
-                            ->first();
+        if(isset($replies)) {
+            foreach ($replies as $key => $reply) {
+                if ($reply['message_type'] == 'text') {
+                    $text = WechatText::firstOrCreate([
+                        'body' => $reply['content']
+                    ]);
+                    $reply['content_id'] = $text->id;
+                }
+                $has = Reply::where('keyword_rule_id', $rule->id)
+                    ->where('message_type', $reply['message_type'])
+                    ->where('content_id', $reply['content_id'])
+                    ->first();
 
-            if(empty($has)){
-                $rps[] = new Reply([
-                    'message_type'           => $reply['message_type'],
-                    'content_id'             => $reply['content_id']
-                ]);
-            }else{
-                $reply_ids[] = $has->id;
-            }
+                if (empty($has)) {
+                    $rps[] = new Reply([
+                        'message_type' => $reply['message_type'],
+                        'content_id' => $reply['content_id']
+                    ]);
+                } else {
+                    $reply_ids[] = $has->id;
+                }
 
+            }
         }
         if(!empty($rps)) {
             //删除不需要的回复
-            Reply::whereNotIn('id', $reply_ids)->delete();
+            if(empty($reply_ids)){
+                Reply::whereNotIn('id', $reply_ids)->delete();
+            }else{
+                Reply::where('keyword_rule_id', $rule_id)->delete();
+            }
+            $rule->replies()->saveMany($rps);
+        }else{
+            Reply::where('keyword_rule_id', $rule_id)->delete();
         }
-        $rule->replies()->saveMany($rps);
+
         if($rule->id){
             $rule = $this->_getRuleMedias($rule->id);
             $result = ['status'=>200,'msg'=>'更新成功','data'=>$rule];

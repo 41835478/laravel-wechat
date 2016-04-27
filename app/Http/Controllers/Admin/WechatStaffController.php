@@ -56,8 +56,9 @@ class WechatStaffController extends WechatBaseController
         //dd($data);
         $email = $data['kf_account']."@".$this->wechat->original_id;
         $staffs = $this->staff->lists();
-        foreach($staffs as $staff){
-            if($staff->kf_account==$email){
+        //dd($staffs->kf_list);
+        foreach($staffs->kf_list as $staff){
+            if($staff['kf_account']==$email){
                 flash()->error('客服已存在');
                 return redirect()->back();
             }

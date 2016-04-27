@@ -15,8 +15,9 @@ class CreateWechatDomainsTable extends Migration
         Schema::create('wechat_domains', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('wechat_id')->default(0)->index();
-            $table->string('domain');
+            $table->string('domain')->index();
             $table->text('remark');
+            $table->string('token');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

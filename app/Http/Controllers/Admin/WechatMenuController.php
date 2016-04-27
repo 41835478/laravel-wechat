@@ -132,7 +132,13 @@ class WechatMenuController extends WechatBaseController
      */
     public function destroy($id)
     {
-        //
+        $result = WechatMenu::destroy($id);
+        if($result){
+            flash()->success('删除成功');
+        }else{
+            flash()->error('删除失败');
+        }
+        return redirect()->back();
     }
 
     /*

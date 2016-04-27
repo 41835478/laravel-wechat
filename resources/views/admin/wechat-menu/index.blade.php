@@ -93,9 +93,9 @@
                             修改
                         </a>
 
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            删除
-                        </a>
+                        {!! Form::open(['route'=>['admin.wechat-menu.destroy',$menu->id],'role'=>'form','class'=>'form-horizontal','method'=>'delete','style'=>'display:inline']) !!}
+                        <button class="btn btn-danger btn-sm btn-icon icon-left">删除</button>
+                        {!! Form::close() !!}
                         <a href="{{route('admin.wechat-menu.sub-menu',$menu->id)}}" class="btn btn-danger btn-sm btn-icon icon-left">
                            子菜单
                         </a>

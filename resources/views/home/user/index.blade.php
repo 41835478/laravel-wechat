@@ -20,7 +20,7 @@
     	<div class="n_name">{{ $user->us_nick }}</div>
     </div>
     <div class="n_top">
-    	<div class="n_topleft">积分：<span>{{ $user->us_integral }}</span></div>
+    	<div class="n_topleft">积分：<span id="point">{{ $user->us_integral }}</span></div>
         <div class="n_topright"><a href="javascript:;" id="sign"></a></div>
     </div>
     <ul class="n_list">

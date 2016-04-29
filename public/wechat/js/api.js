@@ -63,22 +63,22 @@ $(function(){
     });
 
     //车辆绑定
-    $('#c_carbind').click(function () {
-        var data = $(this).parent().serialize(),
-            action = $(this).parent().attr('action');
-        $.ajax({
-            url:action,
-            data:data,
-            type:'post',
-            success:function(res)
-            {
-                alert(res.msg);
-                $('input[name=res]').click();
-            },
-            dataType:'json'
-        });
-        return false;
-    });
+    //$('#c_carbind').click(function () {
+    //    var data = $(this).parent().serialize(),
+    //        action = $(this).parent().attr('action');
+    //    $.ajax({
+    //        url:action,
+    //        data:data,
+    //        type:'post',
+    //        success:function(res)
+    //        {
+    //            alert(res.msg);
+    //            //$('input[name=res]').click();
+    //        },
+    //        dataType:'json'
+    //    });
+    //    return false;
+    //});
 
     $('input[name=ou_st_id]').focus(function(){
         location.href=$(this).data('url');

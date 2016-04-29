@@ -199,7 +199,7 @@ class ApiController extends Controller
         $rules = [
             'us_carno'  => 'required',
             'us_tel'    => 'required',
-            'captcha'   => 'required|captcha'
+            //'captcha'   => 'required|captcha'
         ];
         $message = [
             'us_carno.required'           => '请填写车架号',
@@ -220,6 +220,7 @@ class ApiController extends Controller
             'us_tel'    => $us_tel
         ];
         $update = OldUser::where('us_id',$us_id)->update($data);
+
         if($update){
             $result = [
                 'status'    => 200,

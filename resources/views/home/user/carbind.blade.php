@@ -28,7 +28,7 @@
     </div>
     <form method="get" action="{{ route('api.makeCarBind') }}">
     	<div class="c_form">
-        	<input class="txt01" type="text" name="us_carno" value="{{ $user->us_carno }}" placeholder="请输入车架号后8位"/>
+            <input class="txt01" type="text" name="us_carno" value="{{ $user->us_carno }}" placeholder="请输入车架号后8位"/>
             <input class="txt02" type="text" name="us_tel" value="{{ $user->us_tel }}" placeholder="请输入手机号码"/>
             <input class="txt03" type="text" name="captcha" placeholder="请输入下方图片上的验证码"/>
     	</div>

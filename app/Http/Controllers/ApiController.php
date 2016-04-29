@@ -154,41 +154,30 @@ class ApiController extends Controller
         $rule->save();
         //关键词列表
         $kws = [];
-        $keyword_ids = [];
+
+        //dd($keywords);
+        Keyword::where('keyword_rule_id', $rule_id)->delete();
         //如果关键词不为空
         if(isset($keywords)){
-            foreach($keywords as $key=>$keyword){
-                $has = Keyword::where('keyword_rule_id',$rule->id)->where('keyword',$keyword['keyword'])->first();
 
-                if(empty($has)){
-                    $kws[] = new Keyword([
-                        'keyword'        => $keyword['keyword'],
-                        'match_type'     => $keyword['match_type']
-                    ]);
-                }else{
-                    //已存在的关键字
-                    $keyword_ids[] = $has->id;
-                }
+            foreach($keywords as $k=>$keyword){
+                //新增的关键字
+                $kws[$k] = new Keyword([
+                    'keyword'        => $keyword['keyword'],
+                    'match_type'     => $keyword['match_type']
+                ]);
             }
-        }else{
-            Keyword::where('keyword_rule_id', $rule_id)->delete();
+
         }
 
         if(count($kws)>0){
-            //删除不需要的关键词
-            if(count($keyword_ids)>0){
-                Keyword::whereNotIn('id',$keyword_ids)->delete();
-            }else{
-                //删除所有关键词
-                Keyword::where('keyword_rule_id',$rule_id)->delete();
-            }
             //保存新增的关键词
             $rule->keywords()->saveMany($kws);
         }
-        //添加关键词
+        //删除回复
+        Reply::where('keyword_rule_id', $rule_id)->delete();
         //添加回复
         $rps = [];
-        $reply_ids = [];
         if(isset($replies)) {
             foreach ($replies as $key => $reply) {
                 if ($reply['message_type'] == 'text') {
@@ -210,18 +199,9 @@ class ApiController extends Controller
                 } else {
                     $reply_ids[] = $has->id;
                 }
-
             }
-        }else{
-            Reply::where('keyword_rule_id', $rule_id)->delete();
         }
         if(!empty($rps)) {
-            //删除不需要的回复
-            if(empty($reply_ids)){
-                Reply::whereNotIn('id', $reply_ids)->delete();
-            }else{
-                Reply::where('keyword_rule_id', $rule_id)->delete();
-            }
             $rule->replies()->saveMany($rps);
         }
 

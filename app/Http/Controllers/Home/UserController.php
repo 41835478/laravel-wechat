@@ -68,7 +68,7 @@ class UserController extends BaseController
     //预约
     public function appointment()
     {
-        $series = Series::orderBy('s_state')->all();
+        $series = Series::orderBy('s_state')->get();
         $user = OldUser::where('us_weixinid',$this->user['id'])->first();
         return view('home.user.appoint',compact('user','series'));
     }

@@ -82,7 +82,7 @@
                                     <input type="checkbox" class="cbr">
                                 </th>
                                 <th>车系名称</th>
-                                <th>车系状态</th>
+                                <th>序号</th>
                                 <th>操作日期</th>
                                 <th>操作</th>
                             </tr>
@@ -95,7 +95,7 @@
                                     <input type="checkbox" class="cbr">
                                 </td>
                                 <td>{{ $sery->s_name }}</td>
-                                <td>{{ $sery->s_state?'归档':'正常' }}</td>
+                                <td>{{ $sery->s_state }}</td>
                                 <td>{{ $sery->s_date }}</td>
                                 <td>
                                     <a href="{{route('admin.series.edit',$sery->s_id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">

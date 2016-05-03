@@ -21,7 +21,7 @@ class SeriesController extends BaseController
 //            's_name'    => 'x5',
 //            's_status'  =>1
 //        ]);
-        $series = Series::paginate(20);
+        $series = Series::orderBy('s_state')->paginate(20);
         //dd($series);
         return view('admin.series.index',compact('series'));
     }

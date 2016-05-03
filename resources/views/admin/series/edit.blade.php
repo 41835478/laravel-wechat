@@ -41,25 +41,15 @@
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('sex')) has-error @endif">
-                        <label class="col-sm-2 control-label">状态</label>
+                    <div class="form-group @if($errors->first('s_state')) has-error @endif">
+                        <label class="col-sm-2 control-label">排序</label>
 
                         <div class="col-sm-10">
-
-                            <p>
-                            <label class="radio-inline">
-                                <input type="radio" name="s_state" value="0" @if($sery->s_state==0) checked @endif>
-                                    正常
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="s_state" value="1" @if($sery->s_state==1) checked @endif>
-                                    归档
-                            </label>
-                            @if($errors->first('s_status')) {{$errors->first('s_status')}} @endif
-                            </p>
-
+                            <input type="text" class="form-control" value="{{ $sery->s_state }}" name="s_state" id="s_state" placeholder="@if($errors->first('s_state')) {{$errors->first('s_state')}} @else 序号 @endif">
                         </div>
+
                     </div>
+
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>

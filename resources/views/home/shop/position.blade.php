@@ -71,9 +71,13 @@
                                     var pointA = new BMap.Point(lng,lat);  // 创建点坐标A--大渡口区
                                     var pointB = new BMap.Point(v.x, v.y);  // 创建点坐标B--江北区
                                     var distance = (map.getDistance(pointA,pointB)/1000).toFixed(2);
+                                    res.list[i].distance = distance;
+                                });
+                                $.each(res.list,function(i,v){
+
                                     list += '<li>';
                                     list += '<h2><i></i><a href="'+url+'">'+ v.shopname +'</a></h2>';
-                                    list += '<p>距离：'+ distance +'公里</p>';
+                                    list += '<p>距离：'+ v.distance +'公里</p>';
                                     list += '<p>电话：'+ v.tel2+'</p>';
                                     list += '<p>地址：'+ v.adress+'</p>';
                                     list += '</li>';

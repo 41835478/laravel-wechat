@@ -19,12 +19,12 @@
             var version = parseFloat(RegExp.$1);
             if (version > 2.3) {
                 var phoneScale = parseInt(window.screen.width) / 640;
-                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+                document.write('<meta name="viewport" content="width=device-width, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
             } else {
-                document.write('<meta name="viewport" content="width=640,user-scalable =0, target-densitydpi=device-dpi">');
+                document.write('<meta name="viewport" content="width=device-width,user-scalable =0, target-densitydpi=device-dpi">');
             }
         } else {
-            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+            document.write('<meta name="viewport" content="width=device-width, user-scalable=no, target-densitydpi=device-dpi">');
         }
         //微信去掉下方刷新栏
         if (navigator.userAgent.indexOf('MicroMessenger') >= 0) {
@@ -32,7 +32,7 @@
                 WeixinJSBridge.call('hideToolbar');
             });
         }
-    </script><meta name="viewport" content="width=640, minimum-scale = 0.5625, maximum-scale = 0.5625, target-densitydpi=device-dpi">
+    </script><meta name="viewport" content="width=device-width, minimum-scale = 0.5625, maximum-scale = 0.5625, target-densitydpi=device-dpi">
     <!--[END 浏览器兼容设置]-->
 </head>
 <body>

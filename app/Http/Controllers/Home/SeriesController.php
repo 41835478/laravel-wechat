@@ -18,7 +18,7 @@ class SeriesController extends BaseController{
     public function index()
     {
         $series = Series::with(['carmodel'=>function($query){
-            $query->where('images', '<>', '')->orderBy('id','desc');
+            $query->where('images', '<>', '')->orderBy('id');
         }])->orderBy('s_state')->get();
 
        // dd($series[0]->carmodel[0]->price);

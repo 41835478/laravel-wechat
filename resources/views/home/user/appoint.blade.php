@@ -81,7 +81,10 @@
                 console.log(res);
                 var list = '<option value="0">选择车型</option>';
                 $.each(res.models,function(i,v){
-                    list += '<option value="'+ v.id+'">'+ v.models +'</option>';
+                    if (i!=0){
+
+                        list += '<option value="'+ v.id+'">'+ v.models +'</option>';
+                    }
                 });
                 $('select[name=od_ct_id]').html(list);
             },

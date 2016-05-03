@@ -79,11 +79,11 @@
             success:function(res)
             {
                 console.log(res);
-                var list = '';
+                var list = '<option value="0">选择车系</option>';
                 $.each(res.models,function(i,v){
                     list += '<option value="'+ v.id+'">'+ v.models +'</option>';
                 });
-                $('select[name=od_ct_id]').append(list);
+                $('select[name=od_ct_id]').html(list);
             },
             dataType:'json'
         });

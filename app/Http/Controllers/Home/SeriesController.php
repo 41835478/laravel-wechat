@@ -19,7 +19,7 @@ class SeriesController extends BaseController{
     {
         $series = Series::with(['carmodel'=>function($query){
             $query->where('images', '<>', '')->orderBy('id','desc');
-        }])->orderBy('s_id','desc')->get();
+        }])->orderBy('s_state')->get();
 
        // dd($series[0]->carmodel[0]->price);
         $loopimgs = LoopImg::where('l_state',0)->get();

@@ -73,6 +73,9 @@
                                     var distance = (map.getDistance(pointA,pointB)/1000).toFixed(2);
                                     res.list[i].distance = distance;
                                 });
+                                res.list.sort(function(x,y){
+                                    return x.distance - y.distance;
+                                });
                                 $.each(res.list,function(i,v){
 
                                     list += '<li>';

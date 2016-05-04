@@ -2,11 +2,11 @@
 /* CSS Document */
 
 html{ font-size:medium;}
-html body{ width: 640px; overflow-x:hidden;font-size: medium; line-height:normal; margin: 0; padding: 0; font-weight: 100; font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei";-webkit-font-smoothing:antialiased; color: #fff;}
+html body{ width: 640px; overflow-x:hidden;font-size: medium; line-height:normal; margin: 0; padding: 0; font-weight: 100; font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei";-webkit-font-smoothing:antialiased; color: #fff; background: #1d212a;}
 ul,li,dl,h1,h2,h3,h4,h5,h6,p{padding: 0;margin: 0; font-size: 100%;}
 ul{list-style: none;}
 .clear{ clear:both;}
-a{text-decoration: none;}
+a{text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 .fl { float: left;}
 .fr { float: right;}
 input,select { -webkit-appearance: none; border-radius: 0px;}
@@ -17,7 +17,7 @@ html, body { width: 640px; height: auto; margin: 0 auto;}
 .wrapper { width: 100%; position: relative; background: #1d212a; padding-bottom: 50px; min-height: 1100px;}
 /**myinfor**/
 .g_header { width: 100%; height: 260px; background: #171b23 url(../images/header_bg.jpg) no-repeat center top; border-bottom: 1px solid #2c2f34;}
-.g_header img { display: block; width: 170px; height: 170px; margin: 0 auto; padding-top: 65px;}
+.g_header img { display: block; width: 170px; height: 170px; margin: 0 auto; padding-top: 65px; border-radius: 85px;}
 .g_form { width: 486px; height: 424px; overflow: hidden; margin: 0 auto; background: url(../images/form0.png) no-repeat center top; background-size: cover; position: relative;}
 .g_form .txt01,.g_form .txt02,.g_form .txt03,.g_form .txt04 { width: 430px; height: 40px; line-height: 40px; position: absolute; left: 30px; top: 50px; background: none; border: none; font-size: 24px; color: #a5abb8; outline: none;}
 .g_form .txt02 { top: 156px;}
@@ -29,7 +29,7 @@ html, body { width: 640px; height: auto; margin: 0 auto;}
 /**collection**/
 .c_header { width: 100%; height: 247px; overflow: hidden; background: #171b23; border-bottom: 1px solid #2c2f34;}
 .c_header01 { width: 152px; height: 139px; background: url(../images/head_bg.jpg) no-repeat; background-size: 100% 100%; padding-top: 13px; margin-left: 42px; margin-top: 42px; float: left;}
-.c_header01 img { display: block; width: 126px; height: 126px; margin: 0 auto;border-radius: 63px;}
+.c_header01 img { display: block; width: 126px; height: 126px; margin: 0 auto;}
 .c_header02 { width: 380px; height: 139px; float: right; margin-right: 42px; margin-top: 62px;}
 .c_header02 p { font-size: 30px; display: block; height: 40px;}
 .c_header02 p span { color: #999999; padding-left: 10px;}
@@ -130,10 +130,10 @@ html, body { width: 640px; height: auto; margin: 0 auto;}
 .n_topright { width: 320px; height: 100%; float: right;}
 .n_topright a { display: block; width: 160px; height: 43px; background: url(../images/btn.png) no-repeat; background-size: 100% 100%; margin: 0 auto; margin-top: 16px;}
 .n_list { width: 100%; height: auto; overflow: hidden;}
-.n_list li { padding: 18px 0; border-bottom: 1px solid #2c2f34; height: 160px;}
+.n_list li { padding: 18px 0; border-bottom: 1px solid #2c2f34; height: 140px;}
 .n_list li .n_list01 { width: 319px; height: 100%; border-right: 1px solid #2c2f34; float: left;}
 .n_list li .n_list02 { width: 320px; height: 100%; float: right;}
-.n_list li div a { display: block; width: 227px; height: 62px; margin: 0 auto; margin-top: 53px;} 
+.n_list li div a { display: block; width: 227px; height: 62px; margin: 0 auto; margin-top: 43px;} 
 .n_list li .n01 a{ background: url(../images/1.png) no-repeat; background-size: 100% 100%;}
 .n_list li .n02 a{ background: url(../images/2.png) no-repeat; background-size: 100% 100%;}
 .n_list li .n03 a{ background: url(../images/3.png) no-repeat; background-size: 100% 100%;}

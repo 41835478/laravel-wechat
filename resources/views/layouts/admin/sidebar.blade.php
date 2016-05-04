@@ -17,7 +17,7 @@
             <!-- logo -->
             <div class="logo">
                 <a href="##" class="logo-expanded">
-                    {!! Html::image('wechat/images/landwind.png',null,['width'=>'80']) !!}
+                    {!! Html::image('wechat/images/landwind.png',null) !!}
                 </a>
                 
                 {{--<a href="##" class="logo-collapsed">--}}

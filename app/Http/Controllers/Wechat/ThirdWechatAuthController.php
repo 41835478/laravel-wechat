@@ -24,6 +24,13 @@ class ThirdWechatAuthController extends Controller
     public function thirdPartyAuthorization(Request $request,$wechatId)
     {
         $third_url = $request->input('redirect');
+        if(empty($third_url)){
+            return 'redirect参数错误';
+        }else{
+            $url = explode('?',$third_url);
+            $third_url = $url[0];
+        }
+
         $token = $request->input('auth_token');
         $request->session()->put('third_url',$third_url);
         //判断是否授权

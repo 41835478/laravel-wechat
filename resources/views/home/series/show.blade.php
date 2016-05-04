@@ -33,7 +33,8 @@
                 WeixinJSBridge.call('hideToolbar');
             });
         }
-    </script><meta name="viewport" content="width=640, minimum-scale = 0.5625, maximum-scale = 0.5625, target-densitydpi=device-dpi">
+    </script>
+    <meta name="viewport" content="width=640,target-densitydpi=device-dpi,user-scalable=no">
     <!--[END 浏览器兼容设置]-->
 </head>
 <body>

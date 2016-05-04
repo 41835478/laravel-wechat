@@ -87,11 +87,14 @@ class ThirdWechatAuthController extends Controller
             $userInfo = array_merge(['us_weixinid'=>$openid],$userInfo);
             OldUser::create($userInfo);
         }
-
+        $status = [
+            'status'    => 'ok'
+        ];
+        $data = array_merge($userInfo,$status);
         $request->session()->put('wechat_id',$wechatId);
         $request->session()->put('wechat_user',$user);
         $character = strstr($third_url,'?')?'&':'?';
-        $query = http_build_query($userInfo);
+        $query = http_build_query($data);
         $target_url = $third_url.$character.$query;
         //跳转到业务页
         // todo

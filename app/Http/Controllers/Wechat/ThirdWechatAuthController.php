@@ -25,11 +25,10 @@ class ThirdWechatAuthController extends Controller
     {
         $third_url = $request->input('redirect');
         $token = $request->input('auth_token');
+        $request->session()->put('third_url',$third_url);
         //判断是否授权
         if($request->session()->get('wechat_id', '0')==$wechatId && $request->session()->get('wechat_user', '')!=''){
             //跳转到业务页
-
-            $request->session()->put('third_url',$third_url);
             $character = strstr($third_url,'?')?'&':'?';
             $query = http_build_query($request->session()->get('wechat_user', ''));
             $target_url = $third_url.$character.$query;

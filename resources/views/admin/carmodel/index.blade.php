@@ -96,7 +96,7 @@
                                 <td>
                                     <input type="checkbox" class="cbr">
                                 </td>
-                                <td>{{ $item->series->s_name }}</td>
+                                <td>{{ $item->series?$item->series->s_name:'' }}</td>
                                 <td>{{ $item->models }}</td>
                                 <td>{{ $item->s_state?'归档':'正常' }}</td>
                                 <td>{{ $item->insert_times }}</td>

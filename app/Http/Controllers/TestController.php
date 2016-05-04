@@ -24,7 +24,7 @@ class TestController extends Controller
             $redirect = route(Route::currentRouteName());
             $redirect = urlencode($redirect);
             //dd(route('wechat.thirdAuth',1).'?redirect='.$redirect);
-            return redirect(route('wechat.thirdAuth',1).'?redirect='.$redirect);
+            return redirect(route('wechat.thirdAuth',1).'?auth_token=test&redirect='.$redirect);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\Wechat;
 use App\WechatDomain;
 use App\WechatUser;
 use Illuminate\Http\Request;

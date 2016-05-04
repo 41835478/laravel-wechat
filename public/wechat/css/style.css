@@ -130,10 +130,10 @@ html, body { width: 640px; height: auto; margin: 0 auto;}
 .n_topright { width: 320px; height: 100%; float: right;}
 .n_topright a { display: block; width: 160px; height: 43px; background: url(../images/btn.png) no-repeat; background-size: 100% 100%; margin: 0 auto; margin-top: 16px;}
 .n_list { width: 100%; height: auto; overflow: hidden;}
-.n_list li { padding: 18px 0; border-bottom: 1px solid #2c2f34; height: 120px;}
+.n_list li { padding: 18px 0; border-bottom: 1px solid #2c2f34; height: 100px;}
 .n_list li .n_list01 { width: 319px; height: 100%; border-right: 1px solid #2c2f34; float: left;}
 .n_list li .n_list02 { width: 320px; height: 100%; float: right;}
-.n_list li div a { display: block; width: 227px; height: 62px; margin: 0 auto; margin-top: 33px;} 
+.n_list li div a { display: block; width: 227px; height: 62px; margin: 0 auto; margin-top: 23px;} 
 .n_list li .n01 a{ background: url(../images/1.png) no-repeat; background-size: 100% 100%;}
 .n_list li .n02 a{ background: url(../images/2.png) no-repeat; background-size: 100% 100%;}
 .n_list li .n03 a{ background: url(../images/3.png) no-repeat; background-size: 100% 100%;}

@@ -123,8 +123,9 @@
 
 <footer>
     <a class="tel" href="tel:4008833666"><i></i>电话咨询</a>
+    @if($series->carmodel[0]->path!='')
     <a class="info" href="@if($series->carmodel){{ url($series->carmodel[0]->path) }} @endif"><i></i>车型详情</a>
-
+    @endif
     <a class="shijia" href="{{ url('user/appointment') }}"><i></i>预约试驾</a>
 </footer>
 

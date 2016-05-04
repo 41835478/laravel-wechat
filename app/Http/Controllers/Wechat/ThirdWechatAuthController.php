@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wechat;
 
+use App\OldUser;
 use App\Wechat;
 use App\WechatDomain;
 use App\WechatUser;
@@ -61,23 +62,29 @@ class ThirdWechatAuthController extends Controller
         $oauth = $wechatApp->oauth;
         $user = $oauth->user();
         $third_url = $request->session()->get('third_url');
-        $user_info = [
-            'openid'        =>  $user->openid,
-            'nickname'      =>  $user->nickname,
-            'sex'           =>  $user->sex,
-            'province'      =>  $user->province,
-            'city'          =>  $user->city,
-            'country'       =>  $user->country,
-            'headimgurl'    =>  $user->headimgurl
+        //保存用户信息
+        $original = $user->getOriginal();
+        $openid = $user->getId();
+        $userInfo = [
+            'us_nick'  => $original['nickname'],
+            'us_gender'  => $original['sex'],
+            'city'  => $original['city'],
+            'province'  => $original['province'],
+            'us_portrait'  => $original['headimgurl'],
+            'us_date'  => date('Y-m-d H:i:s',time()),
         ];
-
-        //用户信息入库
-        WechatUser::create($user_info);
+        $u = OldUser::where('us_weixinid',$openid)->first();
+        if($u){
+            OldUser::where('us_weixinid',$openid)->update($userInfo);
+        }else{
+            $userInfo = array_merge(['us_weixinid'=>$openid],$userInfo);
+            OldUser::create($userInfo);
+        }
 
         $request->session()->put('wechat_id',$wechatId);
         $request->session()->put('wechat_user',$user);
         $character = strstr($third_url,'?')?'&':'?';
-        $query = http_build_query($user_info);
+        $query = http_build_query($userInfo);
         $target_url = $third_url.$character.$query;
         //跳转到业务页
         // todo

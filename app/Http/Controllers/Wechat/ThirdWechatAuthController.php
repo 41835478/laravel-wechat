@@ -72,6 +72,7 @@ class ThirdWechatAuthController extends Controller
         $original = $user->getOriginal();
         $openid = $user->getId();
         $userInfo = [
+            'us_weixinid'   => $user['id'],
             'us_nick'  => $original['nickname'],
             'us_gender'  => $original['sex'],
             'city'  => $original['city'],

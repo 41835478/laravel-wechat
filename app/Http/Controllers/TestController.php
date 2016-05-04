@@ -18,7 +18,7 @@ class TestController extends Controller
     public function getTestAuth(Request $request)
     {
 
-        if($request->input('openid')){
+        if($request->input('us_weixinid')){
             dd($request->all());
         }else{
             $redirect = route(Route::currentRouteName());

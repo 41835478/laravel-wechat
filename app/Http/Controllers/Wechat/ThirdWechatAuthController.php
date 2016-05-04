@@ -43,7 +43,6 @@ class ThirdWechatAuthController extends Controller
             }else{
                 return '该域名未经授权';
             }
-            dd();
             //进行授权
             $wechatApp = $this->instanceWechatServer($wechatId);
             $auth = $wechatApp->oauth;

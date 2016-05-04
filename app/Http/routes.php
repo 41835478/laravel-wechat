@@ -121,11 +121,11 @@ Route::group(['namespace' => 'Wechat'],function(){
     //
     //第三方授权
     Route::get('wechat/{wechatId}/thirdAuth',[
-        'as'=>'wechat.thirdAuth','uses'=>'WechatController@thirdPartyAuthorization'
+        'as'=>'wechat.thirdAuth','uses'=>'ThirdWechatAuthController@thirdPartyAuthorization'
     ]);
     //第三方回调
     Route::get('wechat/{wechatId}/thirdCallback',[
-        'as'=>'wechat.thirdCallback','uses'=>'WechatController@thirdCallback'
+        'as'=>'wechat.thirdCallback','uses'=>'ThirdWechatAuthController@thirdCallback'
     ]);
 });
 
@@ -411,4 +411,11 @@ Route::post('uploadimg',[
 ]);
 Route::post('uploadfile',[
     'as'=>'uploadfile','uses'=>'UploadController@upload'
+]);
+
+
+//测试
+
+Route::get('test',[
+    'as'=>'test-auth','uses'=>'TestController@getTestAuth'
 ]);

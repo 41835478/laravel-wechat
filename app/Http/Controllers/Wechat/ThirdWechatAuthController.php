@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Wechat;
 
 use App\WechatDomain;
 use App\WechatUser;
@@ -9,14 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ThirdWechatAuthController extends BaseController
+class ThirdWechatAuthController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
     /*
      * 第三方授权
      * 接受第三方的重定向url redirect
@@ -49,6 +43,7 @@ class ThirdWechatAuthController extends BaseController
             }else{
                 return '该域名未经授权';
             }
+            dd();
             //进行授权
             $wechatApp = $this->instanceWechatServer($wechatId);
             $auth = $wechatApp->oauth;
@@ -80,7 +75,6 @@ class ThirdWechatAuthController extends BaseController
 
         $request->session()->put('wechat_id',$wechatId);
         $request->session()->put('wechat_user',$user);
-
         $character = strstr($third_url,'?')?'&':'?';
         $query = http_build_query($user_info);
         $target_url = $third_url.$character.$query;

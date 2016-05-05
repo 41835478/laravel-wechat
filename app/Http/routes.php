@@ -419,3 +419,4 @@ Route::post('uploadfile',[
 Route::get('test',[
     'as'=>'test-auth','uses'=>'TestController@getTestAuth'
 ]);
+abort(404);

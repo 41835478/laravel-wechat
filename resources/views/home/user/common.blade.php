@@ -12,4 +12,4 @@
     var user_id = "{{ $user->us_id }}";
     var host = "{{ url() }}";
 </script>
-{!! Html::script('wechat/js/api.js') !!}
+{!! Html::script('wechat/js/api.js?v=1111') !!}

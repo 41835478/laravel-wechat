@@ -10,7 +10,7 @@
 <meta name="description" content="陆风" />
 <title>预约</title>
 @include('home.user.common')
-{!! Html::script('wechat/js/index.js') !!}
+{!! Html::script('wechat/js/index.js?v=111') !!}
 </head>
 
 <body>

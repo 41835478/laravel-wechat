@@ -11,6 +11,7 @@
 <title>预约</title>
 @include('home.user.common')
 {!! Html::script('wechat/js/index.js') !!}
+{!! Html::script('wechat/js/api.js') !!}
 </head>
 
 <body>

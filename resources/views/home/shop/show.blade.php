@@ -32,7 +32,7 @@
     <div class="re_tel">
     	<p>紧急救援：{{ $shop->tel1 }}</p>
     </div>
-    <a href="{{ url('user/appointment') }}" class="txt06 c_return">预约维修</a>
+    <a href="{{ url('user/appointment?type=shop&id='.$shop->id) }}" class="txt06 c_return">预约试驾</a>
 </div>
 <script>
     //地图

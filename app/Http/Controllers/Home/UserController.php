@@ -11,6 +11,9 @@ namespace App\Http\Controllers\Home;
 
 use App\OldUser;
 use App\Series;
+use App\Shop;
+use App\Station;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
@@ -66,11 +69,22 @@ class UserController extends BaseController
     }
 
     //预约
-    public function appointment()
+    public function appointment(Request $request )
     {
+        $type = $request->input('type')?$request->input('type'):'';
+
+        $id   = $request->input('id');
+        $name = '';
+        if($type == 'shop' ){
+            $shop = Shop::find($id);
+            $name = $shop->shopname;
+        }elseif($type == 'station' ){
+            $station = Station::find($id);
+            $name = $station->stationname;
+        }
         $series = Series::orderBy('s_state')->get();
-        $user = OldUser::where('us_weixinid',$this->user['id'])->first();
-        return view('home.user.appoint',compact('user','series'));
+        $user   = OldUser::where('us_weixinid',$this->user['id'])->first();
+        return view('home.user.appoint',compact('user','series','id','name','type'));
     }
     //预约记录
     public function appointRecord()

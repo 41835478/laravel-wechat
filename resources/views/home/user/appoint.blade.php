@@ -28,7 +28,7 @@
         <div class="a_list a_bywx">
         	<form method="get" action="{{ route('api.appointMaintenance') }}">
                 <div class="a_form1">
-                    <input class="txt01" type="text" data-url="{{ url('shop') }}" value="{{ $name }}" readonly="readonly" placeholder="请选择专营店／输入地址"/>
+                    <input class="txt01" type="text" data-url="{{ url('shop') }}" value="@if($type=='station'){{ $name }} @endif" readonly="readonly" placeholder="请选择专营店／输入地址"/>
                     <input type="hidden" name="ou_st_id"  value="{{ $id?$id:0 }}">
                     <div class="txt02">
                         <a href="javascript:;" class="tab tab1 active">保养</a>
@@ -50,7 +50,7 @@
         	<form method="get" action="{{ route('api.appointTestDrive') }}">
                 <div class="a_form2">
                     <input type="hidden" class="txt002" name="od_us_id" value="{{ $user->us_id }}"/>
-                    <input class="txt01" type="text" data-url="{{ url('station') }}"  value="{{ $name }}" readonly="readonly" placeholder="请选择专营店／输入地址"/>
+                    <input class="txt01" type="text" data-url="{{ url('station') }}"  value="@if($type=='shop'){{ $name }} @endif" readonly="readonly" placeholder="请选择专营店／输入地址"/>
                     <input type="hidden" name="od_st_id"  value="{{ $id?$id:0 }}">
                     <select class="txt02" name="od_s_id">
                         <option value="0">选择车系</option>

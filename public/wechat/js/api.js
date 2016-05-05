@@ -80,12 +80,12 @@ $(function(){
     //    return false;
     //});
 
-    $('input[name=ou_st_id]').click(function(){
-        window.location.href=$(this).data('url');
-    });
-    $('input[name=od_st_id]').click(function(){
-        window.location.href=$(this).data('url');
-    });
+    //$('input[name=ou_st_id]').click(function(){
+    //    window.location.href=$(this).data('url');
+    //});
+    //$('input[name=od_st_id]').click(function(){
+    //    window.location.href=$(this).data('url');
+    //});
 
     $('.txt05').click(function(){
         var data = $(this).parent().serialize(),

@@ -25,6 +25,21 @@ $(function(){
 	});
 	
 	//微信预约切换
+	var index0=GetQueryString("type");
+	if(!index0==""){
+		if(index0=="shop"){
+			$(".a_tabtop a").eq(1).addClass("active").siblings().removeClass("active");
+			$(".a_list").hide();
+			$(".a_list").eq(1).fadeIn();
+		}
+		if(index0=="station"){
+			$(".a_tabtop a").eq(0).addClass("active").siblings().removeClass("active");
+			$(".a_list").hide();
+			$(".a_list").eq(0).fadeIn();
+		}
+	}
+
+
 	$(".a_form1 .txt02 a").on("touchstart",function(){
 		$(this).addClass("active").siblings().removeClass("active");
 		$('input[name=ou_type]').val($(this).text());

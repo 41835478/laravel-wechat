@@ -30,7 +30,7 @@
         </ul>
     </div>
     <div class="re_tel">
-    	<p>紧急救援：{{ $shop->tel1 }}</p>
+    	<p>联系电话：{{ $shop->tel1 }}</p>
     </div>
     <a href="{{ url('user/appointment?type=shop&id='.$shop->id) }}" class="txt06 c_return">预约试驾</a>
 </div>

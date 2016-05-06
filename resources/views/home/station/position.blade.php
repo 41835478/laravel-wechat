@@ -102,7 +102,7 @@
 
 <div class="wrapper">
 	<div class="s_top">
-        {!! Html::image('wechat/images/logo.png') !!}<p>4s店查询</p>
+        {!! Html::image('wechat/images/logo.png') !!}<p>维修站查询</p>
     </div>
     <div class="s_position">
     	<a class="s_btn">重新定位</a>

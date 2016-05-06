@@ -46,6 +46,7 @@
                                          null,
                                          null,
                                          null,
+                                         null,
                                          null
                                          ],
                              });
@@ -83,6 +84,7 @@
                                 <th class="no-sorting">
                                     <input type="checkbox" class="cbr">
                                 </th>
+                                <th>ID</th>
                                 <th>标题</th>
                                 <th>作者</th>
                                 <th>封面</th>
@@ -98,6 +100,7 @@
                                 <td>
                                     <input type="checkbox" class="cbr">
                                 </td>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
                                 <td>{{ $item->author }}</td>
                                 <th><img src="{{ url($item->pic_url) }}" width="80"/></th>

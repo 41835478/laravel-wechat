@@ -232,22 +232,37 @@ class WechatController extends WechatBaseController{
                         //return Message::make($content['reply_type'])->content($content->content);
                         break;
                     case 'news':
-                        //查询内容
-                        $news = WechatNews::find($content->content_id);
-                        if(empty($news)){
-                            return '';
-                        }
-                        $res = new News([
-                            'title'         => $news->title,
-                            'image'         => url($news->pic_url),
-                            'description'   => $news->description,
-                            'url'           => $news->news_url
-                        ]);
+                        $ids = explode(',',$content->content_id);
 
+                        //查询内容
+                        if(count($ids)==1){
+                            $news = WechatNews::find($content->content_id);
+                            if(empty($news)){
+                                return '';
+                            }
+
+                            $res = new News([
+                                'title'         => $news->title,
+                                'image'         => url($news->pic_url),
+                                'description'   => $news->description,
+                                'url'           => $news->news_url
+                            ]);
+                        }elseif(count($ids)>1){
+                            $news = WechatNews::whereIn('id',$ids)->get();
+                            $res = [];
+                            foreach($news as $item){
+                                $n = new News([
+                                    'title'         => $item->title,
+                                    'image'         => url($item->pic_url),
+                                    'description'   => $item->description,
+                                    'url'           => $item->news_url
+                                ]);
+                                $res = array_merge($res,$n);
+                            }
+                        }
                         return $res;
                         break;
                 }
-
 
             }else{
                 return '';

@@ -57,7 +57,7 @@ class WechatApiController extends Controller
             $mch_billno = $packet['packet']->wechat->mch_id.date('YmdHis',time()).rand(1000,9999);
             $luckyMoneyData = [
                 'mch_billno'       => $mch_billno,
-                'send_name'        => $packet['packet']->send_name,
+                'send_name'        => $packet['packet']->wechat->send_name,
                 're_openid'        => $data['openid'],
                 'total_num'        => $packet['packet']->total_num,  //不小于3
                 'total_amount'     => $packet['packet']->total_amount,  //单位为分，不小于300

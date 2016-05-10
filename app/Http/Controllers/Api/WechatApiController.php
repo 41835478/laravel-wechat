@@ -68,20 +68,21 @@ class WechatApiController extends Controller
                 'amt_type'         => $packet['packet']->amt_type,  //可不传
                 // ...
             ];
-            $result = $luckyMoney->sendGroup($luckyMoneyData);
-            if($result){
-                //红包发送日志
-                PacketRecord::create([
-                    'packet_id' => $data['packet_id'],
-                    'openid'    => $data['openid'],
-                    'mch_billno'=> $mch_billno
-                ]);
-                if($result->error_code){
+            $res = $luckyMoney->sendGroup($luckyMoneyData);
+            if($res->return_code=='SUCCESS'){
+
+                if($res->err_code){
                     $result = [
                         'status'    => 201,
-                        'msg'       => $result['err_code_des']
+                        'msg'       => $res->err_code_des
                     ];
                 }else{
+                    //红包发送日志
+                    PacketRecord::create([
+                        'packet_id' => $data['packet_id'],
+                        'openid'    => $data['openid'],
+                        'mch_billno'=> $mch_billno
+                    ]);
                     $result = [
                         'status'    => 200,
                         'msg'       => '发送成功'

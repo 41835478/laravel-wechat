@@ -72,7 +72,7 @@ class WechatApiController extends Controller
             if($result){
                 //红包发送日志
                 PacketRecord::create([
-                    'packet_id' => $data['pacekt_id'],
+                    'packet_id' => $data['packet_id'],
                     'openid'    => $data['openid'],
                     'mch_billno'=> $mch_billno
                 ]);

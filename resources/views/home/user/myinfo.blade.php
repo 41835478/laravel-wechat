@@ -33,6 +33,6 @@
     </form>
     @include('home.user.back')
 </div>
-
+{{ $user->us_weixinid }}
 </body>
 </html>

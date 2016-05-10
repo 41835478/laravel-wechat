@@ -76,8 +76,8 @@ class WechatApiController extends Controller
                     'openid'    => $data['openid'],
                     'mch_billno'=> $mch_billno
                 ]);
-                print_r($result->items['return_code']);
-                var_dump($result->items);
+                print_r($result);
+                var_dump($result->error_code);
                 if($result['error_code']){
                     $result = [
                         'status'    => 201,

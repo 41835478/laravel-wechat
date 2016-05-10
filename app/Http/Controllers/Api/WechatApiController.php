@@ -77,10 +77,10 @@ class WechatApiController extends Controller
                     'mch_billno'=> $mch_billno
                 ]);
                 var_dump($result);
-                if($result->error_code){
+                if($result['error_code']){
                     $result = [
                         'status'    => 201,
-                        'msg'       => $result->err_code_des
+                        'msg'       => $result['err_code_des']
                     ];
                 }else{
                     $result = [

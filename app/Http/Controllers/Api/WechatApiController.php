@@ -76,9 +76,10 @@ class WechatApiController extends Controller
                     'openid'    => $data['openid'],
                     'mch_billno'=> $mch_billno
                 ]);
+                var_dump($result);
                 $result = [
                     'status'    => 200,
-                    'msg'       => '预约成功'
+                    'msg'       => '发送成功'
                 ];
             }else{
                 $result = [

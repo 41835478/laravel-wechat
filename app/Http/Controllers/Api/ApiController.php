@@ -528,6 +528,7 @@ class ApiController extends Controller
         return $this->_returnArray($content);
     }
 
+
     /**
      * 将JSON内容转为数据，并返回
      * @param string $content [内容]

@@ -25,6 +25,11 @@ class WechatRepository {
             "secret" => $data['secret'],
             "encoding_aes_key" => $data['encoding_aes_key'],
             "wechat_token" => $data['wechat_token'],
+            "mch_id"    => $data['mch_id'],
+            "send_name"    => $data['send_name'],
+            "key"       => $data['key'],
+            "cert_path"    => $data['cert_path'],
+            "key_path"    => $data['key_path'],
         ]);
     }
 
@@ -39,6 +44,11 @@ class WechatRepository {
         $wechat->secret = $data['secret'];
         $wechat->encoding_aes_key = $data['encoding_aes_key'];
         $wechat->wechat_token = $data['wechat_token'];
+        $wechat->mch_id    = $data['mch_id'];
+        $wechat->send_name    = $data['send_name'];
+        $wechat->key       = $data['key'];
+        $wechat->cert_path   = $data['cert_path'];
+        $wechat->key_path    = $data['key_path'];
         $wechat->save();
         return $wechat;
     }

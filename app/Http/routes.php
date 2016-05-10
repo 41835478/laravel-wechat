@@ -67,6 +67,12 @@ Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
     Route::post('getStation',[
         'as'=>'api.getStation','uses'=>'ApiController@getStation'
     ]);
+
+    //裂变红包接口
+    Route::post('packet/fission',[
+        'as'=>'api.fissionPacket','uses'=>'WechatApiController@fissionPacket'
+    ]);
+
 });
 //前端页面
 Route::group(['namespace' => 'Home','prefix' => 'user'],function(){
@@ -377,6 +383,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
 
     //多域名管理
     Route::resource('wechat-domain', 'DomainController',['names'=>['index'=>'admin.wechat-domain']]);
+
+    //红包活动
+
+    Route::resource('wechat-packet', 'PacketController',['names'=>['index'=>'admin.wechat-packet']]);
 
     //原有功能
     //车系

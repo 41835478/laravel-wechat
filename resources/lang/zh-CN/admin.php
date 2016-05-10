@@ -40,6 +40,7 @@
         "setting_wechat_news" => "图文管理",
         "setting_wechat_activity" => "活动管理",
         "main_manage_domain"    => "域名管理",
+        "wechat_red_packet"    => "红包活动管理",
 
         "main_manage" => "主要管理",
 

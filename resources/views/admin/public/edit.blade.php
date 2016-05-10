@@ -24,7 +24,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">添加公众号</h3>
+                <h3 class="panel-title">公众号配置</h3>
                 <div class="panel-options">
                     <a href="#" data-toggle="panel">
                         <span class="collapse-icon">&ndash;</span>
@@ -144,6 +144,70 @@
                             <input type="text" name="wechat_token" class="form-control" id="wechat_token" value="{{$wechat->wechat_token}}" placeholder="@if($errors->first('wechat_token')) {{$errors->first('wechat_token')}} @else Token @endif">
                         </div>
                     </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('mch_id')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="mch_id">商户ID</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="mch_id" class="form-control"
+                                   id="mch_id" value="{{$wechat->mch_id}}"
+                                   placeholder="@if($errors->first('mch_id'))
+                                   {{$errors->first('mch_id')}} @else 商户ID @endif">
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('send_name')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="send_name">商户名</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="send_name" class="form-control"
+                                   id="send_name" value="{{$wechat->send_name}}"
+                                   placeholder="@if($errors->first('send_name')) {{$errors->first('send_name')}} @else 商户名 @endif">
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('key')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="key">商户密钥</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="key"
+                                   class="form-control" id="key"
+                                   value="{{$wechat->key}}" placeholder="@if($errors->first('key'))
+                                    {{$errors->first('key')}} @else 商户密钥 @endif">
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('cert_path')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="cert_path">cert_path</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="cert_path" class="form-control" id="cert_path"
+                                   value="{{$wechat->cert_path}}"
+                                   placeholder="@if($errors->first('cert_path'))
+                                   {{$errors->first('cert_path')}} @else Cert_path @endif">
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('key_path')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="key_path">key_path</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="key_path" class="form-control" id="key_path"
+                                   value="{{$wechat->key_path}}"
+                                   placeholder="@if($errors->first('key_path'))
+                                   {{$errors->first('key_path')}} @else Key_path @endif">
+                        </div>
+                    </div>
+
                     <div class="form-group-separator"></div>
 
                     <div class="form-group @if($errors->first('wechat_token')) has-error @endif">

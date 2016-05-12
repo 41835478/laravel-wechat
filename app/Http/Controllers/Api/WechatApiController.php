@@ -41,12 +41,19 @@ class WechatApiController extends Controller
             if($pack->status==1){
                 $result = [
                     'status'    => 201,
-                    'msg'       => '该红包已发放'
+                    'msg'       => '该接口不可用'
+                ];
+                return response()->json($result);
+            }
+            if($pack->times<1){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '该红包已发放完'
                 ];
                 return response()->json($result);
             }
             //md5签名
-            if($data['sign']!=md5($data['packet_id'].$pack->wechat->wechat_token)){
+            if($data['sign']!=md5($data['packet_id'].$pack->sign_key.$pack->wechat->wechat_token)){
                 $result = [
                     'status'    => 201,
                     'msg'       => '签名错误'
@@ -105,10 +112,9 @@ class WechatApiController extends Controller
                         'mch_billno'=> $mch_billno
                     ]);
                     //更新红包订单
-                    WechatPacket::find($data['packet_id'])->update([
-                        'mch_billno'    => $mch_billno,
-                        'status'        => 1
-                    ]);
+                    $p = WechatPacket::find($data['packet_id']);
+                    $p->times -= $p->times;
+                    $p->save();
                     $result = [
                         'status'    => 200,
                         'msg'       => '发送成功'

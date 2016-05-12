@@ -43,7 +43,7 @@
                     <div class="form-group-separator"></div>
 
                     <div class="form-group @if($errors->first('total_amount')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="total_amount" >总金额</label>
+                        <label class="col-sm-2 control-label" for="total_amount" >一组金额</label>
                         
                         <div class="col-sm-10">
                             <input type="text" class="form-control" value="{{ old('total_amount') }}"  name="total_amount" id="total_amount" placeholder="@if($errors->first('total_amount')) {{$errors->first('total_amount')}} @else 总金额(单位'分') @endif">
@@ -53,10 +53,10 @@
                     <div class="form-group-separator"></div>
 
                     <div class="form-group @if($errors->first('total_num')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="total_num" >总人数</label>
+                        <label class="col-sm-2 control-label" for="total_num" >裂变人数</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{ old('total_num') }}"  name="total_num" id="total_num" placeholder="@if($errors->first('total_num')) {{$errors->first('total_num')}} @else 总人数 @endif">
+                            <input type="text" class="form-control" value="{{ old('total_num') }}"  name="total_num" id="total_num" placeholder="@if($errors->first('total_num')) {{$errors->first('total_num')}} @else 裂变人数 @endif">
                         </div>
                     </div>
 
@@ -78,6 +78,17 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control" value="{{ old('remark') }}"  name="remark" id="remark" placeholder="@if($errors->first('remark')) {{$errors->first('remark')}} @else 备注 @endif">
                         </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('times')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="times" >可用次数</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="{{ old('times') }}"  name="times" id="times" placeholder="@if($errors->first('times')) {{$errors->first('times')}} @else 可用次数 @endif">
+                        </div>
+
                     </div>
 
                     <div class="form-group-separator"></div>

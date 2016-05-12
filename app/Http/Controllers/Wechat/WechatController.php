@@ -345,6 +345,16 @@ class WechatController extends WechatBaseController{
     }
 
     /*
+     * 转发到第三方平台
+     * */
+
+    public function forward()
+    {
+        //
+    }
+
+
+    /*
      * 清除微信session
      * */
 

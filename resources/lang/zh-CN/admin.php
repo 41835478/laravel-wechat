@@ -41,6 +41,7 @@
         "setting_wechat_activity" => "活动管理",
         "main_manage_domain"    => "域名管理",
         "wechat_red_packet"    => "红包活动管理",
+        "wechat_third_apis"    => "融合第三方",
 
         "main_manage" => "主要管理",
 

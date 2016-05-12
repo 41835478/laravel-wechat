@@ -24,7 +24,7 @@ class WechatApiController extends Controller
     public function fissionPacket(Request $request)
     {
         //dd(md5('secret'));
-        $data = $request->only(['openid','packet_id','token']);
+        $data = $request->only(['openid','packet_id','sign']);
 
         $rules = [
             'openid'          => 'required',
@@ -34,10 +34,30 @@ class WechatApiController extends Controller
         $message = [
             'openid.required'           => 'openid参数错误',
         ];
+        //查找token
+        $pack = WechatPacket::with('wechat')->find($data['packet_id']);
+
+        if($pack){
+            if($pack->status==1){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '该红包已发放'
+                ];
+                return response()->json($result);
+            }
+            if($data['sign']!=md5($data['packet_id']+$pack->wechat->token)){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '签名错误'
+                ];
+                return response()->json($result);
+            }
+        }
         $validator = Validator::make($data,$rules,$message);
         //判断时间
         $time = time();
-        if($time>strtotime(date('Y-m-d',time()).' 00:00:00') && $time<strtotime(date('Y-m-d',time()).' 08:00:00')){
+
+        if($time>strtotime(date('Y-m-d',time())) && $time<strtotime(date('Y-m-d',time()).' 08:00:00')){
             $result = [
                 'status'    => 201,
                 'msg'       => '暂时不能发送红包,请在08:00-24:00参与活动'
@@ -82,6 +102,11 @@ class WechatApiController extends Controller
                         'packet_id' => $data['packet_id'],
                         'openid'    => $data['openid'],
                         'mch_billno'=> $mch_billno
+                    ]);
+                    //更新红包订单
+                    WechatPacket::find($data['packet_id'])->update([
+                        'mch_billno'    => $mch_billno,
+                        'status'        => 1
                     ]);
                     $result = [
                         'status'    => 200,

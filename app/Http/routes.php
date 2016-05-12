@@ -135,65 +135,6 @@ Route::group(['namespace' => 'Wechat'],function(){
     ]);
 });
 
-
-/*
- * Ucenter
- * */
-Route::group(['namespace' => 'Ucenter','prefix' => 'ucenter'],function(){
-
-    Route::get('/',[
-        'as'=>'ucenter','uses'=>'UserController@index'
-    ]);
-
-    Route::resource('wechat', 'WechatController',['names'=>['index'=>'ucenter.wechat']]);
-
-    Route::get('/wechat/{wechatId}/manage',[
-        'as'=>'ucenter.wechat.manage','uses'=>'WechatController@manage'
-    ]);
-
-    //素材管理
-    Route::get('/wechat/{wechatId}/media',[
-        'as'=>'ucenter.wechat.media','uses'=>'WechatController@media'
-    ]);
-    //素材管理类型
-    Route::get('/wechat/{wechatId}/media/{type}',[
-        'as'=>'ucenter.wechat.media.type','uses'=>'WechatController@mediaType'
-    ]);
-
-    //微信图文消息资源
-
-    Route::resource('wechat.news', 'NewsController',['names'=>['index'=>'ucenter.wechat.news']]);
-
-    //回复类型
-    Route::get('/wechat/{wechatId}/reply',[
-        'as'=>'ucenter.wechat.reply','uses'=>'WechatController@reply'
-    ]);
-
-    Route::get('/wechat/{wechatId}/reply/{type}',[
-        'as'=>'ucenter.wechat.reply.type','uses'=>'WechatController@replyType'
-    ]);
-
-    Route::post('/wechat/{wechatId}/ruleStore',[
-        'as'=>'ucenter.wechat.rule-store','uses'=>'WechatController@ruleStore'
-    ]);
-    Route::post('/wechat/{wechatId}/keywordsStore',[
-        'as'=>'ucenter.wechat.keywords-store','uses'=>'WechatController@keywordsStore'
-    ]);
-    //编辑关键字
-    Route::post('/wechat/{wechatId}/keywords-update',[
-        'as'=>'ucenter.wechat.keywords-update','uses'=>'WechatController@keywordsUpdate'
-    ]);
-
-    //回复文字
-    Route::post('/wechat/{wechatId}/reply-text',[
-        'as'=>'ucenter.wechat.reply-text','uses'=>'WechatController@replyText'
-    ]);
-    //回复图文
-    Route::post('/wechat/{wechatId}/reply-news',[
-        'as'=>'ucenter.wechat.reply-news','uses'=>'WechatController@replyNews'
-    ]);
-});
-
 //==================================================================//
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],function(){
@@ -387,6 +328,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     //红包活动
 
     Route::resource('wechat-packet', 'PacketController',['names'=>['index'=>'admin.wechat-packet']]);
+
+    //微信融合第三方
+    Route::resource('wechat-thirdApi', 'ThirdApiController',['names'=>['index'=>'admin.wechat-thirdApi']]);
 
     //原有功能
     //车系

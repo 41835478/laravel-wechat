@@ -24,8 +24,8 @@ class PostPacketRequest extends Request
     public function rules()
     {
         return [
-            'total_amount'  => 'required|numeric|min:300',
-            'total_num'     => 'required|numeric|min:3',
+            'total_amount'  => 'required|numeric|min:300|max:100000',
+            'total_num'     => 'required|numeric|min:3|max:20',
             'wishing'       => 'required',
             'act_name'      => 'required',
             'remark'        => 'required'

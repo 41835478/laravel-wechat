@@ -29,7 +29,7 @@ class WechatApiController extends Controller
         $rules = [
             'openid'          => 'required',
             'packet_id'       => 'required',
-            'token'           => 'required',
+            'sign'            => 'required',
         ];
         $message = [
             'openid.required'           => 'openid参数错误',

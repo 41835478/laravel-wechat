@@ -45,7 +45,8 @@ class WechatApiController extends Controller
                 ];
                 return response()->json($result);
             }
-            if($data['sign']!=md5($data['packet_id']+$pack->wechat->token)){
+            //md5签名
+            if($data['sign']!=md5($data['packet_id'].$pack->wechat->token)){
                 $result = [
                     'status'    => 201,
                     'msg'       => '签名错误'

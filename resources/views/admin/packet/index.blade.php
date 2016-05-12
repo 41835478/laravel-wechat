@@ -38,6 +38,7 @@
                            null,
                            null,
                            null,
+                           null,
                            null
                            ],
                });
@@ -81,6 +82,7 @@
                   <th>总人数</th>
                   <th>祝福语</th>
                   <th>备注</th>
+                  <th>可用次数</th>
                   <th>时间</th>
                   <th>操作</th>
               </tr>
@@ -98,6 +100,7 @@
                   <td>{{ $item->total_num }}</td>
                   <td>{{ $item->wishing }}</td>
                   <td>{{ $item->remark }}</td>
+                  <td>{{ $item->times }}</td>
                   <td>{{ $item->created_at }}</td>
                   <td>
                       <a href="{{route('admin.wechat-packet.edit',$item->id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">

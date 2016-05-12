@@ -92,6 +92,17 @@
                     </div>
 
                     <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('sign_key')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="sign_key" >签名密钥</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="{{ old('sign_key') }}"  name="sign_key" id="sign_key" placeholder="@if($errors->first('sign_key')) {{$errors->first('sign_key')}} @else 签名密钥(不可为中文) @endif">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group-separator"></div>
                     
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>

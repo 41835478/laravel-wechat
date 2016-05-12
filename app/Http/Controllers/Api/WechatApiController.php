@@ -113,7 +113,7 @@ class WechatApiController extends Controller
                     ]);
                     //更新红包订单
                     $p = WechatPacket::find($data['packet_id']);
-                    $p->times -= $p->times;
+                    $p->times = $p->times-1;
                     $p->save();
                     $result = [
                         'status'    => 200,

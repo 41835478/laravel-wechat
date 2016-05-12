@@ -38,7 +38,7 @@ class WechatApiController extends Controller
         $pack = WechatPacket::with('wechat')->find($data['packet_id']);
 
         if($pack){
-            if($pack->status==1){
+            if($pack->status!=1){
                 $result = [
                     'status'    => 201,
                     'msg'       => '该接口不可用'

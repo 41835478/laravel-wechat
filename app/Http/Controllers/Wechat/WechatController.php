@@ -12,6 +12,7 @@ use App\ReplyText;
 use App\Wechat;
 use App\WechatNews;
 use App\WechatText;
+use App\WechatThirdApi;
 use EasyWeChat\Core\AccessToken;
 use EasyWeChat\Foundation\Application;
 use EasyWeChat\Message\Article;
@@ -83,6 +84,9 @@ class WechatController extends WechatBaseController{
                     return $this->reply($message);
                 }
 
+            }elseif($message->MsgType == 'image'){
+
+                return $this->reply($message);
             }
         });
 
@@ -98,11 +102,17 @@ class WechatController extends WechatBaseController{
          * 关注事件回复
          * */
 //        $message = (object)[
-//            'Content'=>'123123123',
+//            'Content'   => '第三方',
+//            'ToUserName'=> 'gh_68f0112f08be',
+//            'MsgType'   => 'image',
+//            'PicUrl'    => 'this is a url',
+//            'MediaId'   => 'media_id',
+//            'MsgId'     => '1234567890123456'
+//        ];
+//        $message = (object)[
+//            'Content'=>'第三方',
 //            'ToUserName'=>'gh_68f0112f08be',
-//            'MsgType'   => 'event',
-//            'Event'     => 'CLICK',
-//            'EventKey'       => 'zijia'
+//            'MsgType'   => 'text'
 //        ];
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
@@ -196,6 +206,10 @@ class WechatController extends WechatBaseController{
 
     public function getReplyByKeyword($kw,$wechat)
     {
+        $third = $this->forward($kw,$wechat->id,'text');
+        if($third){
+            return $third;
+        }
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
             $query->where('wechat_id','=',$wechat->id);
         }])->where('keyword','like',"$kw")->first();
@@ -348,11 +362,93 @@ class WechatController extends WechatBaseController{
      * 转发到第三方平台
      * */
 
-    public function forward()
+    public function forward($keyword="",$wechat_id,$type="text")
+    {
+        //获取对应的第三方融合接口信息
+        $apiInfo = WechatThirdApi::where('wechat_id',$wechat_id)
+                                    ->where('status',1)
+                                    ->where('keyword',$keyword)->first();
+        //dd($apiInfo);
+        if($apiInfo){
+            $timestamp = time();//构造时间戳
+
+            $nonce = 8; //随机码
+
+            $token = $apiInfo->token; //token
+
+            $tmpArr = array($token, $timestamp, $nonce);
+            sort($tmpArr, SORT_STRING); //排序
+            $tmpStr = implode( $tmpArr );
+
+            $tmpStr = sha1( $tmpStr );
+
+            $signature = $tmpStr;
+
+            $argus = array('signature'=>$signature, 'timestamp'=>$timestamp, 'nonce'=>$nonce);
+
+            //构造第三方URL
+            $url="";
+
+            if(strstr($apiInfo->api_url,"?")){
+                $url=$apiInfo->api_url."&".http_build_query($argus);
+
+            }else{
+                $url=$apiInfo->api_url."?".http_build_query($argus);
+            }
+            //需要POST的微信xml数据包
+            $post_data = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : file_get_contents("php://input");
+
+            $header [] = "Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0";
+
+            $header [] = "Content-Type: text/xml; charset=utf-8"; // 定义content-type为xml
+
+            $ch = curl_init (); // 初始化curl
+
+            curl_setopt ( $ch, CURLOPT_URL,$url); //设置链接
+
+            curl_setopt ( $ch, CURLOPT_HTTPHEADER, $header ); // 设置HTTP头
+            curl_setopt ($ch, CURLOPT_TIMEOUT, 3);
+            curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 ); // 设置是否返回信息
+            //将自定义菜单数据包伪造成关键字xml数据包
+
+            if($type=="custom"){
+
+                $postObj = simplexml_load_string( $post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+                $post_data=str_replace("<MsgType><![CDATA[event]]></MsgType>","<MsgType><![CDATA[text]]></MsgType>",$post_data);
+
+                $post_data=str_replace("<Event><![CDATA[CLICK]]></Event>","<Content><![CDATA[".$keyword."]]></Content>",$post_data);
+
+                $post_data=str_replace("<EventKey><![CDATA[".$postObj->EventKey."]]></EventKey>","<MsgId>".time().time()."</MsgId>",$post_data);
+
+                curl_setopt ( $ch, CURLOPT_POSTFIELDS,$post_data); // POST数据
+            }
+
+            //原本就是关键字数据包则无需伪造，直接转发
+            else{
+                curl_setopt ( $ch, CURLOPT_POSTFIELDS,$post_data); // POST数据
+            }
+            $response = curl_exec ( $ch ); // 接收返回信息
+
+            if (curl_errno ( $ch )) {
+                // 出错则显示错误信息
+            }
+            curl_close ( $ch );
+            //返回第三方处理后的结果包
+            return $response;
+        }else{
+            return '';
+        }
+
+    }
+
+    /*
+     * 缓存用户发送关键字
+     * */
+    public function setUserKeyword()
     {
         //
     }
-
 
     /*
      * 清除微信session

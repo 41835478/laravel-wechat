@@ -122,6 +122,8 @@ class WechatController extends WechatBaseController{
         if($message->MsgType=='event' && $message->Event=='CLICK'){
             //return $message->MsgType.'--'.$message->EventKey.'-'.$message->Event;
             $keyword = $message->EventKey;
+        }elseif($message->MsgType=='image'){
+            $keyword = '打印机';//设置默认关键词
         }else{
             $keyword = $message->Content;
         }
@@ -206,13 +208,13 @@ class WechatController extends WechatBaseController{
 
     public function getReplyByKeyword($kw,$wechat)
     {
-        $third = $this->forward($kw,$wechat->id,'text');
+        $third = $this->forward($kw,$wechat->id);
         if($third){
             return $third;
         }
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
-            $query->where('wechat_id','=',$wechat->id);
-        }])->where('keyword','like',"$kw")->first();
+                        $query->where('wechat_id','=',$wechat->id);
+                    }])->where('keyword','like',"$kw")->first();
         if($keyword){
 
             //查询对应回复   一对多
@@ -362,7 +364,7 @@ class WechatController extends WechatBaseController{
      * 转发到第三方平台
      * */
 
-    public function forward($keyword="",$wechat_id,$type="text")
+    public function forward($keyword="",$wechat_id,$type="default")
     {
         //获取对应的第三方融合接口信息
         $apiInfo = WechatThirdApi::where('wechat_id',$wechat_id)
@@ -447,7 +449,7 @@ class WechatController extends WechatBaseController{
      * */
     public function setUserKeyword()
     {
-        //
+        //关键字与第三方关键字对应
     }
 
     /*

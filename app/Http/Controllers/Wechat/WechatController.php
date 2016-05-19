@@ -21,6 +21,8 @@ use EasyWeChat\Message\Text;
 use Guzzle\Common\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
 /*
  * 微信交互控制器
@@ -97,23 +99,22 @@ class WechatController extends WechatBaseController{
 
     public function reply($message)
     {
+
         /*
          * 监听事件类型
          * 关注事件回复
          * */
+        //缓存用户消息
+        $image = $this->cacheUserKeyword($message);
 //        $message = (object)[
-//            'Content'   => '第三方',
-//            'ToUserName'=> 'gh_68f0112f08be',
-//            'MsgType'   => 'image',
-//            'PicUrl'    => 'this is a url',
-//            'MediaId'   => 'media_id',
-//            'MsgId'     => '1234567890123456'
-//        ];
-//        $message = (object)[
+//            'FromUserName'=>'o6ScNt3LgjkO9T6kJxY3mSGHsVYU',
 //            'Content'=>'第三方',
 //            'ToUserName'=>'gh_68f0112f08be',
 //            'MsgType'   => 'text'
 //        ];
+
+        //清除缓存
+        //返回打印信息后清理缓存
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
         $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();
@@ -123,7 +124,14 @@ class WechatController extends WechatBaseController{
             //return $message->MsgType.'--'.$message->EventKey.'-'.$message->Event;
             $keyword = $message->EventKey;
         }elseif($message->MsgType=='image'){
-            $keyword = '打印机';//设置默认关键词
+            //判断是否是图片,并缓存,如果缓存存在后面的用户发送消息将直接转发
+            if($image){
+                $keyword = '第三方';//设置默认关键词
+                $third = $this->forward($keyword,$wechat->id);
+                if($third){
+                    return $third;
+                }
+            }
         }else{
             $keyword = $message->Content;
         }
@@ -208,10 +216,7 @@ class WechatController extends WechatBaseController{
 
     public function getReplyByKeyword($kw,$wechat)
     {
-        $third = $this->forward($kw,$wechat->id);
-        if($third){
-            return $third;
-        }
+
         $keyword = Keyword::with(['keywordRule'=>function($query) use ($wechat){
                         $query->where('wechat_id','=',$wechat->id);
                     }])->where('keyword','like',"$kw")->first();
@@ -445,11 +450,32 @@ class WechatController extends WechatBaseController{
     }
 
     /*
-     * 缓存用户发送关键字
+     * 缓存用户发送消息
      * */
-    public function setUserKeyword()
+    public function cacheUserKeyword($message,$minutes=60)
     {
+//        $message = (object)[
+//            'FromUserName'=>'o6ScNt3LgjkO9T6kJxY3mSGHsVYU',
+//            'ToUserName'=> 'gh_68f0112f08be',
+//            'MsgType'   => 'image',
+//            'PicUrl'    => 'this is a url',
+//            'MediaId'   => 'media_id',
+//            'MsgId'     => '1234567890123456'
+//        ];
         //关键字与第三方关键字对应
+        //缓存关键字
+//        Redis::set('wechat_user',$openid);
+//        Redis::set('wechat_user:'.$openid.':keyword',$keyword);
+//        Redis::expire('wechat_user:'.$openid.':keyword',30);  # 设置生存时间为30秒 //return (integer) 1
+//        $data = Redis::get('wechat_user:'.$openid.':keyword');
+        $openid = $message->FromUserName;
+
+        if($message->MsgType=='image'){
+            Cache::add("wechat_user:".$openid.":image",$message,$minutes);
+        }
+
+        $image =Cache::get("wechat_user:".$openid.":image");
+        return $image;
     }
 
     /*

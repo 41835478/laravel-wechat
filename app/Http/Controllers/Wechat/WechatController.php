@@ -22,6 +22,7 @@ use Guzzle\Common\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
 /*
@@ -434,6 +435,7 @@ class WechatController extends WechatBaseController{
                 // 出错则显示错误信息
             }
             curl_close ( $ch );
+            Log::info('请求第三方接口返回的数据:'.$response);
             //返回第三方处理后的结果包
             //清除缓存
             //返回打印信息后清理缓存

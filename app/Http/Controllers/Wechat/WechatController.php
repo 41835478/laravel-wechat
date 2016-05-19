@@ -115,7 +115,7 @@ class WechatController extends WechatBaseController{
                 $keyword = '第三方';//设置默认关键词
                 $third = $this->forward($keyword,$wechat->id);
                 if($third){
-                    return $third;
+                    echo $third;
                 }
             }
         }else{

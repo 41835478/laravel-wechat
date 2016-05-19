@@ -69,11 +69,11 @@
                             <p>
                             <label class="radio-inline">
                                 <input type="radio" name="status" value="0">
-                                    不可用
+                                    关闭
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="status" value="1" checked>
-                                    可用
+                                    开启
                             </label>
                             @if($errors->first('status')) {{$errors->first('status')}} @endif
                             </p>

@@ -87,8 +87,12 @@ class ThirdApiController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_token','_method');
+        if(isset($data['api_url'])){
+            $has = WechatThirdApi::where('api_url',$data['api_url'])->where('id','!=',$id)->first();
 
-        $has = WechatThirdApi::where('api_url',$data['api_url'])->where('id','!=',$id)->first();
+        }else{
+            $has = false;
+        }
         if($has){
             flash()->error('该接口已存在');
         }else{

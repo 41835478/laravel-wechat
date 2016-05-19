@@ -104,9 +104,18 @@
                                 <td>{{ $item->token }}</td>
                                 <td>{{ $item->keyword }}</td>
                                 <td>{{ $item->remark }}</td>
-                                <td>{{ $item->status?"可用":"不可用" }}</td>
+                                <td>{{ $item->status?"开启":"关闭" }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>
+                                    {!! Form::open(['route'=>['admin.wechat-thirdApi.update',$item->id],'role'=>'form','class'=>'form-horizontal','method'=>'patch','style'=>'display:inline']) !!}
+                                    @if($item->status==0)
+                                        <input type="hidden" name="status" value="1"/>
+                                        <button class="btn btn-danger btn-sm btn-icon icon-left">开启</button>
+                                    @elseif($item->status==1)
+                                        <input type="hidden" name="status" value="0"/>
+                                        <button class="btn btn-danger btn-sm btn-icon icon-left">关闭</button>
+                                    @endif
+                                    {!! Form::close() !!}
                                     <a href="{{route('admin.wechat-thirdApi.edit',$item->id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
                                         编辑
                                     </a>

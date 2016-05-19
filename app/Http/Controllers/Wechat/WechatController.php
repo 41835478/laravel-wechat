@@ -113,8 +113,6 @@ class WechatController extends WechatBaseController{
 //            'MsgType'   => 'text'
 //        ];
 
-        //清除缓存
-        //返回打印信息后清理缓存
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
         $wechat = Wechat::where('original_id','=',$public_number)->firstOrFail();
@@ -139,6 +137,14 @@ class WechatController extends WechatBaseController{
         $rep = $this->getReplyByKeyword($keyword,$wechat);
 
         if(empty($rep)){
+            //查看第三方接口
+            $third_api = WechatThirdApi::where('keyword',$keyword)->where('wechat_id',$wechat->id)->first();
+            if($third_api && $third_api->status==1){
+                $response = $this->forward($third_api->keyword);
+                if($response){
+                    return $response;
+                }
+            }
             $keyword = '消息自动回复';
             return $this->getReplyByKeyword($keyword,$wechat);
         }else{
@@ -442,6 +448,8 @@ class WechatController extends WechatBaseController{
             }
             curl_close ( $ch );
             //返回第三方处理后的结果包
+            //清除缓存
+            //返回打印信息后清理缓存
             return $response;
         }else{
             return '';

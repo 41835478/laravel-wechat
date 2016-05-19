@@ -65,14 +65,6 @@ class WechatController extends WechatBaseController{
 
                         break;
 
-//                    case 'VIEW':
-//
-//                        $text = new Text();
-//                        $text->content = '这是自定义VIEW事件';
-//
-//                        return $text;
-//
-//                        break;
                     default:
                         return '';
                         break;
@@ -99,19 +91,14 @@ class WechatController extends WechatBaseController{
 
     public function reply($message)
     {
-
-        /*
-         * 监听事件类型
-         * 关注事件回复
-         * */
-        //缓存用户消息
-        $image = $this->cacheUserKeyword($message);
 //        $message = (object)[
 //            'FromUserName'=>'o6ScNt3LgjkO9T6kJxY3mSGHsVYU',
-//            'Content'=>'第三方',
-//            'ToUserName'=>'gh_68f0112f08be',
-//            'MsgType'   => 'text'
+//            'ToUserName'=> 'gh_68f0112f08be',
+//            'MsgType'   => 'text',
+//            'Content'    => '第三方',
 //        ];
+        //缓存用户消息
+        $image = $this->cacheUserKeyword($message);
 
         //获取公众号信息
         $public_number = $message->ToUserName;  //公众号原始ID
@@ -140,7 +127,7 @@ class WechatController extends WechatBaseController{
             //查看第三方接口
             $third_api = WechatThirdApi::where('keyword',$keyword)->where('wechat_id',$wechat->id)->first();
             if($third_api && $third_api->status==1){
-                $response = $this->forward($third_api->keyword);
+                $response = $this->forward($third_api->keyword,$wechat->id);
                 if($response){
                     return $response;
                 }

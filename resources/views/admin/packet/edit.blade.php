@@ -103,6 +103,16 @@
                     </div>
 
                     <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('remark')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="remark" >接口地址</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="{{ route('api.fissionPacket') }}" readonly="readonly">
+                        </div>
+                    </div>
+
+                    <div class="form-group-separator"></div>
                     
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>

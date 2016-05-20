@@ -17,7 +17,7 @@ class PacketController extends BaseController
      */
     public function index()
     {
-        $events = WechatPacket::orderBy('id','desc')->paginate(20);
+        $events = WechatPacket::with('wechat')->orderBy('id','desc')->paginate(20);
         return view('admin.packet.index',compact('events'));
     }
 

@@ -76,6 +76,7 @@
                   <th class="no-sorting">
                       <input type="checkbox" class="cbr">
                   </th>
+                  <th>活动ID</th>
                   <th>商户名称</th>
                   <th>活动名称</th>
                   <th>总金额</th>
@@ -94,7 +95,8 @@
                   <td>
                       <input type="checkbox" class="cbr">
                   </td>
-                  <td>{{ $item->send_name }}</td>
+                  <td>{{ $item->id }}</td>
+                  <td>{{ $item->wechat->send_name }}</td>
                   <td>{{ $item->act_name }}</td>
                   <td>{{ $item->total_amount }}</td>
                   <td>{{ $item->total_num }}</td>

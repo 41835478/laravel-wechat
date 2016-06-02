@@ -32,31 +32,66 @@
 
                     <div class="form-group-separator"></div>
 
-                    <div class="form-group @if($errors->first('re_openid')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="re_openid" >种子用户</label>
+                    <div class="form-group @if($errors->first('packet_type')) has-error @endif">
+                        <label class="col-sm-2 control-label">红包类型</label>
 
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{ old('re_openid') }}" name="re_openid" id="re_openid" placeholder="@if($errors->first('re_openid')) {{$errors->first('re_openid')}} @else 种子用户openid,可留空 @endif">
+                        <div class="col-sm-3">
+                            <div class="form-block">
+                                <label>
+                                    <input type="radio" name="packet_type" value="NORMAL" class="cbr cbr-primary">
+                                    普通红包
+                                </label>
+                            </div>
+
                         </div>
+
+                        <div class="col-sm-3">
+
+                            <div class="form-block">
+                                <label>
+                                    <input type="radio" name="packet_type" value="GROUP" class="cbr cbr-primary">
+                                    裂变红包
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">开始时间</label>
+
+                        <div class="col-sm-3 @if($errors->first('start_at')) has-error @endif">
+                            <input type="text" class="form-control form_datetime" value="{{ old('start_at') }}" name="start_at" id="start_at" placeholder="@if($errors->first('start_at')) {{$errors->first('start_at')}} @else 开始时间 @endif">
+                        </div>
+
+                        <label class="col-sm-2 control-label">结束时间</label>
+
+                        <div class="col-sm-3 @if($errors->first('end_at')) has-error @endif">
+                            <input type="text" class="form-control form_datetime" value="{{ old('end_at') }}" name="end_at" id="end_at" placeholder="@if($errors->first('end_at')) {{$errors->first('end_at')}} @else 结束时间 @endif">
+                        </div>
+
                     </div>
 
                     <div class="form-group-separator"></div>
 
                     <div class="form-group @if($errors->first('total_amount')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="total_amount" >一组金额</label>
+                        <label class="col-sm-2 control-label" for="total_amount" >红包金额</label>
                         
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{ old('total_amount') }}"  name="total_amount" id="total_amount" placeholder="@if($errors->first('total_amount')) {{$errors->first('total_amount')}} @else 总金额(单位'分') @endif">
+                            <input type="text" class="form-control" value="{{ old('total_amount') }}"  name="total_amount" id="total_amount" placeholder="@if($errors->first('total_amount')) {{$errors->first('total_amount')}} @else 红包金额(单位'分') @endif">
                         </div>
                     </div>
                     
                     <div class="form-group-separator"></div>
 
                     <div class="form-group @if($errors->first('total_num')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="total_num" >裂变人数</label>
+                        <label class="col-sm-2 control-label" for="total_num" >发放人数</label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{ old('total_num') }}"  name="total_num" id="total_num" placeholder="@if($errors->first('total_num')) {{$errors->first('total_num')}} @else 裂变人数 @endif">
+                            <input type="text" class="form-control" value="{{ old('total_num') }}"  name="total_num" id="total_num" placeholder="@if($errors->first('total_num')) {{$errors->first('total_num')}} @else 发放人数 @endif">
                         </div>
                     </div>
 
@@ -67,16 +102,6 @@
 
                         <div class="col-sm-10">
                             <input type="text" class="form-control" value="{{ old('wishing') }}"  name="wishing" id="wishing" placeholder="@if($errors->first('wishing')) {{$errors->first('wishing')}} @else 祝福语 @endif">
-                        </div>
-                    </div>
-
-                    <div class="form-group-separator"></div>
-
-                    <div class="form-group @if($errors->first('remark')) has-error @endif">
-                        <label class="col-sm-2 control-label" for="remark" >备注</label>
-
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{ old('remark') }}"  name="remark" id="remark" placeholder="@if($errors->first('remark')) {{$errors->first('remark')}} @else 备注 @endif">
                         </div>
                     </div>
 
@@ -102,6 +127,17 @@
 
                     </div>
 
+
+                    <div class="form-group-separator"></div>
+
+                    <div class="form-group @if($errors->first('remark')) has-error @endif">
+                        <label class="col-sm-2 control-label" for="remark" >备注</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="{{ old('remark') }}"  name="remark" id="remark" placeholder="@if($errors->first('remark')) {{$errors->first('remark')}} @else 备注 @endif">
+                        </div>
+                    </div>
+
                     <div class="form-group-separator"></div>
                     
                     <div class="form-group">
@@ -121,4 +157,31 @@
         
     </div>
 </div>
+
+@stop
+@section("style")
+    {!! Html::style('style/assets/js/datetimepicker/css/bootstrap-datetimepicker.min.css') !!}
+@stop
+@section("script")
+
+    {!! Html::script('style/assets/js/datetimepicker/js/bootstrap-datetimepicker.min.js') !!}
+    {!! Html::script('style/assets/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js',['charset'=>'UTF-8']) !!}
+    <script>
+        //红包类型
+        $('input[name=packet_type]').click(function(){
+            var type = $(this).val();
+            if (type=="NORMAL"){
+                $("#total_num").val(1).attr("readonly","readonly");
+
+            }else if (type=="GROUP") {
+                $("#total_num").val('').attr("readonly",false);
+            }
+
+        });
+        $(".form_datetime").datetimepicker({
+            language:  'zh-CN',
+            autoclose:true,
+            format: 'yyyy-mm-dd hh:ii:ss'
+        });
+    </script>
 @stop

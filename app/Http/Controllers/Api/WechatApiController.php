@@ -52,6 +52,22 @@ class WechatApiController extends Controller
                 ];
                 return response()->json($result);
             }
+
+            if(time()<strtotime($pack->start_at)){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '活动未开始'
+                ];
+                return response()->json($result);
+            }
+            if(time()>strtotime($pack->end_at)){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '活动已结束'
+                ];
+                return response()->json($result);
+            }
+
             //md5签名
             if($data['sign']!=md5($data['packet_id'].$pack->sign_key.$pack->wechat->wechat_token)){
                 $result = [
@@ -60,6 +76,12 @@ class WechatApiController extends Controller
                 ];
                 return response()->json($result);
             }
+        }else{
+            $result = [
+                'status'    => 201,
+                'msg'       => '活动ID参数错误'
+            ];
+            return response()->json($result);
         }
         $validator = Validator::make($data,$rules,$message);
         //判断时间
@@ -97,6 +119,129 @@ class WechatApiController extends Controller
                 // ...
             ];
             $res = $luckyMoney->sendGroup($luckyMoneyData);
+            if($res->return_code=='SUCCESS'){
+
+                if($res->err_code){
+                    $result = [
+                        'status'    => 201,
+                        'msg'       => $res->err_code_des
+                    ];
+                }else{
+                    //红包发送日志
+                    PacketRecord::create([
+                        'packet_id' => $data['packet_id'],
+                        'openid'    => $data['openid'],
+                        'mch_billno'=> $mch_billno
+                    ]);
+                    //更新红包订单
+                    $p = WechatPacket::find($data['packet_id']);
+                    $p->times = $p->times-1;
+                    $p->save();
+                    $result = [
+                        'status'    => 200,
+                        'msg'       => '发送成功'
+                    ];
+                }
+
+            }else{
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '网络错误'
+                ];
+            }
+        }
+        return response()->json($result);
+    }
+
+    /*
+     * 发普通红包
+     * */
+    public function normalPacket(Request $request)
+    {
+        $data = $request->only(['openid','packet_id','sign']);
+
+        $rules = [
+            'openid'          => 'required',
+            'packet_id'       => 'required',
+            'sign'            => 'required',
+        ];
+        $message = [
+            'openid.required'           => 'openid参数错误',
+        ];
+        //查找token
+        $pack = WechatPacket::with('wechat')->find($data['packet_id']);
+
+        if($pack){
+            if($pack->status!=1){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '该接口不可用'
+                ];
+                return response()->json($result);
+            }
+            if($pack->times<1){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '该红包已发放完'
+                ];
+                return response()->json($result);
+            }
+
+            if(time()<strtotime($pack->start_at)){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '活动未开始'
+                ];
+                return response()->json($result);
+            }
+            if(time()>strtotime($pack->end_at)){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '活动已结束'
+                ];
+                return response()->json($result);
+            }
+            //md5签名
+            if($data['sign']!=md5($data['packet_id'].$pack->sign_key.$pack->wechat->wechat_token)){
+                $result = [
+                    'status'    => 201,
+                    'msg'       => '签名错误'
+                ];
+                return response()->json($result);
+            }
+        }else{
+            $result = [
+                'status'    => 201,
+                'msg'       => '活动ID参数错误'
+            ];
+            return response()->json($result);
+        }
+        $validator = Validator::make($data,$rules,$message);
+
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+        }else{
+            $packet = $this->wechatApp($data['packet_id']);
+
+            $luckyMoney = $packet['wechatApp']->lucky_money;
+
+            $mch_billno = $packet['packet']->wechat->mch_id.date('YmdHis',time()).rand(1000,9999);
+            $luckyMoneyData = [
+                'mch_billno'       => $mch_billno,
+                'send_name'        => $packet['packet']->wechat->send_name,
+                're_openid'        => $data['openid'],
+                'total_num'        => $packet['packet']->total_num,  //不小于3
+                'total_amount'     => $packet['packet']->total_amount,  //单位为分，不小于300
+                'wishing'          => $packet['packet']->wishing,
+                //'client_ip'        => '192.168.0.1',  //可不传，不传则由 SDK 取当前客户端 IP
+                'act_name'         => $packet['packet']->act_name,
+                'remark'           => $packet['packet']->remark
+                // ...
+            ];
+            $res = $luckyMoney->sendNormal($luckyMoneyData);
             if($res->return_code=='SUCCESS'){
 
                 if($res->err_code){

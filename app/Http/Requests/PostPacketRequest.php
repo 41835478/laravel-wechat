@@ -23,12 +23,31 @@ class PostPacketRequest extends Request
      */
     public function rules()
     {
-        return [
-            'total_amount'  => 'required|numeric|min:300|max:100000',
-            'total_num'     => 'required|numeric|min:3|max:20',
-            'wishing'       => 'required',
-            'act_name'      => 'required',
-            'remark'        => 'required'
-        ];
+        if($this->packet_type=="GROUP"){
+            return [
+                'packet_type'   => 'required',
+                'total_amount'  => 'required|numeric|min:300|max:100000',
+                'total_num'     => 'required|numeric|min:3|max:20',
+                'wishing'       => 'required',
+                'act_name'      => 'required',
+                'remark'        => 'required'
+            ];
+        }elseif($this->packet_type=="NORMAL"){
+            return [
+                'packet_type'   => 'required',
+                'total_amount'  => 'required|numeric|min:100|max:20000',
+                'total_num'     => 'required|numeric|size:1',
+                'wishing'       => 'required',
+                'act_name'      => 'required',
+                'remark'        => 'required'
+
+            ];
+        }else{
+            return [
+                'packet_type'   => 'required'
+            ];
+        }
+
+
     }
 }

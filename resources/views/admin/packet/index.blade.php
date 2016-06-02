@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
-            <a class="btn btn-primary" href="{{ route('admin.wechat-packet.create') }}">添加裂变红包</a>
+            <a class="btn btn-primary" href="{{ route('admin.wechat-packet.create') }}">添加红包</a>
         </div>
     </div>
 </div>
@@ -31,6 +31,7 @@
                dom: "t" + "<'row'<'col-xs-6'i><'col-xs-6'p>>",
                aoColumns: [
                            {bSortable: false},
+                           null,
                            null,
                            null,
                            null,
@@ -77,11 +78,12 @@
                       <input type="checkbox" class="cbr">
                   </th>
                   <th>活动ID</th>
-                  <th>商户名称</th>
+                  {{--<th>商户名称</th>--}}
                   <th>活动名称</th>
                   <th>总金额</th>
                   <th>总人数</th>
                   <th>祝福语</th>
+                  <th>红包类型</th>
                   <th>备注</th>
                   <th>可用次数</th>
                   <th>时间</th>
@@ -96,11 +98,12 @@
                       <input type="checkbox" class="cbr">
                   </td>
                   <td>{{ $item->id }}</td>
-                  <td>{{ $item->wechat->send_name }}</td>
+                  {{--<td>{{ $item->wechat->send_name }}</td>--}}
                   <td>{{ $item->act_name }}</td>
                   <td>{{ $item->total_amount }}</td>
                   <td>{{ $item->total_num }}</td>
                   <td>{{ $item->wishing }}</td>
+                  <td>@if($item->packet_type=='NORMAL') 普通红包 @elseif($item->packet_type=='GROUP') 裂变红包 @endif</td>
                   <td>{{ $item->remark }}</td>
                   <td>{{ $item->times }}</td>
                   <td>{{ $item->created_at }}</td>

@@ -71,7 +71,12 @@ class PacketController extends BaseController
     public function edit($id)
     {
         $item = WechatPacket::find($id);
-        return view('admin.packet.edit',compact('item'));
+        if($item->packet_type=='NORMAL'){
+            $apiURL = route('api.normalPacket');
+        }elseif($item->packet_type=='GROUP'){
+            $apiURL = route('api.fissionPacket');
+        }
+        return view('admin.packet.edit',compact('item','apiURL'));
     }
 
     /**

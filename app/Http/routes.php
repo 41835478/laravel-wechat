@@ -72,6 +72,9 @@ Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
     Route::post('packet/fission',[
         'as'=>'api.fissionPacket','uses'=>'WechatApiController@fissionPacket'
     ]);
+    Route::post('packet/normal',[
+        'as'=>'api.normalPacket','uses'=>'WechatApiController@normalPacket'
+    ]);
 
 });
 //前端页面

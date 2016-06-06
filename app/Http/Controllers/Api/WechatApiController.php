@@ -100,22 +100,22 @@ class WechatApiController extends Controller
                 'msg'       => $validator->errors()->first()
             ];
         }else{
-            $packet = $this->wechatApp($data['packet_id']);
+            $wechat_app = $this->wechatApp($pack->wechat_id);
 
-            $luckyMoney = $packet['wechatApp']->lucky_money;
+            $luckyMoney = $wechat_app->lucky_money;
 
-            $mch_billno = $packet['packet']->wechat->mch_id.date('YmdHis',time()).rand(1000,9999);
+            $mch_billno = $pack->wechat->mch_id.date('YmdHis',time()).rand(1000,9999);
             $luckyMoneyData = [
                 'mch_billno'       => $mch_billno,
-                'send_name'        => $packet['packet']->wechat->send_name,
+                'send_name'        => $pack->wechat->send_name,
                 're_openid'        => $data['openid'],
-                'total_num'        => $packet['packet']->total_num,  //不小于3
-                'total_amount'     => $packet['packet']->total_amount,  //单位为分，不小于300
-                'wishing'          => $packet['packet']->wishing,
+                'total_num'        => $pack->total_num,  //不小于3
+                'total_amount'     => $pack->total_amount,  //单位为分，不小于300
+                'wishing'          => $pack->wishing,
                 //'client_ip'        => '192.168.0.1',  //可不传，不传则由 SDK 取当前客户端 IP
-                'act_name'         => $packet['packet']->act_name,
-                'remark'           => $packet['packet']->remark,
-                'amt_type'         => $packet['packet']->amt_type,  //可不传
+                'act_name'         => $pack->act_name,
+                'remark'           => $pack->remark,
+                'amt_type'         => $pack->amt_type,  //可不传
                 // ...
             ];
             $res = $luckyMoney->sendGroup($luckyMoneyData);
@@ -224,21 +224,21 @@ class WechatApiController extends Controller
                 'msg'       => $validator->errors()->first()
             ];
         }else{
-            $packet = $this->wechatApp($data['packet_id']);
+            $wechat_app = $this->wechatApp($pack->wechat_id);
 
-            $luckyMoney = $packet['wechatApp']->lucky_money;
+            $luckyMoney = $wechat_app->lucky_money;
 
-            $mch_billno = $packet['packet']->wechat->mch_id.date('YmdHis',time()).rand(1000,9999);
+            $mch_billno = $pack->wechat->mch_id.date('YmdHis',time()).rand(1000,9999);
             $luckyMoneyData = [
                 'mch_billno'       => $mch_billno,
-                'send_name'        => $packet['packet']->wechat->send_name,
+                'send_name'        => $pack->wechat->send_name,
                 're_openid'        => $data['openid'],
-                'total_num'        => $packet['packet']->total_num,  //不小于3
-                'total_amount'     => $packet['packet']->total_amount,  //单位为分，不小于300
-                'wishing'          => $packet['packet']->wishing,
+                'total_num'        => $pack->total_num,  //不小于3
+                'total_amount'     => $pack->total_amount,  //单位为分，不小于300
+                'wishing'          => $pack->wishing,
                 //'client_ip'        => '192.168.0.1',  //可不传，不传则由 SDK 取当前客户端 IP
-                'act_name'         => $packet['packet']->act_name,
-                'remark'           => $packet['packet']->remark
+                'act_name'         => $pack->act_name,
+                'remark'           => $pack->remark
                 // ...
             ];
             $res = $luckyMoney->sendNormal($luckyMoneyData);
@@ -276,9 +276,44 @@ class WechatApiController extends Controller
         return response()->json($result);
     }
 
-    public function wechatApp($packet_id)
+    /*
+     * 获取用户信息
+     * */
+    public function getUserInfo(Request $request)
     {
-        $packet = WechatPacket::with('wechat')->find($packet_id);
+        $data = $request->only('openid');
+        $rules = [
+            'openid'          => 'required'
+        ];
+        $message = [
+            'openid.required'           => 'openid参数错误',
+        ];
+
+        $validator = Validator::make($data,$rules,$message);
+
+        if($validator->fails()){
+            $result = [
+                'status'    => 201,
+                'msg'       => $validator->errors()->first()
+            ];
+        }else{
+            //调用接口查询用户状态
+            $wechat_app = $this->wechatApp();
+            $userService = $wechat_app->user;
+            $user = $userService->get($data['openid']);
+            $result = [
+                'status'    => 200,
+                'msg'       => "获取成功",
+                'user'      => $user
+            ];
+        }
+        return response()->json($result);
+    }
+
+
+    public function wechatApp($wechat_id=1)
+    {
+        $wechat = Wechat::find($wechat_id);
 
         $optioins = [
             /**
@@ -291,10 +326,10 @@ class WechatApiController extends Controller
             /**
              * 账号基本信息，请从微信公众平台/开放平台获取
              */
-            'app_id'  => $packet->wechat->app_id,         // AppID
-            'secret'  => $packet->wechat->secret,     // AppSecret
-            'token'   => $packet->wechat->wechat_token,          // Token
-            'aes_key' => $packet->wechat->encoding_aes_key,                    // EncodingAESKey
+            'app_id'  => $wechat->app_id,         // AppID
+            'secret'  => $wechat->secret,     // AppSecret
+            'token'   => $wechat->wechat_token,          // Token
+            'aes_key' => $wechat->encoding_aes_key,                    // EncodingAESKey
 
             /**
              * 日志配置
@@ -323,8 +358,8 @@ class WechatApiController extends Controller
              * 微信支付
              */
             'payment' => [
-                'merchant_id'        => $packet->wechat->mch_id,
-                'key'                => $packet->wechat->key,
+                'merchant_id'        => $wechat->mch_id,
+                'key'                => $wechat->key,
                 'cert_path'          => base_path('cert/apiclient_cert.pem'), // XXX: 绝对路径！！！！
                 'key_path'           => base_path('cert/apiclient_key.pem'),      // XXX: 绝对路径！！！！
                 // 'device_info'     => '013467007045764',
@@ -336,10 +371,7 @@ class WechatApiController extends Controller
 
         $this->wechatApp = new Application($optioins);
 
-        return $result = [
-            'wechatApp'  => $this->wechatApp,
-            'packet'     => $packet
-        ];
+        return $this->wechatApp;
     }
 
 }

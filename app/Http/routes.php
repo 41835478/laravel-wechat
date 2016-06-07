@@ -167,10 +167,12 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware' => 'auth'],fun
     Route::delete('user/{id}',[
         'as'=>'admin.user.destroy','uses'=>'UserController@destroy'
     ]);
-    Route::get('user/{id}/profile',[
-        'as'=>'admin.user.profile','uses'=>'UserController@profile'
+    Route::get('user/{id}/role',[
+        'as'=>'admin.user.role','uses'=>'UserController@role'
     ]);
-
+    Route::post('user/{id}/roleStore',[
+        'as'=>'admin.user.roleStore','uses'=>'UserController@roleStore'
+    ]);
     /*
      *角色部分
      */

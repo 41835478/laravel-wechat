@@ -59,7 +59,26 @@
             $user = User::findOrFail($id);
             return view('admin.user.edit',compact('user'));
         }
-        
+
+        public function role($userid)
+        {
+            $user = User::find($userid);
+            $roles = Role::all();
+            return view('admin.user.role',compact('user','roles'));
+        }
+
+        public function roleStore(Request $request)
+        {
+            $data = $request->except('_token','_method');
+            $role = Role::where('id',$data['role_id'])->first();
+            $user = User::find($data['user_id']);
+            if(! $user->hasRole($role->name)){
+                $user->roles()->attach($data['role_id']);
+            }
+
+            return redirect()->back();
+        }
+
         public function test(Request $request)
         {
 //            $user = User::find(1);

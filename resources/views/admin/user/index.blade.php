@@ -103,14 +103,13 @@
                       </a>
 
                       @if($user->id!=1)
+                          <a href="{{route('admin.user.role',$user->id)}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+                              管理组
+                          </a>
                           {!! Form::open(['route'=>['admin.user.destroy',$user->id],'role'=>'form','class'=>'form-horizontal','method'=>'delete','style'=>'display:inline']) !!}
                           <button class="btn btn-danger btn-sm btn-icon icon-left">删除</button>
                           {!! Form::close() !!}
                       @endif
-                      
-                      {{--<a href="{{route('admin.user.profile',$user->id)}}" class="btn btn-info btn-sm btn-icon icon-left">--}}
-                          {{--查看--}}
-                      {{--</a>--}}
                   </td>
               </tr>
               @endforeach

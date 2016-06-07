@@ -98,7 +98,9 @@
                 $detach[]=$p->id;
                 //var_dump($p->id);
             }
-            $role->permissions()->detach($detach);
+            if(!empty($detach)){
+                $role->permissions()->detach($detach);
+            }
             $role->permissions()->attach($request['id']);
             return redirect()->route('admin.role.can', $request['role_id']);
             

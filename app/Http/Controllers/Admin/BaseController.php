@@ -23,6 +23,7 @@
 
             //
             $this->user = Auth::user();
-            $this->wechat = Wechat::where('user_id',$this->user->id)->firstOrFail();
+            $user_id = 1;
+            $this->wechat = Wechat::where('user_id',$user_id)->firstOrFail();
         }
     }

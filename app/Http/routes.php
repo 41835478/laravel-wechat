@@ -81,6 +81,11 @@ Route::group(['namespace' => 'Api','prefix' => 'api'],function(){
         'as'=>'api.getUserInfo','uses'=>'WechatApiController@getUserInfo'
     ]);
 
+    //发送模版消息接口
+    Route::post('notice/send',[
+        'as'=>'api.getUserInfo','uses'=>'WechatApiController@sendNotice'
+    ]);
+
 });
 //前端页面
 Route::group(['namespace' => 'Home','prefix' => 'user'],function(){

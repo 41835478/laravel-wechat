@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Jobs\SendNotice;
 use App\PacketRecord;
 use App\Wechat;
 use App\WechatPacket;
@@ -309,6 +310,46 @@ class WechatApiController extends Controller
         }
         return response()->json($result);
     }
+
+    //模版消息接口
+    public function sendNotice2(Request $request)
+    {
+        $openid = $request->input('openid');
+        $templateId = 'v0S6jJwBJ5BY9GrmL_UCgd5fRNhrivBgIzlCzZrCv_o';
+        $url = 'http://landwind.socialplus.com.cn/packet/public/index.php/index/receive';
+        $data = array(
+            "first"      => "恭喜你中得背包大奖！",
+            "keyword1"   => "陆风汽车红包活动",
+            "keyword2"   => "背包一个",
+            "remark"     => "感谢您的参与！",
+        );
+        $this->dispatch(new SendNotice($openid,$templateId,$url,$data));
+    }
+    public function sendNotice(Request $request)
+    {
+        $wechat_app = $this->wechatApp();
+        $notice = $wechat_app->notice;
+
+        //用户openid
+        $openid = $request->input('openid');
+
+        $userId = $openid;
+        $templateId = 'v0S6jJwBJ5BY9GrmL_UCgd5fRNhrivBgIzlCzZrCv_o';
+        $url = 'http://landwind.socialplus.com.cn/packet/public/index.php/index/receive';
+        $color = '#FF0000';
+        $data = array(
+            "first"      => "恭喜您获得阳光普照奖！",
+            "keyword1"   => "陆风汽车粉丝大会",
+            "keyword2"   => "阳光普照奖奖品",
+            "remark"     => "感谢您的参与！",
+        );
+        $messageId = $notice->uses($templateId)->withUrl($url)->withColor($color)->andData($data)->andReceiver($userId)->send();
+        return $messageId;
+    }
+
+
+
+
 
 
     public function wechatApp($wechat_id=1)

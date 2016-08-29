@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <form method="get">
+    <form method="get" action="{{ route('api.getViolation') }}">
     	<div class="i_form">
         	<select class="txt01" id="serachprovince"></select>
             <select class="txt02" id="serachcity"></select>
@@ -199,6 +199,8 @@
         });
         //查询
         $('#submit').click(function () {
+            //todo
+            $("#layer .txt").append("<p>系统维护中..</p>");return false;
             if ($('#carno').val() == '' || $('#engno').val() == '' || $('#cartype option:selected').val() == '') {
                 //return alert('请输入车辆相关信息');
                 $("#layer").show().find(".txt").html("<span style='font-size:25px;'>请输入车辆相关信息</span>");

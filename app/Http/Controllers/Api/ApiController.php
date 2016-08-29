@@ -219,8 +219,8 @@ class ApiController extends Controller
             'us_carno'  => $us_carno,
             'us_tel'    => $us_tel
         ];
-        $update = OldUser::where('us_id',$us_id)->update($data);
-
+        $user = OldUser::find($us_id);
+        $update = $user->update($data);
         if($update){
             $result = [
                 'status'    => 200,
@@ -239,6 +239,7 @@ class ApiController extends Controller
     //违章查询
     public function getViolation(Request $request)
     {
+        return response()->json(['status'=>201,'msg'=>'系统维护中..']);
         //验证
         //todo
         $city = $request->input('city');       //城市代码
